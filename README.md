@@ -1,4 +1,4 @@
-# XRSRV - ExeRcise SeRVer
+# XRSRV - eXeRcise SeRVer
 > Workout and physical fitness database and software library
 
 XRSRV is intended to be a fully open-source back-end database and library for physical fitness routines and workout

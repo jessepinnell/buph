@@ -1,0 +1,176 @@
+/*
+Copyright (c) 2017 Jesse Pinnell
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+/** 
+* @file muscles.sqlite
+* @brief Initial data for muscles
+* @author Jesse Pinnell
+* @date 2017-09-16
+*/
+
+/* TODO pare down this list (cremaster, etc.) and maybe combine (extensors, etc.)*/
+
+INSERT INTO Muscles VALUES ("abductor digiti minimi (foot)", "leg", "");
+INSERT INTO Muscles VALUES ("abductor digiti minimi (hand)", "arms", "");
+INSERT INTO Muscles VALUES ("abductor hallucis", "leg", "");
+INSERT INTO Muscles VALUES ("abductor pollicis brevis", "arms", "");
+INSERT INTO Muscles VALUES ("abductor pollicis longus", "arms", "");
+INSERT INTO Muscles VALUES ("adductor brevis", "leg", "");
+INSERT INTO Muscles VALUES ("adductor hallucis", "leg", "");
+INSERT INTO Muscles VALUES ("adductor longus", "leg", "");
+INSERT INTO Muscles VALUES ("adductor magnus", "leg", "");
+INSERT INTO Muscles VALUES ("adductor minimus", "leg", "");
+INSERT INTO Muscles VALUES ("adductor pollicis", "arms", "");
+INSERT INTO Muscles VALUES ("anconeus", "arms", "");
+INSERT INTO Muscles VALUES ("articularis genu", "leg", "");
+INSERT INTO Muscles VALUES ("biceps brachii", "arms", "");
+INSERT INTO Muscles VALUES ("biceps femoris", "leg", "");
+INSERT INTO Muscles VALUES ("brachialis", "arms", "");
+INSERT INTO Muscles VALUES ("brachioradialis", "arms", "");
+INSERT INTO Muscles VALUES ("coracobrachialis", "arms", "");
+INSERT INTO Muscles VALUES ("cremaster", "pelvic", "");
+INSERT INTO Muscles VALUES ("dartos", "pelvic", "");
+INSERT INTO Muscles VALUES ("deltoid", "arms", "");
+INSERT INTO Muscles VALUES ("diaphragm", "abdomen", "");
+INSERT INTO Muscles VALUES ("dorsal interosseous (foot)", "leg", "");
+INSERT INTO Muscles VALUES ("dorsal interosseous (hand)", "arms", "");
+INSERT INTO Muscles VALUES ("erector spinae", "back", "");
+INSERT INTO Muscles VALUES ("extensor carpi radialis brevis", "arms", "");
+INSERT INTO Muscles VALUES ("extensor carpi radialis longus", "arms", "");
+INSERT INTO Muscles VALUES ("extensor carpi ulnaris", "arms", "");
+INSERT INTO Muscles VALUES ("extensor digiti minimi", "arms", "");
+INSERT INTO Muscles VALUES ("extensor digitorum brevis", "leg", "");
+INSERT INTO Muscles VALUES ("extensor digitorum longus", "leg", "");
+INSERT INTO Muscles VALUES ("extensor digitorum", "arms", "");
+INSERT INTO Muscles VALUES ("extensor hallucis brevis", "leg", "");
+INSERT INTO Muscles VALUES ("extensor hallucis longus", "leg", "");
+INSERT INTO Muscles VALUES ("extensor indicis", "arms", "");
+INSERT INTO Muscles VALUES ("extensor pollicis brevis", "arms", "");
+INSERT INTO Muscles VALUES ("extensor pollicis longus", "arms", "");
+INSERT INTO Muscles VALUES ("external abdominal oblique", "pelvic", "");
+INSERT INTO Muscles VALUES ("external intercostal", "abdomen", "");
+INSERT INTO Muscles VALUES ("fibularis (peroneus) brevis", "leg", "");
+INSERT INTO Muscles VALUES ("fibularis (peroneus) longus", "leg", "");
+INSERT INTO Muscles VALUES ("fibularis (peroneus) tertius", "leg", "");
+INSERT INTO Muscles VALUES ("flexor carpi radialis", "arms", "");
+INSERT INTO Muscles VALUES ("flexor carpi ulnaris", "arms", "");
+INSERT INTO Muscles VALUES ("flexor digiti minimi brevis (foot)", "leg", "");
+INSERT INTO Muscles VALUES ("flexor digiti minimi brevis (hand)", "arms", "");
+INSERT INTO Muscles VALUES ("flexor digitorum brevis", "leg", "");
+INSERT INTO Muscles VALUES ("flexor digitorum longus", "leg", "");
+INSERT INTO Muscles VALUES ("flexor digitorum profundus", "arms", "");
+INSERT INTO Muscles VALUES ("flexor digitorum superficialis", "arms", "");
+INSERT INTO Muscles VALUES ("flexor hallucis brevis", "leg", "");
+INSERT INTO Muscles VALUES ("flexor hallucis longus", "leg", "");
+INSERT INTO Muscles VALUES ("flexor pollicis brevis", "arms", "");
+INSERT INTO Muscles VALUES ("flexor pollicis longus", "arms", "");
+INSERT INTO Muscles VALUES ("gastrocnemius", "leg", "");
+INSERT INTO Muscles VALUES ("gemellus, inferior", "leg", "");
+INSERT INTO Muscles VALUES ("gemellus, superior", "leg", "");
+INSERT INTO Muscles VALUES ("gluteus maximus", "leg", "");
+INSERT INTO Muscles VALUES ("gluteus medius", "leg", "");
+INSERT INTO Muscles VALUES ("gluteus minimus", "leg", "");
+INSERT INTO Muscles VALUES ("gracilis", "leg", "");
+INSERT INTO Muscles VALUES ("iliacus", "leg", "");
+INSERT INTO Muscles VALUES ("iliocostalis", "back", "");
+INSERT INTO Muscles VALUES ("iliopsoas", "leg", "");
+INSERT INTO Muscles VALUES ("inferior gemellus", "leg", "");
+INSERT INTO Muscles VALUES ("infraspinatus", "arms", "");
+INSERT INTO Muscles VALUES ("innermost intercostal", "abdomen", "");
+INSERT INTO Muscles VALUES ("interfoveolar", "pelvic", "");
+INSERT INTO Muscles VALUES ("internal abdominal oblique", "pelvic", "");
+INSERT INTO Muscles VALUES ("internal intercostal", "abdomen", "");
+INSERT INTO Muscles VALUES ("interosseous, dorsal (foot)", "leg", "");
+INSERT INTO Muscles VALUES ("interosseous, dorsal (hand)", "arms", "");
+INSERT INTO Muscles VALUES ("interosseous, palmar", "arms", "");
+INSERT INTO Muscles VALUES ("interosseous, plantar", "leg", "");
+INSERT INTO Muscles VALUES ("interspinales", "back", "");
+INSERT INTO Muscles VALUES ("intertransversarii", "back", "");
+INSERT INTO Muscles VALUES ("latissimus dorsi", "arms", "");
+INSERT INTO Muscles VALUES ("levator scapulae", "arms", "");
+INSERT INTO Muscles VALUES ("levatores costarum", "abdomen", "");
+INSERT INTO Muscles VALUES ("longissimus", "back", "");
+INSERT INTO Muscles VALUES ("lumbrical (hand)", "arms", "");
+INSERT INTO Muscles VALUES ("lumbricals (foot)", "leg", "");
+INSERT INTO Muscles VALUES ("multifidus", "back", "");
+INSERT INTO Muscles VALUES ("oblique, external abdominal", "pelvic", "");
+INSERT INTO Muscles VALUES ("oblique, internal abdominal", "pelvic", "");
+INSERT INTO Muscles VALUES ("obliquus capitis inferior", "back", "");
+INSERT INTO Muscles VALUES ("obliquus capitis superior", "back", "");
+INSERT INTO Muscles VALUES ("obturator externus", "leg", "");
+INSERT INTO Muscles VALUES ("obturator internus", "leg", "");
+INSERT INTO Muscles VALUES ("opponens digiti minimi", "arms", "");
+INSERT INTO Muscles VALUES ("opponens pollicis", "arms", "");
+INSERT INTO Muscles VALUES ("palmar interosseous", "arms", "");
+INSERT INTO Muscles VALUES ("palmaris brevis", "arms", "");
+INSERT INTO Muscles VALUES ("palmaris longus", "arms", "");
+INSERT INTO Muscles VALUES ("pectineus", "leg", "");
+INSERT INTO Muscles VALUES ("pectoralis major", "arms", "");
+INSERT INTO Muscles VALUES ("pectoralis minor", "arms", "");
+INSERT INTO Muscles VALUES ("piriformis", "leg", "");
+INSERT INTO Muscles VALUES ("plantar interosseous", "leg", "");
+INSERT INTO Muscles VALUES ("plantaris", "leg", "");
+INSERT INTO Muscles VALUES ("popliteus", "leg", "");
+INSERT INTO Muscles VALUES ("pronator quadratus", "arms", "");
+INSERT INTO Muscles VALUES ("pronator teres", "arms", "");
+INSERT INTO Muscles VALUES ("psoas major", "pelvic", "");
+INSERT INTO Muscles VALUES ("psoas minor", "pelvic", "");
+INSERT INTO Muscles VALUES ("pyramidalis", "pelvic", "");
+INSERT INTO Muscles VALUES ("quadratus femoris", "leg", "");
+INSERT INTO Muscles VALUES ("quadratus lumborum", "pelvic", "");
+INSERT INTO Muscles VALUES ("quadratus plantae", "leg", "");
+INSERT INTO Muscles VALUES ("quadriceps femoris", "leg", "");
+INSERT INTO Muscles VALUES ("rectus abdominis", "pelvic", "");
+INSERT INTO Muscles VALUES ("rectus capitis posterior major", "back", "");
+INSERT INTO Muscles VALUES ("rectus capitis posterior minor", "back", "");
+INSERT INTO Muscles VALUES ("rectus femoris", "leg", "");
+INSERT INTO Muscles VALUES ("rhomboideus major", "arms", "");
+INSERT INTO Muscles VALUES ("rhomboideus minor", "arms", "");
+INSERT INTO Muscles VALUES ("rotatores", "back", "");
+INSERT INTO Muscles VALUES ("sartorius", "leg", "");
+INSERT INTO Muscles VALUES ("semimembranosus", "leg", "");
+INSERT INTO Muscles VALUES ("semispinalis", "back", "");
+INSERT INTO Muscles VALUES ("semitendinosus", "leg", "");
+INSERT INTO Muscles VALUES ("serratus anterior", "arms", "");
+INSERT INTO Muscles VALUES ("serratus posterior inferior", "arms", "");
+INSERT INTO Muscles VALUES ("serratus posterior superior", "arms", "");
+INSERT INTO Muscles VALUES ("soleus", "leg", "");
+INSERT INTO Muscles VALUES ("spinalis", "back", "");
+INSERT INTO Muscles VALUES ("splenius capitis", "back", "");
+INSERT INTO Muscles VALUES ("splenius cervicis", "back", "");
+INSERT INTO Muscles VALUES ("splenius", "back", "");
+INSERT INTO Muscles VALUES ("subclavius", "arms", "");
+INSERT INTO Muscles VALUES ("subcostalis", "abdomen", "");
+INSERT INTO Muscles VALUES ("subscapularis", "arms", "");
+INSERT INTO Muscles VALUES ("superior gemellus", "leg", "");
+INSERT INTO Muscles VALUES ("supinator", "arms", "");
+INSERT INTO Muscles VALUES ("supraspinatus", "arms", "");
+INSERT INTO Muscles VALUES ("tensor fasciae latae", "leg", "");
+INSERT INTO Muscles VALUES ("teres major", "arms", "");
+INSERT INTO Muscles VALUES ("teres minor", "arms", "");
+INSERT INTO Muscles VALUES ("tibialis anterior", "leg", "");
+INSERT INTO Muscles VALUES ("tibialis posterior", "leg", "");
+INSERT INTO Muscles VALUES ("transversus abdominis", "pelvic", "");
+INSERT INTO Muscles VALUES ("transversus thoracis", "abdomen", "");
+INSERT INTO Muscles VALUES ("trapezius", "arms", "");
+INSERT INTO Muscles VALUES ("triceps brachii", "arms", "");
+INSERT INTO Muscles VALUES ("vastus intermedius", "leg", "");
+INSERT INTO Muscles VALUES ("vastus lateralis", "leg", "");
+INSERT INTO Muscles VALUES ("vastus medialis", "leg", "");

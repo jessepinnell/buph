@@ -49,13 +49,13 @@ class ExerciseConverter():
         with open(filename, "w") as f:
             for exercise, info in self.exercises.items():
                 rig = "?" if info[1] is None else "\"{0}\"".format(info[1])
-                f.write("INSERT INTO Exercises VALUES (\"{0}\", \"floor\", {1}, ?)\n".format(exercise, rig))
+                f.write("INSERT INTO Exercises VALUES (\"{0}\", \"floor\", {1}, ?);\n".format(exercise, rig))
 
     def printMusclesWorkedSQL(self, filename):
         with open(filename, "w") as f:
             for exercise, info in self.exercises.items():
                 for muscle in info[0]:
-                    f.write("INSERT INTO MusclesExercised VALUES (\"{0}\", \"{1}\")\n".format(exercise, muscle))
+                    f.write("INSERT INTO MusclesExercised VALUES (\"{0}\", \"{1}\");\n".format(exercise, muscle))
 
     def addExercise(self, exercise, muscle, equipment_char):
         if exercise not in self.exercises:

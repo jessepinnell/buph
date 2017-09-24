@@ -54,7 +54,7 @@ class Connection(object):
         Get set of equipment accessory quantities
         """
         self.cursor.execute("SELECT Name, Quantity FROM EquipmentAccessories")
-        return map(type_factories.EquipmentAccessories._make, self.cursor.fetchall())
+        return map(type_factories.EquipmentAccessory._make, self.cursor.fetchall())
 
 
     def get_fixtures(self):
@@ -62,7 +62,7 @@ class Connection(object):
         Get set of fixture quantities
         """
         self.cursor.execute("SELECT Name, Quantity FROM Fixtures")
-        return map(type_factories.Fixtures._make, self.cursor.fetchall())
+        return [i[0] if i[1] > 0 else None for i in self.cursor.fetchall()]
 
 
     def __del__(self):

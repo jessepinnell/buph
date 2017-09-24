@@ -24,6 +24,7 @@
 
 import unittest
 from xrsrv import exercise_database
+from xrsrv import type_factories
 
 TEST_DATABASE_NAME = "exercise.db"
 
@@ -54,7 +55,8 @@ class TestExcerciseDatabase(unittest.TestCase):
         """ Test the get_muscles_exercised() method """
         exercises = self.database.get_list_of_exercise_names()
         self.assertNotEqual(exercises, False)
-        self.assertNotEqual(self.database.get_exercise_data(exercises[0]), False)
+        self.assertIsInstance(self.database.get_exercise_data(exercises[0]),\
+            type_factories.Exercise)
 
     def test_get_equip_rig_resist(self):
         """ Test the get_muscles_exercised() method """

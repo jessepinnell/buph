@@ -47,8 +47,4 @@ Exercise = collections.namedtuple(\
 # **** User types ****
 # name: equipment accessory name (must match expected names in exercise_db)
 # quantity: equipment accessory quantity available
-EquipmentAccessories = collections.namedtuple("EquipmentAccessories", "name, quantity")
-
-# name: fixture name (must match expected names in exercise_db)
-# quantity: fixture quantity available
-Fixtures = collections.namedtuple("Fixtures", "name, quantity")
+EquipmentAccessory = collections.namedtuple("EquipmentAccessory", "name, quantity")

@@ -57,8 +57,34 @@ class TestRoutineGenerator(unittest.TestCase):
 
     def build_rules(self):
         """ Builds up test rules """
+
+        # This example will cause any exercise chosen to be skipped if it
+        # exercises the biceps brachii muscle and requires the exercise to
+        # exercise either the lats or the triceps
+        # Even though this is simplistic, if the user data is constructed properly,
+        # then exercise history, muscle targets, etc. can be used
+        exclude_muscles = {
+            "biceps brachii"
+        }
+
+        require_muscles = {
+            "triceps brachii",
+            "latissimus dorsi"
+        }
+
+        exclude_exercises = {
+            "overhead front press",
+            "decline bench press"
+        }
+
+        # No need to handle require_exercises because that should be known external to this method
+        # In these rules, x is of type type_factories.Exercise
+        # lambdas returning false disqualify the result
+
         self.rules = [
-            lambda x: True
+            lambda x: not set(x.muscles_exercised).intersection(exclude_muscles),
+            lambda x: set(x.muscles_exercised).intersection(require_muscles),
+            lambda x: not set(x.name).intersection(exclude_exercises)
         ]
 
 
@@ -69,9 +95,21 @@ class TestRoutineGenerator(unittest.TestCase):
 
     def test_generate_single_plan(self):
         """ Test the generate_single_plan() method """
-        plan = self.generator.generate_single_plan(1, self.user_fixtures,\
-            self.user_accessories, rule_set=self.rules)
-        self.assertEqual(len(plan), 1)
+        num_exercises_in_plan = 12
+        self.generator.set_user_data(self.user_fixtures, self.user_accessories)
+        plan = self.generator.generate_single_plan(num_exercises_in_plan, rule_set=self.rules)
+        self.assertEqual(len(plan), num_exercises_in_plan)
+
+
+    # pylint: disable=invalid-name
+    def test_generate_single_plan_too_many(self):
+        """ Test the generate_single_plan() method but with too many exercises requested
+        than could be possibly selected
+        """
+        num_exercises_in_plan = 342
+        self.generator.set_user_data(self.user_fixtures, self.user_accessories)
+        plan = self.generator.generate_single_plan(num_exercises_in_plan, rule_set=self.rules)
+        self.assertNotEqual(len(plan), num_exercises_in_plan)
 
 
 if __name__ == '__main__':

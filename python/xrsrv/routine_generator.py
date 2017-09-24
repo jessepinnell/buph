@@ -28,27 +28,32 @@ exercise routines
 import random
 from xrsrv import exercise_database
 
-
 class RoutineGenerator(object):
     """ Routine generation class """
     def __init__(self, exercise_database_name):
         self.exercise_database = exercise_database.Connection(exercise_database_name)
+        self.user_fixtures = []
+        self.user_accessories = []
 
+    def set_user_data(self, user_fixtures, user_accessories):
+        """ set the user data to use for generation functions """
+        self.user_fixtures = user_fixtures
+        self.user_accessories = user_accessories
 
-    def has_equipment_in_rig(self, exercise_data, user_fixtures, user_accessories):
+    def has_equipment_in_rig(self, exercise_data):
         """ check if an excercise can be performed with the equipment """
 
-        if exercise_data.fixture not in user_fixtures:
+        if exercise_data.fixture not in self.user_fixtures:
             return False
 
-        has = frozenset(user_accessories)
+        has = frozenset(self.user_accessories)
         needs = frozenset(self.exercise_database.get_accessories_in_rig(\
             exercise_data.equipment_rig))
 
         return needs.issubset(has)
 
 
-    def generate_single_plan(self, n_exercises, user_fixtures, user_accessories, rule_set):
+    def generate_single_plan(self, n_exercises, rule_set):
         """ generates single plan
 
         This is a quick and dirty first pass with limited functionality and a crude
@@ -56,32 +61,26 @@ class RoutineGenerator(object):
         TODO document args in a consistent format
         """
 
-        # get all exercises
-        # randomly pick one
-        # apply rules
-        # if satisfied, remove from list and add to output
-        # repeat
         exercises = self.exercise_database.get_list_of_exercise_names()
+        exercise_data = {exercise: self.exercise_database.get_exercise_data(exercise)\
+                for exercise in exercises}
 
-        selected_exercises = []
+        selected_exercises = set()
 
-        while len(selected_exercises) != n_exercises and len(exercises) != 0:
-
+        # Starting with the full list of exercise choices, remove or use them depending on
+        # whether they pass all the rules tests
+        while len(selected_exercises) != n_exercises and len(exercises) != len(selected_exercises):
             exercise = random.choice(exercises)
-            exercise_data = self.exercise_database.get_exercise_data(exercise)
 
-            if not self.has_equipment_in_rig(exercise_data, user_fixtures, user_accessories):
-                print("Not enough equipment to " + exercise)
+            if not self.has_equipment_in_rig(exercise_data[exercise]):
                 exercises.remove(exercise)
                 continue
 
-            for rule in rule_set:
-                if rule(exercise):
-                    print("Yes: " + exercise)
-                    selected_exercises.append(exercise)
-                else:
-                    print("No: " + exercise)
+            if all([rule(exercise_data[exercise]) for rule in rule_set]):
+                selected_exercises.add(exercise)
+            else:
+                exercises.remove(exercise)
 
-
-        print("Selected exercises: {0}".format(selected_exercises))
+        print("Selected {0} exercises: {1}".format(len(selected_exercises),\
+            ", ".join(selected_exercises)))
         return selected_exercises

@@ -23,6 +23,7 @@
 """ Test cases for classes in exercise_rendering.py """
 
 import unittest
+
 from xrsrv import routine_generator
 from xrsrv import exercise_rendering
 from xrsrv import type_factories
@@ -62,15 +63,16 @@ class TestExerciseHTMLRendering(unittest.TestCase):
         self.assertIsInstance(self.basic_html_renderer, exercise_rendering.BasicHTMLRenderer)
 
 
-    def test_generate_single_plan(self):
-        """ Test the generate_single_plan() method """
-        num_exercises_in_plan = 12
+    def test_basic_html_renderer(self):
+        """ Test the basic_html_renderer.render() method """
+        num_exercises_in_plan = 14
         self.generator.set_user_data(self.user_fixtures, self.user_accessories)
         plan = self.generator.generate_single_plan(num_exercises_in_plan, rule_set=[])
         self.assertEqual(len(plan), num_exercises_in_plan)
 
         # TODO perform HTML validation as test
-        print(self.basic_html_renderer.render(plan))
+        # lxml would work, but it would add requirement to project just for this
+        self.assertNotEqual(len(self.basic_html_renderer.render("", plan)), 0)
 
 
 if __name__ == '__main__':

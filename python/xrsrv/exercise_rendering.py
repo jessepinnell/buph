@@ -23,6 +23,7 @@
 """ HTML rendering classes """
 
 import abc
+import textwrap
 
 # pylint: disable=too-few-public-methods
 # pylint: disable=no-self-use
@@ -41,8 +42,38 @@ class BaseRenderer(metaclass=abc.ABCMeta):
 class BasicHTMLRenderer(object):
     """ Renderer that creates a VERY basic html table of data """
 
-    def render(self, exercise_data):
-        """ Render the excercise data in HTML """
-        return "".join(exercise_data)
+    def render(self, title, exercise_data):
+        """ Render the excercise data in HTML
+
+        This is a simple table for printing onto paper (not meant to be pretty)
+        """
+        body = "    <table>\n"
+        for exercise in exercise_data:
+            body += "{0}<tr><td>{1}</td><td>{2}</td></tr>\n".format(\
+                    " " * 16, exercise.name, ", ".join(exercise.muscles_exercised))
+        body += "    </table>\n"
+
+        html = """
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>{0}</title>
+            <style>
+                table {{
+                    border-collapse: collapse;
+                }}
+                table, th, td {{
+                    border: 1px solid black;
+                }}
+            </style>
+        </head>
+        <body>
+        {1}
+        </body>
+        </html>
+        """.format(title, body)
+
+        return textwrap.dedent(html)
 
 BaseRenderer.register(BasicHTMLRenderer)

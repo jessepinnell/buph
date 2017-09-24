@@ -12,6 +12,7 @@ set(PYLINT pylint3 -f colorized --rcfile=${CMAKE_CURRENT_SOURCE_DIR}/python/.pyl
 add_custom_command(TARGET lint COMMAND ${PYLINT} ${CMAKE_CURRENT_SOURCE_DIR}/python/setup.py VERBATIM)
 add_custom_command(TARGET lint COMMAND ${PYLINT} ${CMAKE_CURRENT_SOURCE_DIR}/python/xrsrv VERBATIM)
 add_custom_command(TARGET lint COMMAND ${PYLINT} ${CMAKE_CURRENT_SOURCE_DIR}/python/tests VERBATIM)
+add_custom_command(TARGET lint COMMAND ${PYLINT} ${CMAKE_CURRENT_SOURCE_DIR}/python/apps VERBATIM)
 
 # Set up testing environment in bulid directory
 # TODO(jessepinnell) this is crude

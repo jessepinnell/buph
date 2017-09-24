@@ -43,8 +43,12 @@ class RoutineGenerator(object):
     def has_equipment_in_rig(self, exercise_data):
         """ check if an excercise can be performed with the equipment """
 
-        if exercise_data.fixture not in self.user_fixtures:
+        # if the user_fixtures is empty, then provide all
+        if self.user_fixtures and exercise_data.fixture not in self.user_fixtures:
             return False
+
+        if not self.user_accessories:
+            return True
 
         has = frozenset(self.user_accessories)
         needs = frozenset(self.exercise_database.get_accessories_in_rig(\
@@ -70,17 +74,17 @@ class RoutineGenerator(object):
         # Starting with the full list of exercise choices, remove or use them depending on
         # whether they pass all the rules tests
         while len(selected_exercises) != n_exercises and len(exercises) != len(selected_exercises):
-            exercise = random.choice(exercises)
+            exercise_name = random.choice(exercises)
 
-            if not self.has_equipment_in_rig(exercise_data[exercise]):
-                exercises.remove(exercise)
+            if not self.has_equipment_in_rig(exercise_data[exercise_name]):
+                exercises.remove(exercise_name)
                 continue
 
-            if all([rule(exercise_data[exercise]) for rule in rule_set]):
-                selected_exercises.add(exercise)
+            if all([rule(exercise_data[exercise_name]) for rule in rule_set]):
+                selected_exercises.add(exercise_name)
             else:
-                exercises.remove(exercise)
+                exercises.remove(exercise_name)
 
-        print("Selected {0} exercises: {1}".format(len(selected_exercises),\
-            ", ".join(selected_exercises)))
-        return selected_exercises
+        #print("Selected {0} exercises (requested {1}): {2}".format(len(selected_exercises),\
+        #    n_exercises, ", ".join(selected_exercises)))
+        return [exercise_data[exercise] for exercise in selected_exercises]

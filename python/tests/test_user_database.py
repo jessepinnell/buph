@@ -20,50 +20,35 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" Test cases for classes in database.py """
+""" Test cases for classes in user_database.py """
 
 import unittest
-from xrsrv import database
+from xrsrv import user_database
 
-TEST_DATABASE_NAME = "test.db"
+TEST_DATABASE_NAME = "user.db"
 
-class TestDatabase(unittest.TestCase):
+class TestUserDatabase(unittest.TestCase):
     """
-    Test the database methods
+    Test the user database methods
 
     TODO(jessepinnell) refactor or make these more robust tests
     """
 
     def __init__(self, *args, **kwargs):
-        super(TestDatabase, self).__init__(*args, **kwargs)
-        self.database = database.DatabaseConnection(TEST_DATABASE_NAME)
+        super(TestUserDatabase, self).__init__(*args, **kwargs)
+        self.database = user_database.Connection(TEST_DATABASE_NAME)
 
     def test_instantiation(self):
         """ Test the creation of the connection to the database """
-        self.assertIsInstance(self.database, database.DatabaseConnection)
+        self.assertIsInstance(self.database, user_database.Connection)
 
-    def test_get_list_of_exercise_names(self):
-        """ Test the get_list_of_exercise_names() method """
-        self.assertNotEqual(self.database.get_list_of_exercise_names(), False)
+    def test_get_equipment_accessories(self):
+        """ Test the get_accessories() method """
+        self.assertNotEqual(self.database.get_equipment_accessories(), False)
 
-    def test_get_muscles(self):
-        """ Test the get_muscles() method """
-        self.assertNotEqual(self.database.get_muscles(), False)
-
-    def test_get_exercise_data(self):
-        """ Test the get_muscles_exercised() method """
-        exercises = self.database.get_list_of_exercise_names()
-        self.assertNotEqual(exercises, False)
-        self.assertNotEqual(self.database.get_exercise_data(exercises[0]), False)
-
-    def test_get_equip_rig_resist(self):
-        """ Test the get_muscles_exercised() method """
-        exercises = self.database.get_list_of_exercise_names()
-        self.assertNotEqual(exercises, False)
-        exercise_data = self.database.get_exercise_data(exercises[0])
-        self.assertNotEqual(\
-            self.database.get_equipment_rig_resistances(exercise_data.equipment_rig), False)
-
+    def test_get_fixtures(self):
+        """ Test the get_fixtures() method """
+        self.assertNotEqual(self.database.get_fixtures(), False)
 
 if __name__ == '__main__':
     unittest.main()

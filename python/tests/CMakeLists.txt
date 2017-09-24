@@ -1,3 +1,5 @@
-SET(ENV{PYTHONPATH} "${CMAKE_SOURCE_DIR}/python")
-message($ENV{PYTHONPATH})
-add_test(NAME test_database COMMAND ${PYTHON_EXECUTABLE} -B ${CMAKE_CURRENT_SOURCE_DIR}/test_database.py)
+add_test(NAME test_exercise_database COMMAND ${PYTHON_EXECUTABLE} -B ${CMAKE_CURRENT_SOURCE_DIR}/test_exercise_database.py)
+set_property(TEST test_exercise_database PROPERTY ENVIRONMENT "PYTHONPATH=${CMAKE_SOURCE_DIR}/python")
+
+add_test(NAME test_user_database COMMAND ${PYTHON_EXECUTABLE} -B ${CMAKE_CURRENT_SOURCE_DIR}/test_user_database.py)
+set_property(TEST test_user_database PROPERTY ENVIRONMENT "PYTHONPATH=${CMAKE_SOURCE_DIR}/python")

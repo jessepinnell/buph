@@ -17,7 +17,8 @@ add_custom_command(TARGET lint COMMAND ${PYLINT} ${CMAKE_CURRENT_SOURCE_DIR}/pyt
 # TODO(jessepinnell) this is crude
 # TODO(jessepinnell) this is not platform-independent
 
-set(TEST_DB_NAME "test.db")
+set(TEST_EXERCISE_DB_NAME "exercise.db")
+set(TEST_USER_DB_NAME "user.db")
 add_custom_target(create_testing_environment ALL)
 add_custom_command(
    TARGET create_testing_environment PRE_BUILD
@@ -26,6 +27,7 @@ add_custom_command(
    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/database ${CMAKE_BINARY_DIR}/tests/database)
 
 add_custom_command(TARGET create_testing_environment
-   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/database/make_db.sh ${CMAKE_BINARY_DIR}/python/tests/${TEST_DB_NAME})
+   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/database/user_db/make_db.sh ${CMAKE_BINARY_DIR}/python/tests/${TEST_USER_DB_NAME}
+   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/database/exercise_db/make_db.sh ${CMAKE_BINARY_DIR}/python/tests/${TEST_EXERCISE_DB_NAME})
 
 add_subdirectory(python)

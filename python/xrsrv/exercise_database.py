@@ -34,7 +34,7 @@ from pathlib import Path
 
 from xrsrv import type_factories
 
-class DatabaseConnection(object):
+class Connection(object):
     """
     Abstraction of a sqllite3 database
 

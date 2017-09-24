@@ -23,7 +23,8 @@
 """ This module does some awesome stuff """
 
 #from . import objects
-#from . import database
+#from . import user_database
+#from . import exercise_database
 
 class PlanGenerator(object):
     """ master xrsrv object """

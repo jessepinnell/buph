@@ -20,9 +20,9 @@ SOFTWARE.
 */
 /** 
 * @file fixtures.sqlite
-* @brief Initial data for fixtures
+* @brief Initial data for fixtures and some quantities
 * @author Jesse Pinnell
-* @date 2017-09-16
+* @date 2017-09-23
 */
 
 INSERT INTO Fixtures VALUES ("floor", 1);

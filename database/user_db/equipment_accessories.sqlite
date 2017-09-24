@@ -20,21 +20,16 @@ SOFTWARE.
 */
 /** 
 * @file equipment_accessories.sqlite
-* @brief Initialization data for eqipment accessories
+* @brief Initialization data for equipment accessories quantities
 * @author Jesse Pinnell
-* @date 2017-09-16
+* @date 2017-09-23
 */
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 2, 0);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 2, 1);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 2, 2);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 2, 3);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 2, 4);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 2, 5);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 2, 6);
-INSERT INTO EquipmentAccessories VALUES ("olympic 2.5# plate", ?, 2, 0);
-INSERT INTO EquipmentAccessories VALUES ("olympic 5# plate", ?, 2, 1);
-INSERT INTO EquipmentAccessories VALUES ("olympic 10# plate", ?, 2, 2);
-INSERT INTO EquipmentAccessories VALUES ("olympic 25# plate", ?, 4, 4);
-INSERT INTO EquipmentAccessories VALUES ("olympic 45# plate", ?, 4, 7);
-INSERT INTO EquipmentAccessories VALUES ("olympic barbell", ?, 1, 7);
-INSERT INTO EquipmentAccessories VALUES ("olympic e-z curl bar", ?, 1, 4);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", 1);
+INSERT INTO EquipmentAccessories VALUES ("olympic 2.5# plate", 2);
+INSERT INTO EquipmentAccessories VALUES ("olympic 5# plate", 2);
+INSERT INTO EquipmentAccessories VALUES ("olympic 10# plate", 2);
+INSERT INTO EquipmentAccessories VALUES ("olympic 25# plate", 4);
+INSERT INTO EquipmentAccessories VALUES ("olympic 45# plate", 4);
+INSERT INTO EquipmentAccessories VALUES ("olympic barbell", 1);
+INSERT INTO EquipmentAccessories VALUES ("olympic e-z curl bar", 1);
+INSERT INTO EquipmentAccessories VALUES ("olympic trap bar", 1);

@@ -21,6 +21,8 @@ SOFTWARE.
 /** 
 * @file create.sqlite
 * @brief Creation script for database tables
+* This database contains relationships and data for all exercises, muscles, and
+* things that are NOT specific to user profiles
 * @author Jesse Pinnell
 * @date 2017-09-16
 */
@@ -30,21 +32,11 @@ SOFTWARE.
 PRAGMA foreign_keys = ON;
 -- Muscles to exercise
 DROP TABLE IF EXISTS Muscles;
-CREATE TABLE IF NOT EXISTS Muscles
+CREATE TABLE Muscles
 (
    Name TEXT NOT NULL PRIMARY KEY,
    MuscleGroup TEXT NOT NULL,
    Info TEXT DEFAULT NULL 
-);
-
--- Exercise equipment that is stationary
--- TODO handle other resistances like treadmill settings?
--- TODO handle speeds of fixtures somehow
-DROP TABLE IF EXISTS Fixtures;
-CREATE TABLE Fixtures
-(
-   Name TEXT NOT NULL, -- can have more than one to be able to have > 1 reistance record
-   Quantity INTEGER NOT NULL DEFAULT 0
 );
 
 -- Denominations of resistance
@@ -57,14 +49,25 @@ CREATE TABLE EquipmentResistances
    Resistance REAL -- NULL means n/a
 );
 
+-- Exercise equipment that is stationary
+-- TODO figure out how to reflect resistance levels like incline on a treadmill
+DROP TABLE IF EXISTS Fixtures;
+CREATE TABLE Fixtures
+(
+   Name TEXT NOT NULL, -- can have more than one to be able to have > 1 reistance record
+   Note TEXT DEFAULT "",
+   Resistance INTEGER NOT NULL,
+   FOREIGN KEY(Resistance) REFERENCES EquipmentResistance(ID)
+);
+
+
 -- Exercise equipment that can be moved
 -- TODO split differently so note doesn't need to be here
 DROP TABLE IF EXISTS EquipmentAccessories;
 CREATE TABLE EquipmentAccessories
 (
    Name TEXT NOT NULL,
-   Note TEXT DEFAULT "", -- maybe contain color of plate
-   Count INTEGER NOT NULL DEFAULT 0,
+   Note TEXT DEFAULT "",
    Resistance INTEGER NOT NULL,
    FOREIGN KEY(Resistance) REFERENCES EquipmentResistance(ID)
 );
@@ -72,7 +75,7 @@ CREATE TABLE EquipmentAccessories
 -- Equipment combinations used for a given exercise
 -- For max equippable, assume the capacity is reduced by the same equally (for now)
 DROP TABLE IF EXISTS EquipmentRigs;
-CREATE TABLE IF NOT EXISTS EquipmentRigs
+CREATE TABLE EquipmentRigs
 (
    Name TEXT NOT NULL, -- can be many per exercise, so not unique
    Required BOOLEAN NOT NULL DEFAULT 0,
@@ -86,7 +89,7 @@ CREATE TABLE IF NOT EXISTS EquipmentRigs
 
 -- Individual exercises and the required equipment
 DROP TABLE IF EXISTS Exercises;
-CREATE TABLE IF NOT EXISTS Exercises
+CREATE TABLE Exercises
 (
    Name TEXT PRIMARY KEY NOT NULL,
    Fixture INTEGER NOT NULL,
@@ -96,7 +99,7 @@ CREATE TABLE IF NOT EXISTS Exercises
 );
 
 DROP TABLE IF EXISTS MusclesExercised;
-CREATE TABLE IF NOT EXISTS MusclesExercised
+CREATE TABLE MusclesExercised
 (
    ExerciseName TEXT NOT NULL, -- can be many per exercise, so not unique
    Muscle TEXT NOT NULL,

@@ -4,8 +4,7 @@ if [ $# -ne 1 ]; then
 	echo "Usage: $0 [db fliename]"
 	exit -1
 fi
-pwd
-SCRIPT_DIR=tests/database
+SCRIPT_DIR=tests/database/exercise_db
 
 # need to preserve order here or foreign keys will die
 rm -f $1

@@ -25,8 +25,6 @@ SOFTWARE.
 * @date 2017-09-16
 */
 
-/* TODO pare down this list (cremaster, etc.) and maybe combine (extensors, etc.)*/
-
 INSERT INTO Muscles VALUES ("abductor digiti minimi (foot)", "leg", "");
 INSERT INTO Muscles VALUES ("abductor digiti minimi (hand)", "arms", "");
 INSERT INTO Muscles VALUES ("abductor hallucis", "leg", "");
@@ -45,10 +43,7 @@ INSERT INTO Muscles VALUES ("biceps femoris", "leg", "");
 INSERT INTO Muscles VALUES ("brachialis", "arms", "");
 INSERT INTO Muscles VALUES ("brachioradialis", "arms", "");
 INSERT INTO Muscles VALUES ("coracobrachialis", "arms", "");
-INSERT INTO Muscles VALUES ("cremaster", "pelvic", "");
-INSERT INTO Muscles VALUES ("dartos", "pelvic", "");
 INSERT INTO Muscles VALUES ("deltoid", "arms", "");
-INSERT INTO Muscles VALUES ("diaphragm", "abdomen", "");
 INSERT INTO Muscles VALUES ("dorsal interosseous (foot)", "leg", "");
 INSERT INTO Muscles VALUES ("dorsal interosseous (hand)", "arms", "");
 INSERT INTO Muscles VALUES ("erector spinae", "back", "");
@@ -94,7 +89,6 @@ INSERT INTO Muscles VALUES ("iliopsoas", "leg", "");
 INSERT INTO Muscles VALUES ("inferior gemellus", "leg", "");
 INSERT INTO Muscles VALUES ("infraspinatus", "arms", "");
 INSERT INTO Muscles VALUES ("innermost intercostal", "abdomen", "");
-INSERT INTO Muscles VALUES ("interfoveolar", "pelvic", "");
 INSERT INTO Muscles VALUES ("internal abdominal oblique", "pelvic", "");
 INSERT INTO Muscles VALUES ("internal intercostal", "abdomen", "");
 INSERT INTO Muscles VALUES ("interosseous, dorsal (foot)", "leg", "");
@@ -110,10 +104,6 @@ INSERT INTO Muscles VALUES ("longissimus", "back", "");
 INSERT INTO Muscles VALUES ("lumbrical (hand)", "arms", "");
 INSERT INTO Muscles VALUES ("lumbricals (foot)", "leg", "");
 INSERT INTO Muscles VALUES ("multifidus", "back", "");
-INSERT INTO Muscles VALUES ("oblique, external abdominal", "pelvic", "");
-INSERT INTO Muscles VALUES ("oblique, internal abdominal", "pelvic", "");
-INSERT INTO Muscles VALUES ("obliquus capitis inferior", "back", "");
-INSERT INTO Muscles VALUES ("obliquus capitis superior", "back", "");
 INSERT INTO Muscles VALUES ("obturator externus", "leg", "");
 INSERT INTO Muscles VALUES ("obturator internus", "leg", "");
 INSERT INTO Muscles VALUES ("opponens digiti minimi", "arms", "");

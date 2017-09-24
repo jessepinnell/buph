@@ -84,7 +84,7 @@ CREATE TABLE EquipmentRigs
    options with both will be listed */
    Paired BOOLEAN NOT NULL DEFAULT 0,
    MaxEquippable UNSIGNED INT NOT NULL DEFAULT 0, -- the number of the given accessories that can fit
-   EquipmentAccessory INTEGER NOT NULL
+   EquipmentAccessory TEXT NOT NULL
 );
 
 -- Individual exercises and the required equipment

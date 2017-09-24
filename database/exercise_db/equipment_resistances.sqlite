@@ -34,3 +34,4 @@ INSERT INTO EquipmentResistances VALUES (5, 25.0);
 INSERT INTO EquipmentResistances VALUES (6, 30.0);
 INSERT INTO EquipmentResistances VALUES (7, 35.0);
 INSERT INTO EquipmentResistances VALUES (8, 45.0);
+INSERT INTO EquipmentResistances VALUES (9, 60.0);

@@ -41,10 +41,24 @@ INSERT INTO EquipmentRigs VALUES ("balanced olympic e-z bar", 0, 1, 10, "olympic
 INSERT INTO EquipmentRigs VALUES ("balanced olympic e-z bar", 0, 1, 10, "olympic 25# plate");
 INSERT INTO EquipmentRigs VALUES ("balanced olympic e-z bar", 0, 1, 10, "olympic 45# plate");
 
+INSERT INTO EquipmentRigs VALUES ("balanced olympic trap bar", 1, 0, 1, "olympic trap bar");
+INSERT INTO EquipmentRigs VALUES ("balanced olympic trap bar", 0, 1, 10, "olympic 2.5# plate");
+INSERT INTO EquipmentRigs VALUES ("balanced olympic trap bar", 0, 1, 10, "olympic 5# plate");
+INSERT INTO EquipmentRigs VALUES ("balanced olympic trap bar", 0, 1, 10, "olympic 10# plate");
+INSERT INTO EquipmentRigs VALUES ("balanced olympic trap bar", 0, 1, 10, "olympic 25# plate");
+INSERT INTO EquipmentRigs VALUES ("balanced olympic trap bar", 0, 1, 10, "olympic 45# plate");
+
+
 -- these don't need to be balanced like they do on a barbell
+-- this just assumes simple cable (non-stack)
 INSERT INTO EquipmentRigs VALUES ("cable system", 1, 0, 1, "cable system");
 INSERT INTO EquipmentRigs VALUES ("cable system", 0, 0, 10, "olympic 2.5# plate");
 INSERT INTO EquipmentRigs VALUES ("cable system", 0, 0, 10, "olympic 5# plate");
 INSERT INTO EquipmentRigs VALUES ("cable system", 0, 0, 10, "olympic 10# plate");
 INSERT INTO EquipmentRigs VALUES ("cable system", 0, 0, 10, "olympic 25# plate");
 INSERT INTO EquipmentRigs VALUES ("cable system", 0, 0, 10, "olympic 45# plate");
+
+INSERT INTO EquipmentRigs VALUES ("single adjustable dumbbell", 1, 0, 1, "adjustable dumbbells");
+INSERT INTO EquipmentRigs VALUES ("double adjustable dumbbell", 1, 1, 1, "adjustable dumbbells");
+
+INSERT INTO EquipmentRigs VALUES ("pull-up bar", 1, 0, 1, "adjustable dumbbells");

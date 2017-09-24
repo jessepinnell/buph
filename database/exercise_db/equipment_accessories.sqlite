@@ -24,17 +24,19 @@ SOFTWARE.
 * @author Jesse Pinnell
 * @date 2017-09-16
 */
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 0);
+-- TOOD finish adding all resistances to adjustable dumbbells
 INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 1);
 INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 2);
 INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 3);
 INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 4);
 INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 5);
 INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 6);
-INSERT INTO EquipmentAccessories VALUES ("olympic 2.5# plate", ?, 0);
-INSERT INTO EquipmentAccessories VALUES ("olympic 5# plate", ?, 1);
-INSERT INTO EquipmentAccessories VALUES ("olympic 10# plate", ?, 2);
-INSERT INTO EquipmentAccessories VALUES ("olympic 25# plate", ?, 4);
-INSERT INTO EquipmentAccessories VALUES ("olympic 45# plate", ?, 7);
-INSERT INTO EquipmentAccessories VALUES ("olympic barbell", ?, 7);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 7);
+INSERT INTO EquipmentAccessories VALUES ("olympic 2.5# plate", ?, 1);
+INSERT INTO EquipmentAccessories VALUES ("olympic 5# plate", ?, 2);
+INSERT INTO EquipmentAccessories VALUES ("olympic 10# plate", ?, 3);
+INSERT INTO EquipmentAccessories VALUES ("olympic 25# plate", ?, 5);
+INSERT INTO EquipmentAccessories VALUES ("olympic 45# plate", ?, 8);
+INSERT INTO EquipmentAccessories VALUES ("olympic barbell", ?, 8);
 INSERT INTO EquipmentAccessories VALUES ("olympic e-z curl bar", ?, 4);
+INSERT INTO EquipmentAccessories VALUES ("olympic trap bar", ?, 8);

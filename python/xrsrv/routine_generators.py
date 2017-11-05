@@ -22,7 +22,6 @@
 
 """ HTML rendering classes """
 
-import textwrap
 import random
 
 # pylint: disable=too-few-public-methods
@@ -55,5 +54,5 @@ class BasicRandomRoutineGenerator(RoutineGeneratorBase):
         selection algorithm
         TODO document args in a consistent format
         """
-        n = kwargs['n']
-        return random.sample(self.possible_exercises, min(n, len(self.possible_exercises)))
+        choose_n = kwargs['n']
+        return random.sample(self.possible_exercises, min(choose_n, len(self.possible_exercises)))

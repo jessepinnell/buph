@@ -24,7 +24,7 @@
 
 import unittest
 
-from xrsrv import routine_generators
+from xrsrv import routine_engine
 from xrsrv import exercise_rendering
 from xrsrv import type_factories
 
@@ -39,8 +39,7 @@ class TestExerciseHTMLRendering(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
         super(TestExerciseHTMLRendering, self).__init__(*args, **kwargs)
-        self.generator = routine_generators.RoutineEngine(EXERCISE_DATABASE_NAME)
-        routine_generator.add_generator("basic_random", BasicRandomRoutineGenerator)
+        self.engine = routine_engine.RoutineEngine(EXERCISE_DATABASE_NAME)
         self.basic_html_renderer = exercise_rendering.BasicHTMLRenderer()
 
         self.build_user()
@@ -67,8 +66,9 @@ class TestExerciseHTMLRendering(unittest.TestCase):
     def test_basic_html_renderer(self):
         """ Test the basic_html_renderer.render() method """
         num_exercises_in_plan = 14
-        self.generator.set_user_data(self.user_fixtures, self.user_accessories)
-        plan = self.generator.generate_single_plan(num_exercises_in_plan, rule_set=[])
+        #self.engine.set_user_environment(self.user_fixtures, self.user_accessories)
+        self.engine.set_user_environment([], [])
+        plan = self.engine.generate_plan("basic_random", n=num_exercises_in_plan)
         self.assertEqual(len(plan), num_exercises_in_plan)
 
         # TODO perform HTML validation as test

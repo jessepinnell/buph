@@ -20,25 +20,23 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" Test cases for classes in routine_generator.py """
+""" Test cases for classes in routine_engine.py """
 
 import unittest
-from xrsrv import routine_generator
+from xrsrv import routine_engine
 from xrsrv.type_factories import EquipmentAccessory
 
 EXERCISE_DATABASE_NAME = "exercise.db"
 
-class TestRoutineGenerator(unittest.TestCase):
+class TestRoutineEngine(unittest.TestCase):
     """
-    Test the routine generator class
+    Test the routine engine class
     """
 
     def __init__(self, *args, **kwargs):
-        super(TestRoutineGenerator, self).__init__(*args, **kwargs)
-        self.generator = routine_generator.RoutineGenerator(EXERCISE_DATABASE_NAME)
-
+        super(TestRoutineEngine, self).__init__(*args, **kwargs)
+        self.generator = routine_engine.RoutineEngine(EXERCISE_DATABASE_NAME)
         self.build_user()
-        self.build_rules()
 
 
     def build_user(self):
@@ -55,49 +53,16 @@ class TestRoutineGenerator(unittest.TestCase):
         ]
 
 
-    def build_rules(self):
-        """ Builds up test rules """
-
-        # This example will cause any exercise chosen to be skipped if it
-        # exercises the biceps brachii muscle and requires the exercise to
-        # exercise either the lats or the triceps
-        # Even though this is simplistic, if the user data is constructed properly,
-        # then exercise history, muscle targets, etc. can be used
-        exclude_muscles = {
-            "biceps brachii"
-        }
-
-        require_muscles = {
-            "triceps brachii",
-            "latissimus dorsi"
-        }
-
-        exclude_exercises = {
-            "overhead front press",
-            "decline bench press"
-        }
-
-        # No need to handle require_exercises because that should be known external to this method
-        # In these rules, x is of type type_factories.Exercise
-        # lambdas returning false disqualify the result
-
-        self.rules = [
-            lambda x: not set(x.muscles_exercised).intersection(exclude_muscles),
-            lambda x: set(x.muscles_exercised).intersection(require_muscles),
-            lambda x: not set(x.name).intersection(exclude_exercises)
-        ]
-
-
     def test_instantiation(self):
         """ Test the creation of the connection to the database """
-        self.assertIsInstance(self.generator, routine_generator.RoutineGenerator)
+        self.assertIsInstance(self.generator, routine_engine.RoutineEngine)
 
 
     def test_generate_single_plan(self):
         """ Test the generate_single_plan() method """
         num_exercises_in_plan = 12
-        self.generator.set_user_data(self.user_fixtures, self.user_accessories)
-        plan = self.generator.generate_single_plan(num_exercises_in_plan, rule_set=self.rules)
+        self.generator.set_user_environment([], [])
+        plan = self.generator.generate_plan("basic_random", n=num_exercises_in_plan)
         self.assertEqual(len(plan), num_exercises_in_plan)
 
 
@@ -107,8 +72,8 @@ class TestRoutineGenerator(unittest.TestCase):
         than could be possibly selected
         """
         num_exercises_in_plan = 342
-        self.generator.set_user_data(self.user_fixtures, self.user_accessories)
-        plan = self.generator.generate_single_plan(num_exercises_in_plan, rule_set=self.rules)
+        self.generator.set_user_environment([], [])
+        plan = self.generator.generate_plan("basic_random", n=num_exercises_in_plan)
         self.assertNotEqual(len(plan), num_exercises_in_plan)
 
 

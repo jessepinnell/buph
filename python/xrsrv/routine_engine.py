@@ -30,7 +30,6 @@ exercise routines
 4) the routine generators generate lists of exercises meeting requirements
 """
 
-import random
 from xrsrv import exercise_database
 from xrsrv import routine_generators
 
@@ -42,11 +41,12 @@ class RoutineEngine(object):
         self.user_fixtures = []
         self.user_accessories = []
         self.user_routine_history = []
+        self.possible_exercises = []
 
 
     def add_generator(self, generator_name, generator):
-        self.generator[generator_name] = generator
-
+        """ TODO """
+        self.generators[generator_name] = generator
 
     def has_equipment_in_rig(self, exercise_data):
         """ check if an excercise can be performed with the equipment """
@@ -68,7 +68,7 @@ class RoutineEngine(object):
 
     def set_user_environment(self, user_fixtures, user_accessories):
         """ set the user environment to use for generation functions
-        
+
         if user_fixtures and user_accessories are len() = 0, give all
         """
         self.user_fixtures = user_fixtures
@@ -82,11 +82,11 @@ class RoutineEngine(object):
 
         # Starting with the full list of exercise choices, remove or use them depending on
         # whether they pass all the rules tests
-        for exercise_name in exercise_names: 
+        for exercise_name in exercise_names:
             if len(self.user_fixtures) == 0 and len(self.user_accessories) == 0:
                 selected_exercises.add(exercise_name)
                 continue
-                
+
             if not self.has_equipment_in_rig(exercise_data[exercise_name]):
                 continue
 
@@ -102,7 +102,7 @@ class RoutineEngine(object):
         """ set the user exercise history
         This should be a sequence of outputs from generate_single_plan()
         """
-        self.user_routine_history = user_routine_history 
+        self.user_routine_history = user_routine_history
 
 
     def generate_plan(self, generator, **kwargs):
@@ -112,4 +112,4 @@ class RoutineEngine(object):
         if generator in self.generators:
             return self.generators[generator].generate_plan(self.user_routine_history, **kwargs)
         else:
-            raise Exception("Invalid generator: " + generator)
+            raise Exception("Invalid generator: " + str(generator))

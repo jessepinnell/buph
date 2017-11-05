@@ -23,22 +23,30 @@
 """
 This module contains the class(es) which process user profile data and generates
 exercise routines
+
+1) determine what exercises are available based on equipment
+2) set user history
+3) callers select generation routine and feed it that information
+4) the routine generators generate lists of exercises meeting requirements
 """
 
 import random
 from xrsrv import exercise_database
+from xrsrv import routine_generators
 
-class RoutineGenerator(object):
-    """ Routine generation class """
+class RoutineEngine(object):
+    """ Routine engine """
     def __init__(self, exercise_database_name):
         self.exercise_database = exercise_database.Connection(exercise_database_name)
+        self.generators = {}
         self.user_fixtures = []
         self.user_accessories = []
+        self.user_routine_history = []
 
-    def set_user_data(self, user_fixtures, user_accessories):
-        """ set the user data to use for generation functions """
-        self.user_fixtures = user_fixtures
-        self.user_accessories = user_accessories
+
+    def add_generator(self, generator_name, generator):
+        self.generator[generator_name] = generator
+
 
     def has_equipment_in_rig(self, exercise_data):
         """ check if an excercise can be performed with the equipment """
@@ -57,34 +65,51 @@ class RoutineGenerator(object):
         return needs.issubset(has)
 
 
-    def generate_single_plan(self, n_exercises, rule_set):
-        """ generates single plan
 
-        This is a quick and dirty first pass with limited functionality and a crude
-        selection algorithm
-        TODO document args in a consistent format
+    def set_user_environment(self, user_fixtures, user_accessories):
+        """ set the user environment to use for generation functions
+        
+        if user_fixtures and user_accessories are len() = 0, give all
         """
+        self.user_fixtures = user_fixtures
+        self.user_accessories = user_accessories
 
-        exercises = self.exercise_database.get_list_of_exercise_names()
+        exercise_names = self.exercise_database.get_list_of_exercise_names()
         exercise_data = {exercise: self.exercise_database.get_exercise_data(exercise)\
-                for exercise in exercises}
+                for exercise in exercise_names}
 
         selected_exercises = set()
 
         # Starting with the full list of exercise choices, remove or use them depending on
         # whether they pass all the rules tests
-        while len(selected_exercises) != n_exercises and len(exercises) != len(selected_exercises):
-            exercise_name = random.choice(exercises)
-
+        for exercise_name in exercise_names: 
+            if len(self.user_fixtures) == 0 and len(self.user_accessories) == 0:
+                selected_exercises.add(exercise_name)
+                continue
+                
             if not self.has_equipment_in_rig(exercise_data[exercise_name]):
-                exercises.remove(exercise_name)
                 continue
 
-            if all([rule(exercise_data[exercise_name]) for rule in rule_set]):
-                selected_exercises.add(exercise_name)
-            else:
-                exercises.remove(exercise_name)
+            #if all([rule(exercise_data[exercise_name]) for rule in rule_set]):
+            #    selected_exercises.add(exercise_name)
 
-        #print("Selected {0} exercises (requested {1}): {2}".format(len(selected_exercises),\
-        #    n_exercises, ", ".join(selected_exercises)))
-        return [exercise_data[exercise] for exercise in selected_exercises]
+        self.possible_exercises = [exercise_data[exercise] for exercise in selected_exercises]
+
+        self.generators["basic_random"] =\
+            routine_generators.BasicRandomRoutineGenerator(self.possible_exercises)
+
+    def set_user_routine_history(self, user_routine_history):
+        """ set the user exercise history
+        This should be a sequence of outputs from generate_single_plan()
+        """
+        self.user_routine_history = user_routine_history 
+
+
+    def generate_plan(self, generator, **kwargs):
+        """ generates single plan by generator referred to by name with arbitrary args
+        TODO document args in a consistent format
+        """
+        if generator in self.generators:
+            return self.generators[generator].generate_plan(self.user_routine_history, **kwargs)
+        else:
+            raise Exception("Invalid generator: " + generator)

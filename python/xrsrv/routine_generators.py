@@ -20,36 +20,40 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" Simple application for generating HTML routine """
+""" HTML rendering classes """
 
-import sys
-
-from xrsrv import routine_engine
-from xrsrv import exercise_rendering
-
-TEST_DATABASE_NAME = "exercise.db"
+import textwrap
+import random
 
 # pylint: disable=too-few-public-methods
-# pylint: disable=no-self-argument
+# pylint: disable=no-self-use
+# pylint: disable=unused-argument
+# pylint: disable=no-member
 
-class ExerciseRenderer(object):
-    """ Application that generates an HTML rendering based on number of exercises requested """
+class RoutineGeneratorBase(object):
+    """ Abstract base class for routine """
 
-    def __init__(self):
+    def __init__(self, possible_exercises):
+        """ possible_exercies given equipment available """
+        self.possible_exercises = possible_exercises
+
+    def generate_plan(self, user_data, **kwargs):
+        """ Generate a routine given user_data and arbitrary arguments """
         pass
 
-    def generate_and_render(database_filename, number_of_routines):
-        """ Generates the list of exercises and renders the HTML """
-        engine = routine_engine.RoutineEngine(database_filename)
-        engine.set_user_environment([], [])
-        plan = engine.generate_plan("basic_random", n=int(number_of_routines))
 
-        basic_html_renderer = exercise_rendering.BasicHTMLRenderer()
+class BasicRandomRoutineGenerator(RoutineGeneratorBase):
+    """ TODO """
 
-        print(basic_html_renderer.render("exercise_renderer output", plan))
+    def __init__(self, possible_exercises):
+        """ blah blah """
+        super(BasicRandomRoutineGenerator, self).__init__(possible_exercises)
 
-
-if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        sys.exit("usage: {0} [exercises database file] [number of routines]".format(sys.argv[0]))
-    ExerciseRenderer.generate_and_render(sys.argv[1], sys.argv[2])
+    def generate_plan(self, user_data, **kwargs):
+        """ generates single plan
+        This is a quick and dirty first pass with limited functionality and a crude
+        selection algorithm
+        TODO document args in a consistent format
+        """
+        n = kwargs['n']
+        return random.sample(self.possible_exercises, min(n, len(self.possible_exercises)))

@@ -24,7 +24,7 @@
 
 import unittest
 
-from xrsrv import routine_generator
+from xrsrv import routine_generators
 from xrsrv import exercise_rendering
 from xrsrv import type_factories
 
@@ -39,7 +39,8 @@ class TestExerciseHTMLRendering(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
         super(TestExerciseHTMLRendering, self).__init__(*args, **kwargs)
-        self.generator = routine_generator.RoutineGenerator(EXERCISE_DATABASE_NAME)
+        self.generator = routine_generators.RoutineEngine(EXERCISE_DATABASE_NAME)
+        routine_generator.add_generator("basic_random", BasicRandomRoutineGenerator)
         self.basic_html_renderer = exercise_rendering.BasicHTMLRenderer()
 
         self.build_user()

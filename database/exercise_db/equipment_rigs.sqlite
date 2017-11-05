@@ -60,5 +60,3 @@ INSERT INTO EquipmentRigs VALUES ("cable system", 0, 0, 10, "olympic 45# plate")
 
 INSERT INTO EquipmentRigs VALUES ("single adjustable dumbbell", 1, 0, 1, "adjustable dumbbells");
 INSERT INTO EquipmentRigs VALUES ("double adjustable dumbbell", 1, 1, 1, "adjustable dumbbells");
-
-INSERT INTO EquipmentRigs VALUES ("pull-up bar", 1, 0, 1, "adjustable dumbbells");

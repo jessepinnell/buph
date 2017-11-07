@@ -83,7 +83,6 @@ class RoutineEngine(object):
         # Starting with the full list of exercise choices, remove or use them depending on
         # whether they pass all the rules tests
         for exercise_name in exercise_names:
-            print(exercise_name + " " + str(exercise_data[exercise_name].equipment_rig))
             if (len(self.user_fixtures) != 0 or len(self.user_accessories) != 0) and\
                 not self.has_equipment_in_rig(exercise_data[exercise_name]):
                 continue

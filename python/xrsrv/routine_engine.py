@@ -65,7 +65,6 @@ class RoutineEngine(object):
         return needs.issubset(has)
 
 
-
     def set_user_environment(self, user_fixtures, user_accessories):
         """ set the user environment to use for generation functions
 
@@ -78,21 +77,22 @@ class RoutineEngine(object):
         exercise_data = {exercise: self.exercise_database.get_exercise_data(exercise)\
                 for exercise in exercise_names}
 
+
         selected_exercises = set()
 
         # Starting with the full list of exercise choices, remove or use them depending on
         # whether they pass all the rules tests
         for exercise_name in exercise_names:
-            if len(self.user_fixtures) == 0 and len(self.user_accessories) == 0:
-                selected_exercises.add(exercise_name)
+            print(exercise_name + " " + str(exercise_data[exercise_name].equipment_rig))
+            if (len(self.user_fixtures) != 0 or len(self.user_accessories) != 0) and\
+                not self.has_equipment_in_rig(exercise_data[exercise_name]):
                 continue
 
-            if not self.has_equipment_in_rig(exercise_data[exercise_name]):
-                continue
+            selected_exercises.add(exercise_name)
 
-            #if all([rule(exercise_data[exercise_name]) for rule in rule_set]):
-            #    selected_exercises.add(exercise_name)
 
+        # XXX TODO possible exercises and resistances
+        
         self.possible_exercises = [exercise_data[exercise] for exercise in selected_exercises]
 
         self.generators["basic_random"] =\

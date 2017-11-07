@@ -71,21 +71,28 @@ class Connection(object):
         return map(type_factories.Muscle._make, self.cursor.fetchall())
 
 
-    def get_equipment_rig_resistances(self, name):
+    def get_equipment_rig_resistances(self, rig):
         """
-        For a given equipment rig name, get all possible resistances based
-        on rig definitions and quantity on hand
+        For a given equipment rig name, get all resistances based on rig definitions
         """
+        equipment_rig_record = collections.namedtuple(\
+            "equipment_rig_record", "name, required, paired, max_equippable, equipment_accessory")
+        self.cursor.execute("SELECT Name, Required, Paired, MaxEquippable, EquipmentAccessory "\
+            "FROM EquipmentRigs WHERE Name = ?", (rig,))
+        equipment_rigs = map(equipment_rig_record._make, self.cursor.fetchall())
 
-        #equipment_rig_record = collections.namedtuple(\
-        #    "equipment_rig_record", "name, required, paired, max_equippable, equipment_accessory")
-        self.cursor.execute("SELECT Name, Required, Paired, MaxEquippable,"\
-            "EquipmentAccessory FROM EquipmentRigs WHERE Name = (?)", (name, ))
-        #equipment_rigs = map(equipment_rig_record._make, self.cursor.fetchall())
+        resistance_components = []
 
-        # TODO calculate all possiblities here
-        resistances = [0]
-        return resistances
+        for equipment_rig in equipment_rigs:
+            self.cursor.execute("SELECT Resistance "\
+                "FROM EquipmentAccessories WHERE Name = ?", (equipment_rig.equipment_accessory,))
+            for accessory_resistance_record in self.cursor.fetchall():
+                self.cursor.execute("SELECT Resistance "\
+                    "FROM EquipmentResistances WHERE ID = ?", accessory_resistance_record)
+                for resistance_record in self.cursor.fetchall():
+                    resistance_components.append(resistance_record[0])
+                
+        return resistance_components
 
 
     def get_exercise_data(self, name):
@@ -93,7 +100,7 @@ class Connection(object):
         Get the full set of data for a given exercise
         """
         exercise_record = collections.namedtuple(\
-            "ExerciseRecord", "name, fixture, equipment_rig, documentation")
+            "ExerciseRecord", "name, fixture, equipment_rig_name, documentation")
         self.cursor.execute("SELECT Name, Fixture, EquipmentRig, Documentation "\
             "FROM Exercises WHERE Name = ?", (name,))
         this_exercise = exercise_record._make(self.cursor.fetchone())
@@ -103,8 +110,13 @@ class Connection(object):
             "SELECT Muscle FROM MusclesExercised WHERE ExerciseName = ?", (this_exercise.name, ))
 
         muscles_exercised = [i[0] for i in self.cursor.fetchall()]
+        equipment_rig = None
+        if this_exercise.equipment_rig_name is not None and this_exercise.equipment_rig_name != "":
+            equipment_rig = type_factories.EquipmentRig(this_exercise.equipment_rig_name, \
+                self.get_equipment_rig_resistances(this_exercise.equipment_rig_name))
 
-        return type_factories.Exercise(*this_exercise, muscles_exercised)
+        return type_factories.Exercise(this_exercise.name, this_exercise.fixture,\
+            this_exercise.documentation, equipment_rig, muscles_exercised)
 
 
     # TODO Implement this and remove these when implemented

@@ -26,6 +26,7 @@ import sys
 
 from xrsrv import routine_engine
 from xrsrv import exercise_rendering
+from xrsrv import type_factories
 
 TEST_DATABASE_NAME = "exercise.db"
 
@@ -41,7 +42,19 @@ class ExerciseRenderer(object):
     def generate_and_render(database_filename, number_of_routines):
         """ Generates the list of exercises and renders the HTML """
         engine = routine_engine.RoutineEngine(database_filename)
-        engine.set_user_environment([], [])
+
+        fixtures = [
+            "floor",
+            "fixed bench",
+            "treadmill"
+        ]
+
+        accessories = [
+            type_factories.EquipmentAccessory("olympic barbell", 1),
+            type_factories.EquipmentAccessory("olympic 2.5# plate", 2)
+        ]
+
+        engine.set_user_environment(fixtures, accessories)
         plan = engine.generate_plan("basic_random", n=int(number_of_routines))
 
         basic_html_renderer = exercise_rendering.BasicHTMLRenderer()

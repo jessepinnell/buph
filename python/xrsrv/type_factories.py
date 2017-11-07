@@ -41,7 +41,7 @@ EquipmentRig = collections.namedtuple("EquipmentRig", "name, possible_resistance
 # documentation: additional information about the exercise
 # muscles_exercised: list of muscles exercised
 Exercise = collections.namedtuple(\
-    "Exercise", "name, fixture, equipment_rig, documentation, muscles_exercised")
+    "Exercise", "name, fixture, documentation, equipment_rig, muscles_exercised")
 
 
 # **** User types ****

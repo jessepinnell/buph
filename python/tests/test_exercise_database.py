@@ -58,14 +58,5 @@ class TestExcerciseDatabase(unittest.TestCase):
         self.assertIsInstance(self.database.get_exercise_data(exercises[0]),\
             type_factories.Exercise)
 
-    def test_get_equip_rig_resist(self):
-        """ Test the get_muscles_exercised() method """
-        exercises = self.database.get_list_of_exercise_names()
-        self.assertNotEqual(exercises, False)
-        exercise_data = self.database.get_exercise_data(exercises[0])
-        self.assertNotEqual(\
-            self.database.get_equipment_rig_resistances(exercise_data.equipment_rig), False)
-
-
 if __name__ == '__main__':
     unittest.main()

@@ -54,5 +54,8 @@ class BasicRandomRoutineGenerator(RoutineGeneratorBase):
         selection algorithm
         TODO document args in a consistent format
         """
+        if len(self.possible_exercises) == 0:
+            raise Exception("No possible exercises from which to choose")
+
         choose_n = kwargs['n']
         return random.sample(self.possible_exercises, min(choose_n, len(self.possible_exercises)))

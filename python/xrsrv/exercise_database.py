@@ -84,13 +84,10 @@ class Connection(object):
         resistance_components = []
 
         for equipment_rig in equipment_rigs:
-            self.cursor.execute("SELECT Resistance "\
+            self.cursor.execute("SELECT MinResistance, MaxResistance "\
                 "FROM EquipmentAccessories WHERE Name = ?", (equipment_rig.equipment_accessory,))
-            for accessory_resistance_record in self.cursor.fetchall():
-                self.cursor.execute("SELECT Resistance "\
-                    "FROM EquipmentResistances WHERE ID = ?", accessory_resistance_record)
-                for resistance_record in self.cursor.fetchall():
-                    resistance_components.append(resistance_record[0])
+            for resistance_record in self.cursor.fetchall():
+                resistance_components.append(resistance_record[0])
                 
         return resistance_components
 

@@ -39,25 +39,16 @@ CREATE TABLE Muscles
    Info TEXT DEFAULT NULL 
 );
 
--- Denominations of resistance
--- This whole table is to support accessories with more than one weight (adjustable dumbbells, etc)
--- TODO These are discrete.  How to handle them?
-DROP TABLE IF EXISTS EquipmentResistances;
-CREATE TABLE EquipmentResistances
-(
-   ID INTEGER NOT NULL PRIMARY KEY,
-   Resistance REAL -- NULL means n/a
-);
+-- TODO create table of agonists/antagonists
 
 -- Exercise equipment that is stationary
--- TODO figure out how to reflect resistance levels like incline on a treadmill
 DROP TABLE IF EXISTS Fixtures;
 CREATE TABLE Fixtures
 (
    Name TEXT NOT NULL, -- can have more than one to be able to have > 1 reistance record
    Note TEXT DEFAULT "",
-   Resistance INTEGER NOT NULL,
-   FOREIGN KEY(Resistance) REFERENCES EquipmentResistance(ID)
+   MinResistance REAL NOT NULL,  -- Resistances in lbs.
+   MaxResistance REAL NOT NULL
 );
 
 
@@ -68,8 +59,8 @@ CREATE TABLE EquipmentAccessories
 (
    Name TEXT NOT NULL,
    Note TEXT DEFAULT "",
-   Resistance INTEGER NOT NULL,
-   FOREIGN KEY(Resistance) REFERENCES EquipmentResistance(ID)
+   MinResistance REAL NOT NULL,  -- Resistances in lbs.
+   MaxResistance REAL NOT NULL
 );
 
 -- Equipment combinations used for a given exercise
@@ -91,11 +82,26 @@ CREATE TABLE EquipmentRigs
 DROP TABLE IF EXISTS Exercises;
 CREATE TABLE Exercises
 (
-   Name TEXT PRIMARY KEY NOT NULL,
-   Fixture INTEGER NOT NULL,
-   EquipmentRig INTEGER DEFAULT NULL, -- NULL when no equipment is used
-   Documentation TEXT DEFAULT "", -- TODO make proper table for this
-   FOREIGN KEY(Fixture) REFERENCES Fixtures(Name)
+   Name TEXT NOT NULL PRIMARY KEY,
+   Documentation TEXT DEFAULT "" -- TODO make proper table for this
+);
+
+DROP TABLE IF EXISTS ExerciseFixtures;
+CREATE TABLE ExerciseFixtures
+(
+   ExerciseName TEXT NOT NULL,
+   FixtureName TEXT NOT NULL,
+   FOREIGN KEY(ExerciseName) REFERENCES Exercise(Name)
+   FOREIGN KEY(FixtureName) REFERENCES Fixtures(Name)
+);
+
+DROP TABLE IF EXISTS ExerciseEquipmentRigs;
+CREATE TABLE ExerciseEquipmentRigs
+(
+   ExerciseName TEXT NOT NULL,
+   EquipmentRigName TEXT NOT NULL,
+   FOREIGN KEY(ExerciseName) REFERENCES Exercise(Name)
+   FOREIGN KEY(EquipmentRigName) REFERENCES EquipmentRig(Name)
 );
 
 DROP TABLE IF EXISTS MusclesExercised;

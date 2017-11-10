@@ -25,14 +25,17 @@ SOFTWARE.
 * @date 2017-09-16
 */
 
-INSERT INTO Fixtures VALUES ("floor", ?, 0);
-INSERT INTO Fixtures VALUES ("roman chair", ?, 0);
-INSERT INTO Fixtures VALUES ("fixed bench", ?, 0);
-INSERT INTO Fixtures VALUES ("adjustable bench", ?, 0);
-INSERT INTO Fixtures VALUES ("pull-up bar", ?, 0);
-/* This has a weight associated with it because it is a plate-pipe style one
-so the weight of the accessory put onto it like trap bars can reduce the resistance */
-INSERT INTO Fixtures VALUES ("cable system", ?, 0);
-INSERT INTO Fixtures VALUES ("heavy bag", ?, 0);
-INSERT INTO Fixtures VALUES ("elliptical", ?, 0);
-INSERT INTO Fixtures VALUES ("treadmill", ?, 0);
+INSERT INTO Fixtures VALUES ("floor", ?, 0.0, 0.0);
+INSERT INTO Fixtures VALUES ("roman chair", ?, 0.0, 0.0);
+INSERT INTO Fixtures VALUES ("fixed bench", ?, 0.0, 0.0);
+INSERT INTO Fixtures VALUES ("adjustable bench", ?, 0.0, 0.0);
+INSERT INTO Fixtures VALUES ("pull-up bar", ?, 0.0, 0.0);
+INSERT INTO Fixtures VALUES ("cable system", ?, 0.0, 0.0);
+INSERT INTO Fixtures VALUES ("heavy bag", ?, 0.0, 0.0);
+INSERT INTO Fixtures VALUES ("elliptical", ?, 0.0, 0.0);
+-- Example of a fixture with a range of resistance settings
+-- XXX resistance handled as a percentage here?
+INSERT INTO Fixtures VALUES ("treadmill", ?, 0.0, 100.0);
+
+-- Example of a fixture with a constant resistance
+INSERT INTO Fixtures VALUES ("rusty cable system", ?, 3.0, 3.0);

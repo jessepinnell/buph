@@ -11,7 +11,6 @@ rm -f $1
 sqlite3 $1 < ${SCRIPT_DIR}/create.sqlite
 sqlite3 $1 < ${SCRIPT_DIR}/muscles.sqlite
 sqlite3 $1 < ${SCRIPT_DIR}/fixtures.sqlite
-sqlite3 $1 < ${SCRIPT_DIR}/equipment_resistances.sqlite
 sqlite3 $1 < ${SCRIPT_DIR}/equipment_accessories.sqlite
 sqlite3 $1 < ${SCRIPT_DIR}/equipment_rigs.sqlite
 sqlite3 $1 < ${SCRIPT_DIR}/exercises.sqlite

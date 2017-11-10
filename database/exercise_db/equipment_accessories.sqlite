@@ -25,18 +25,30 @@ SOFTWARE.
 * @date 2017-09-16
 */
 -- TOOD finish adding all resistances to adjustable dumbbells
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 1);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 2);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 3);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 4);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 5);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 6);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 7);
-INSERT INTO EquipmentAccessories VALUES ("olympic 2.5# plate", ?, 1);
-INSERT INTO EquipmentAccessories VALUES ("olympic 5# plate", ?, 2);
-INSERT INTO EquipmentAccessories VALUES ("olympic 10# plate", ?, 3);
-INSERT INTO EquipmentAccessories VALUES ("olympic 25# plate", ?, 5);
-INSERT INTO EquipmentAccessories VALUES ("olympic 45# plate", ?, 8);
-INSERT INTO EquipmentAccessories VALUES ("olympic barbell", ?, 8);
-INSERT INTO EquipmentAccessories VALUES ("olympic e-z curl bar", ?, 4);
-INSERT INTO EquipmentAccessories VALUES ("olympic trap bar", ?, 8);
+-- XXX These are listed not as having different min/max because they have discrete settings
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?,  2.5,  2.5);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?,  5.0,  5.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 10.0, 10.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 20.0, 20.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 25.0, 25.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 30.0, 30.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 40.0, 40.0);
+
+-- Example of something with a continuous range of resistance?
+INSERT INTO EquipmentAccessories VALUES ("magic dumbbells",     ?,  0.0, 100.0);
+
+INSERT INTO EquipmentAccessories VALUES ("olympic 2.5# plate",   ?,  2.5,  2.5);
+INSERT INTO EquipmentAccessories VALUES ("olympic 5# plate",     ?,  5.0,  5.0);
+INSERT INTO EquipmentAccessories VALUES ("olympic 10# plate",    ?, 10.0, 10.0);
+INSERT INTO EquipmentAccessories VALUES ("olympic 25# plate",    ?, 25.0, 25.0);
+INSERT INTO EquipmentAccessories VALUES ("olympic 45# plate",    ?, 45.0, 45.0);
+INSERT INTO EquipmentAccessories VALUES ("olympic barbell",      ?, 45.0, 45.0);
+INSERT INTO EquipmentAccessories VALUES ("olympic e-z curl bar", ?, 22.0, 22.0);
+INSERT INTO EquipmentAccessories VALUES ("olympic trap bar",     ?, 74.0, 74.0);
+
+INSERT INTO EquipmentAccessories VALUES ("1-inch 2.5# plate", ?,  2.5,  2.5);
+INSERT INTO EquipmentAccessories VALUES ("1-inch 5# plate",   ?,  5.0,  5.0);
+INSERT INTO EquipmentAccessories VALUES ("1-inch 10# plate",  ?, 10.0, 10.0);
+INSERT INTO EquipmentAccessories VALUES ("1-inch 25# plate",  ?, 25.0, 25.0);
+INSERT INTO EquipmentAccessories VALUES ("1-inch 45# plate",  ?, 45.0, 45.0);
+INSERT INTO EquipmentAccessories VALUES ("1-inch barbell",    ?, 25.0, 25.0);

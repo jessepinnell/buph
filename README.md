@@ -16,7 +16,7 @@ best from the Linux side of the development), and will follow strict coding and 
 
 The installer is incomplete but the project uses the CMake build system and it can be used in place.  CMake should
 detect and at least complain about some or all missing dependencies.  Note that it is written using python 3, so the python 3
-version of libraries are required.
+version of libraries are required.  Pylint3 is required for the lint target.
 
 To build XRSRV under Linux:
 
@@ -51,6 +51,10 @@ $ make lint
 ## Usage example
 
 Functionality is currently very limited, but the basic exercise renderer script can be run from the build directory:
+
+```
+$ export PYTHONPATH=$(dirname `pwd`)/xrsrv/python
+```
 
 ```
 $ python3 -B ../xrsrv/python/apps/exercise_renderer.py

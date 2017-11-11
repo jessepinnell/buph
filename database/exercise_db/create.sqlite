@@ -109,6 +109,7 @@ CREATE TABLE MusclesExercised
 (
    ExerciseName TEXT NOT NULL, -- can be many per exercise, so not unique
    Muscle TEXT NOT NULL,
+   Weighting REAL NOT NULL DEFAULT 1.0,
    FOREIGN KEY(ExerciseName) REFERENCES Exercises(Name),
    FOREIGN KEY(Muscle) REFERENCES Muscles(Name)
 );

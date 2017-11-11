@@ -24,18 +24,72 @@ SOFTWARE.
 * @author Jesse Pinnell
 * @date 2017-09-16
 */
--- TOOD finish adding all resistances to adjustable dumbbells
--- XXX These are listed not as having different min/max because they have discrete settings
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?,  2.5,  2.5);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?,  5.0,  5.0);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 10.0, 10.0);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 20.0, 20.0);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 25.0, 25.0);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 30.0, 30.0);
-INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbells", ?, 40.0, 40.0);
+-- Note that these are listed not as having different min/max because they have discrete settings
+
+-- Range of Bowflex 552; probably don't want to use product name as key; alternative names later perhaps
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell A", ?,  2.5,  2.5);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell A", ?,  5.0,  5.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell A", ?,  7.5,  7.5);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell A", ?, 10.0, 10.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell A", ?, 12.5, 12.5);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell A", ?, 20.0, 20.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell A", ?, 22.5, 22.5);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell A", ?, 25.0, 25.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell A", ?, 30.0, 30.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell A", ?, 35.0, 35.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell A", ?, 40.0, 40.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell A", ?, 45.0, 45.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell A", ?, 50.0, 50.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell A", ?, 52.5, 52.5);
+
+-- Range of Bowflex 1090
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell B", ?, 10.0, 10.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell B", ?, 20.0, 20.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell B", ?, 30.0, 30.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell B", ?, 40.0, 40.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell B", ?, 50.0, 50.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell B", ?, 60.0, 60.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell B", ?, 70.0, 70.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell B", ?, 80.0, 80.0);
+INSERT INTO EquipmentAccessories VALUES ("adjustable dumbbell B", ?, 90.0, 90.0);
+
+-- Dumbbell with removable plates
+INSERT INTO EquipmentAccessories VALUES ("dumbbell handle",     ?, 5.0, 5.0);
+INSERT INTO EquipmentAccessories VALUES ("1.5# dumbbell plate", ?, 1.25, 1.25);
+INSERT INTO EquipmentAccessories VALUES ("2.5# dumbbell plate", ?, 2.5, 2.5);
+INSERT INTO EquipmentAccessories VALUES ("5# dumbbell plate",   ?, 5.0, 5.0);
+INSERT INTO EquipmentAccessories VALUES ("10# dumbbell plate",  ?, 10.0, 10.0);
+
+-- Typical sizes of fixed dumbbells
+INSERT INTO EquipmentAccessories VALUES ("5# dumbbell",  ?,    5.0,   5.0);
+INSERT INTO EquipmentAccessories VALUES ("8# dumbbell",  ?,    8.0,   8.0);
+INSERT INTO EquipmentAccessories VALUES ("10# dumbbell", ?,   10.0,  10.0);
+INSERT INTO EquipmentAccessories VALUES ("12# dumbbell", ?,   12.0,  12.0);
+INSERT INTO EquipmentAccessories VALUES ("20# dumbbell", ?,   20.0,  20.0);
+INSERT INTO EquipmentAccessories VALUES ("25# dumbbell", ?,   25.0,  25.0);
+INSERT INTO EquipmentAccessories VALUES ("30# dumbbell", ?,   30.0,  30.0);
+INSERT INTO EquipmentAccessories VALUES ("35# dumbbell", ?,   30.0,  30.0);
+INSERT INTO EquipmentAccessories VALUES ("40# dumbbell", ?,   40.0,  40.0);
+INSERT INTO EquipmentAccessories VALUES ("45# dumbbell", ?,   45.0,  45.0);
+INSERT INTO EquipmentAccessories VALUES ("50# dumbbell", ?,   50.0,  50.0);
+INSERT INTO EquipmentAccessories VALUES ("55# dumbbell", ?,   55.0,  55.0);
+INSERT INTO EquipmentAccessories VALUES ("60# dumbbell", ?,   60.0,  60.0);
+INSERT INTO EquipmentAccessories VALUES ("65# dumbbell", ?,   65.0,  65.0);
+INSERT INTO EquipmentAccessories VALUES ("70# dumbbell", ?,   70.0,  70.0);
+INSERT INTO EquipmentAccessories VALUES ("75# dumbbell", ?,   75.0,  75.0);
+INSERT INTO EquipmentAccessories VALUES ("80# dumbbell", ?,   80.0,  80.0);
+INSERT INTO EquipmentAccessories VALUES ("85# dumbbell", ?,   85.0,  85.0);
+INSERT INTO EquipmentAccessories VALUES ("90# dumbbell", ?,   90.0,  90.0);
+INSERT INTO EquipmentAccessories VALUES ("95# dumbbell", ?,   95.0,  95.0);
+INSERT INTO EquipmentAccessories VALUES ("100# dumbbell", ?, 100.0, 100.0);
+INSERT INTO EquipmentAccessories VALUES ("105# dumbbell", ?, 105.0, 105.0);
+INSERT INTO EquipmentAccessories VALUES ("110# dumbbell", ?, 110.0, 110.0);
+INSERT INTO EquipmentAccessories VALUES ("115# dumbbell", ?, 115.0, 115.0);
+INSERT INTO EquipmentAccessories VALUES ("120# dumbbell", ?, 120.0, 120.0);
+INSERT INTO EquipmentAccessories VALUES ("125# dumbbell", ?, 120.0, 120.0);
 
 -- Example of something with a continuous range of resistance?
-INSERT INTO EquipmentAccessories VALUES ("magic dumbbells",     ?,  0.0, 100.0);
+INSERT INTO EquipmentAccessories VALUES ("magic dumbbell",     ?,  0.0, 100.0);
 
 INSERT INTO EquipmentAccessories VALUES ("olympic 2.5# plate",   ?,  2.5,  2.5);
 INSERT INTO EquipmentAccessories VALUES ("olympic 5# plate",     ?,  5.0,  5.0);

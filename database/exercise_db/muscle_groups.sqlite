@@ -19,33 +19,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /** 
-* @file equipment_rigs.sqlite
-* @brief Data defining equipment rigs
+* @file muscle_groups.sqlite
+* @brief Population of muscle_groups database
 * @author Jesse Pinnell
-* @date 2017-09-16
+* @date 2017-11-gobble-gobble
 */
 
--- Balanced dumbbell (for exercises that move against the orientation of the dumbbell)
-INSERT INTO Rigs VALUES ("dumbbell pair", ?);
-INSERT INTO Rigs VALUES ("dumbbell single", ?);
-
--- Imbalanced dumbbell, e.g. adjustable dumbbell that has more weight on one dial than the other
--- (can be used for exercises that move in the orientation of the dumbbell)
-INSERT INTO Rigs VALUES ("imbalanced dumbbell pair", ?);
-INSERT INTO Rigs VALUES ("imbalanced dumbbell single", ?);
-
--- Balanced barbell
-INSERT INTO Rigs VALUES ("barbell", ?);
-
--- Imbalanced barbell, e.g. a barbell loaded with more weight on one side than the other
-INSERT INTO Rigs VALUES ("imbalanced barbell", ?);
-
--- These typically aren't used imbalanced
-INSERT INTO Rigs VALUES ("trap bar", ?);
-INSERT INTO Rigs VALUES ("ez bar", ?);
-
--- optional weight plate for things like situps (not connected to any fixture or other accessory)
-INSERT INTO Rigs VALUES ("plate", ?);
-
--- optional weight belt
-INSERT INTO Rigs VALUES ("weighted belt", ?);
+INSERT INTO MuscleGroups VALUES ("abdomen", ?);
+INSERT INTO MuscleGroups VALUES ("arms", ?);
+INSERT INTO MuscleGroups VALUES ("shoulders", ?);
+INSERT INTO MuscleGroups VALUES ("back", ?);
+INSERT INTO MuscleGroups VALUES ("legs", ?);
+INSERT INTO MuscleGroups VALUES ("buttocks", ?);
+INSERT INTO MuscleGroups VALUES ("hips", ?);
+INSERT INTO MuscleGroups VALUES ("chest", ?);

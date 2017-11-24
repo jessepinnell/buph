@@ -30,60 +30,88 @@ SOFTWARE.
 -- TODO Optimizations such as simple integer keys and the like (easy to read for now)
 
 PRAGMA foreign_keys = ON;
+
+DROP TABLE IF EXISTS MuscleGroups;
+CREATE TABLE MuscleGroups
+(
+   Name TEXT NOT NULL PRIMARY KEY,
+   Info TEXT DEFAULT NULL
+);
+
 -- Muscles to exercise
 DROP TABLE IF EXISTS Muscles;
 CREATE TABLE Muscles
 (
    Name TEXT NOT NULL PRIMARY KEY,
    MuscleGroup TEXT NOT NULL,
-   Info TEXT DEFAULT NULL 
+   Info TEXT DEFAULT NULL,
+   FOREIGN KEY(MuscleGroup) REFERENCES MuscleGroups(Name)
 );
 
--- TODO create table of agonists/antagonists
+DROP TABLE IF EXISTS MuscleAntagonists;
+CREATE TABLE MuscleAntagonists
+(
+   Agonist TEXT NOT NULL PRIMARY KEY,
+   Antagonist TEXT DEFAULT NULL,
+   FOREIGN KEY(Agonist) REFERENCES Muscles(Name)
+   FOREIGN KEY(Antagonist) REFERENCES Muscles(Name)
+);
 
 -- Exercise equipment that is stationary
 DROP TABLE IF EXISTS Fixtures;
 CREATE TABLE Fixtures
 (
    Name TEXT NOT NULL, -- can have more than one to be able to have > 1 reistance record
-   Note TEXT DEFAULT "",
-   MinResistance REAL NOT NULL,  -- Resistances in lbs.
-   MaxResistance REAL NOT NULL
+   Note TEXT DEFAULT ""
 );
-
 
 -- Exercise equipment that can be moved
 -- TODO split differently so note doesn't need to be here
-DROP TABLE IF EXISTS EquipmentAccessories;
-CREATE TABLE EquipmentAccessories
+DROP TABLE IF EXISTS Rigs;
+CREATE TABLE Rigs
 (
    Name TEXT NOT NULL,
-   Note TEXT DEFAULT "",
-   MinResistance REAL NOT NULL,  -- Resistances in lbs.
-   MaxResistance REAL NOT NULL
+   Note TEXT DEFAULT ""
 );
 
--- Equipment combinations used for a given exercise
--- For max equippable, assume the capacity is reduced by the same equally (for now)
-DROP TABLE IF EXISTS EquipmentRigs;
-CREATE TABLE EquipmentRigs
+DROP TABLE IF EXISTS Stretches;
+CREATE TABLE Stretches
 (
-   Name TEXT NOT NULL, -- can be many per exercise, so not unique
-   Required BOOLEAN NOT NULL DEFAULT 0,
-   /* If an even number of accessories is necessary (example, plates)
-   then when caculating the possible resistances for an exercise, only
-   options with both will be listed */
-   Paired BOOLEAN NOT NULL DEFAULT 0,
-   MaxEquippable UNSIGNED INT NOT NULL DEFAULT 0, -- the number of the given accessories that can fit
-   EquipmentAccessory TEXT NOT NULL
+   Name TEXT NOT NULL PRIMARY KEY
+);
+
+DROP TABLE IF EXISTS StretchInfo;
+CREATE TABLE StretchInfo
+(
+   StretchName TEXT NOT NULL,
+   Key TEXT NOT NULL,
+   Value TEXT NOT NULL,
+   FOREIGN KEY(StretchName) REFERENCES Stretches(Name)
+);
+
+DROP TABLE IF EXISTS MusclesStretched;
+CREATE TABLE MusclesStretched
+(
+   StretchName TEXT NOT NULL, -- can be many per stretch, so not unique
+   Muscle TEXT NOT NULL,
+   FOREIGN KEY(StretchName) REFERENCES Stretch(Name),
+   FOREIGN KEY(Muscle) REFERENCES Muscles(Name)
 );
 
 -- Individual exercises and the required equipment
 DROP TABLE IF EXISTS Exercises;
 CREATE TABLE Exercises
 (
-   Name TEXT NOT NULL PRIMARY KEY,
-   Documentation TEXT DEFAULT "" -- TODO make proper table for this
+   Name TEXT NOT NULL PRIMARY KEY
+);
+
+DROP TABLE IF EXISTS ExerciseInfo;
+CREATE TABLE ExerciseInfo
+(
+   ExerciseName TEXT NOT NULL,
+   Key TEXT NOT NULL,
+   Value TEXT NOT NULL,
+   FOREIGN KEY(ExerciseName) REFERENCES Exercises(Name)
 );
 
 DROP TABLE IF EXISTS ExerciseFixtures;
@@ -95,13 +123,14 @@ CREATE TABLE ExerciseFixtures
    FOREIGN KEY(FixtureName) REFERENCES Fixtures(Name)
 );
 
-DROP TABLE IF EXISTS ExerciseEquipmentRigs;
-CREATE TABLE ExerciseEquipmentRigs
+DROP TABLE IF EXISTS ExerciseRigs;
+CREATE TABLE ExerciseRigs
 (
    ExerciseName TEXT NOT NULL,
-   EquipmentRigName TEXT NOT NULL,
+   AccessoryName TEXT NOT NULL,
+   Optional BOOLEAN DEFAULT 0,
    FOREIGN KEY(ExerciseName) REFERENCES Exercise(Name)
-   FOREIGN KEY(EquipmentRigName) REFERENCES EquipmentRig(Name)
+   FOREIGN KEY(AccessoryName) REFERENCES Rigs(Name)
 );
 
 DROP TABLE IF EXISTS MusclesExercised;
@@ -109,7 +138,7 @@ CREATE TABLE MusclesExercised
 (
    ExerciseName TEXT NOT NULL, -- can be many per exercise, so not unique
    Muscle TEXT NOT NULL,
-   Weighting REAL NOT NULL DEFAULT 1.0,
+   Weighting REAL NOT NULL DEFAULT 1.0, -- how much a particular exercise acts on a muscles compared to others
    FOREIGN KEY(ExerciseName) REFERENCES Exercises(Name),
    FOREIGN KEY(Muscle) REFERENCES Muscles(Name)
 );

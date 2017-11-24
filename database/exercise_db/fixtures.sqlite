@@ -25,17 +25,21 @@ SOFTWARE.
 * @date 2017-09-16
 */
 
-INSERT INTO Fixtures VALUES ("floor", ?, 0.0, 0.0);
-INSERT INTO Fixtures VALUES ("roman chair", ?, 0.0, 0.0);
-INSERT INTO Fixtures VALUES ("fixed bench", ?, 0.0, 0.0);
-INSERT INTO Fixtures VALUES ("adjustable bench", ?, 0.0, 0.0);
-INSERT INTO Fixtures VALUES ("pull-up bar", ?, 0.0, 0.0);
-INSERT INTO Fixtures VALUES ("cable system", ?, 0.0, 0.0);
-INSERT INTO Fixtures VALUES ("heavy bag", ?, 0.0, 0.0);
-INSERT INTO Fixtures VALUES ("elliptical", ?, 0.0, 0.0);
--- Example of a fixture with a range of resistance settings
--- XXX resistance handled as a percentage here?
-INSERT INTO Fixtures VALUES ("treadmill", ?, 0.0, 100.0);
-
--- Example of a fixture with a constant resistance
-INSERT INTO Fixtures VALUES ("rusty cable system", ?, 3.0, 3.0);
+INSERT INTO Fixtures VALUES ("floor", ?);
+INSERT INTO Fixtures VALUES ("block on floor", ?);
+INSERT INTO Fixtures VALUES ("roman chair", ?);
+INSERT INTO Fixtures VALUES ("horizontal bench", ?);
+INSERT INTO Fixtures VALUES ("incline bench", ?);
+INSERT INTO Fixtures VALUES ("decline bench", ?);
+INSERT INTO Fixtures VALUES ("pull-up bar", ?); -- TODO handle rotated grip bars
+-- three different settings will handle things like a trap bar on a machine that's not adjustable
+INSERT INTO Fixtures VALUES ("cable system, high position", ?);
+INSERT INTO Fixtures VALUES ("cable system, middle position", ?);
+INSERT INTO Fixtures VALUES ("cable system, low position", ?);
+INSERT INTO Fixtures VALUES ("heavy bag", ?);
+INSERT INTO Fixtures VALUES ("elliptical", ?);
+INSERT INTO Fixtures VALUES ("treadmill", ?);
+INSERT INTO Fixtures VALUES ("bench press machine", ?);
+INSERT INTO Fixtures VALUES ("exercise ball", ?);
+INSERT INTO Fixtures VALUES ("leg extension machine", ?);
+INSERT INTO Fixtures VALUES ("tricep dip bars", ?);

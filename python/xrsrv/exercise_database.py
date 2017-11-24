@@ -88,7 +88,7 @@ class Connection(object):
                 "FROM EquipmentAccessories WHERE Name = ?", (equipment_rig.equipment_accessory,))
             for resistance_record in self.cursor.fetchall():
                 resistance_components.append(resistance_record[0])
-                
+
         return resistance_components
 
 
@@ -96,24 +96,25 @@ class Connection(object):
         """
         Get the full set of data for a given exercise
         """
-        exercise_record = collections.namedtuple(\
-            "ExerciseRecord", "name, fixture, equipment_rig_name, documentation")
-        self.cursor.execute("SELECT Name, Fixture, EquipmentRig, Documentation "\
-            "FROM Exercises WHERE Name = ?", (name,))
-        this_exercise = exercise_record._make(self.cursor.fetchone())
-
         # pylint: disable=no-member
         self.cursor.execute(\
-            "SELECT Muscle FROM MusclesExercised WHERE ExerciseName = ?", (this_exercise.name, ))
+            "SELECT FixtureName FROM ExerciseFixtures WHERE ExerciseName = ?", (name, ))
+        fixtures = [i[0] for i in self.cursor.fetchall()]
 
+        self.cursor.execute(\
+            "SELECT Key, Value FROM ExerciseInfo WHERE ExerciseName = ?", (name, ))
+        info = {key: value for (key, value) in self.cursor.fetchall()}
+
+        self.cursor.execute(\
+            "SELECT RigName FROM ExerciseRigs WHERE ExerciseName = ?", (name, ))
+        rigs = [i[0] for i in self.cursor.fetchall()]
+
+        self.cursor.execute(\
+            "SELECT Muscle FROM MusclesExercised WHERE ExerciseName = ?", (name, ))
         muscles_exercised = [i[0] for i in self.cursor.fetchall()]
-        equipment_rig = None
-        if this_exercise.equipment_rig_name is not None and this_exercise.equipment_rig_name != "":
-            equipment_rig = type_factories.EquipmentRig(this_exercise.equipment_rig_name, \
-                self.get_equipment_rig_resistances(this_exercise.equipment_rig_name))
 
-        return type_factories.Exercise(this_exercise.name, this_exercise.fixture,\
-            this_exercise.documentation, equipment_rig, muscles_exercised)
+        return type_factories.Exercise(name, fixtures,\
+            info, rigs, muscles_exercised)
 
 
     # TODO Implement this and remove these when implemented

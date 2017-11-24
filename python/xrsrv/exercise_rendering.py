@@ -48,13 +48,15 @@ class BasicHTMLRenderer(object):
         This is a simple table for printing onto paper (not meant to be pretty)
         """
         body = "    <table>\n"
-        body += "    <tr><th>Exercise</th><th>Muscles</th><th>Fixture</th><th>Rig</th><th>Resistances</th></tr>\n"
+        body += "    <tr><th>Exercise</th><th>Muscles</th><th>Fixture(s)</th>"\
+            "<th>Rig(s)</th></tr>\n"
         for exercise in exercise_data:
-            rig_name = exercise.equipment_rig.name if exercise.equipment_rig is not None else ""
-            resistances = exercise.equipment_rig.possible_resistances if exercise.equipment_rig is not None else ""
-            body += "{0}<tr><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td><td>{5}</td></tr>\n".format(\
+            rig_name = \
+                ", ".join(exercise.equipment_rigs) if exercise.equipment_rigs is not None else ""
+            body += "{0}<tr><td>{1}</td><td>{2}</td><td>{3}</td>"\
+                "<td>{4}</td></tr>\n".format(\
                     " " * 16, exercise.name, ", ".join(exercise.muscles_exercised),\
-                    exercise.fixture, rig_name, resistances)
+                    ", ".join(exercise.fixtures), rig_name)
         body += "    </table>\n"
 
         html = """

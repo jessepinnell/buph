@@ -49,6 +49,7 @@ class ExerciseRenderer(object):
             "treadmill"
         ]
 
+        # TODO this is rigs and the possible resistances/settings
         accessories = [
             type_factories.EquipmentAccessory("olympic barbell", 1),
             type_factories.EquipmentAccessory("olympic 2.5# plate", 2)

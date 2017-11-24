@@ -127,10 +127,10 @@ DROP TABLE IF EXISTS ExerciseRigs;
 CREATE TABLE ExerciseRigs
 (
    ExerciseName TEXT NOT NULL,
-   AccessoryName TEXT NOT NULL,
+   RigName TEXT NOT NULL,
    Optional BOOLEAN DEFAULT 0,
    FOREIGN KEY(ExerciseName) REFERENCES Exercise(Name)
-   FOREIGN KEY(AccessoryName) REFERENCES Rigs(Name)
+   FOREIGN KEY(RigName) REFERENCES Rigs(Name)
 );
 
 DROP TABLE IF EXISTS MusclesExercised;

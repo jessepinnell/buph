@@ -31,20 +31,20 @@ import collections
 # info: additional information about the muscle
 Muscle = collections.namedtuple("Muscle", "name, group, info")
 
-# name: rig name
-# possible_resistances: possible reistances in lbs resistance
-EquipmentRig = collections.namedtuple("EquipmentRig", "name, possible_resistances")
-
 # name: exercise name
-# fixture: fixture required
-# equipment_rig: equpment_rig required or None if none required
-# documentation: additional information about the exercise
+# fixtures: fixtures required
+# info: dictionary of additional information about the exercise
+# equipment_rigs: equpment_rig required or None if none required
 # muscles_exercised: list of muscles exercised
 Exercise = collections.namedtuple(\
-    "Exercise", "name, fixture, documentation, equipment_rig, muscles_exercised")
+    "Exercise", "name, fixtures, info, equipment_rigs, muscles_exercised")
 
 
 # **** User types ****
 # name: equipment accessory name (must match expected names in exercise_db)
 # quantity: equipment accessory quantity available
 EquipmentAccessory = collections.namedtuple("EquipmentAccessory", "name, quantity")
+
+# name: rig name
+# possible_resistances: possible reistances in lbs resistance
+EquipmentRig = collections.namedtuple("EquipmentRig", "name, possible_resistances")

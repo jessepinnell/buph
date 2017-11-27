@@ -43,6 +43,7 @@ class TestRoutineEngine(unittest.TestCase):
         """ Builds up test user data """
         self.user_fixtures = [
             UserFixture("floor", 0, 0),
+            UserFixture("block on floor", 0, 0),
             UserFixture("horizontal bench", 0, 0)
         ]
 

@@ -81,17 +81,20 @@ class RoutineEngine(object):
             
             # If count(exercise_rigs) >= 1 and all are optional, then any single one or none can be used
             # If count(exercise_rigs) > 1 and all are not optional, then any single one can be used
-            if self.user_rigs and exercise.rigs:
-                piggy = {rig.optional for rig in exercise.rigs}
-                print("REX")
-                print(piggy)
-                if exercise.rigs and all(rig.optional for rig in exercise.rigs):
-                    print("OPTIONAL: " + exercise.name + " IS ALL!")
-   
+            if self.user_rigs:
+                if exercise.rigs:
+                    optionals = [rig.optional for rig in exercise.rigs]
+                    requireds = [rig for rig in exercise.rigs if not rig.optional]
+                    if optionals and all(optionals):
+                        #All rigs are optional
+                        selected_exercises.add(exercise_name)
+                    elif not self.user_fixtures.issubset(requireds):
+                        print("Missing required rig(s)") 
+                        continue
+                else:
+                    print("No user rigs supplied, allowing all rigs")
 
-            print("Adding: " + exercise_name)
             selected_exercises.add(exercise_name)
-
 
         self.possible_exercises = [exercise_data[exercise] for exercise in selected_exercises]
 

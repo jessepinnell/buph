@@ -19,6 +19,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+PRAGMA foreign_keys = ON;
+
 -- common names for stretches are pretty hard to come by
 -- XXX this is just an example; need to package with CC-licensed content instead
 INSERT INTO Stretches VALUES ("lat stretch at the wall");

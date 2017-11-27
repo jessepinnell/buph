@@ -71,27 +71,6 @@ class Connection(object):
         return map(type_factories.Muscle._make, self.cursor.fetchall())
 
 
-    def get_equipment_rig_resistances(self, rig):
-        """
-        For a given equipment rig name, get all resistances based on rig definitions
-        """
-        equipment_rig_record = collections.namedtuple(\
-            "equipment_rig_record", "name, required, paired, max_equippable, equipment_accessory")
-        self.cursor.execute("SELECT Name, Required, Paired, MaxEquippable, EquipmentAccessory "\
-            "FROM EquipmentRigs WHERE Name = ?", (rig,))
-        equipment_rigs = map(equipment_rig_record._make, self.cursor.fetchall())
-
-        resistance_components = []
-
-        for equipment_rig in equipment_rigs:
-            self.cursor.execute("SELECT MinResistance, MaxResistance "\
-                "FROM EquipmentAccessories WHERE Name = ?", (equipment_rig.equipment_accessory,))
-            for resistance_record in self.cursor.fetchall():
-                resistance_components.append(resistance_record[0])
-
-        return resistance_components
-
-
     def get_exercise_data(self, name):
         """
         Get the full set of data for a given exercise
@@ -99,22 +78,21 @@ class Connection(object):
         # pylint: disable=no-member
         self.cursor.execute(\
             "SELECT FixtureName FROM ExerciseFixtures WHERE ExerciseName = ?", (name, ))
-        fixtures = [i[0] for i in self.cursor.fetchall()]
+        fixtures = {i[0] for i in self.cursor.fetchall()}
 
         self.cursor.execute(\
-            "SELECT Key, Value FROM ExerciseInfo WHERE ExerciseName = ?", (name, ))
-        info = {key: value for (key, value) in self.cursor.fetchall()}
-
-        self.cursor.execute(\
-            "SELECT RigName FROM ExerciseRigs WHERE ExerciseName = ?", (name, ))
-        rigs = [i[0] for i in self.cursor.fetchall()]
+            "SELECT RigName, Optional FROM ExerciseRigs WHERE ExerciseName = ?", (name, ))
+        rigs = map(type_factories.ExerciseRig._make, self.cursor.fetchall())
 
         self.cursor.execute(\
             "SELECT Muscle FROM MusclesExercised WHERE ExerciseName = ?", (name, ))
         muscles_exercised = [i[0] for i in self.cursor.fetchall()]
 
-        return type_factories.Exercise(name, fixtures,\
-            info, rigs, muscles_exercised)
+        self.cursor.execute(\
+            "SELECT Key, Value FROM ExerciseInfo WHERE ExerciseName = ?", (name, ))
+        info = {key: value for (key, value) in self.cursor.fetchall()}
+
+        return type_factories.Exercise(name, fixtures, rigs, muscles_exercised, info)
 
 
     # TODO Implement this and remove these when implemented

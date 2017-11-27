@@ -19,33 +19,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /** 
-* @file equipment_rigs.sqlite
-* @brief Data defining equipment rigs
+* @file muscle_antagonists.sqlite
+* @brief Population of MuscleAntagonists table
 * @author Jesse Pinnell
-* @date 2017-09-16
+* @date 2017-11-26
 */
-
--- Balanced dumbbell (for exercises that move against the orientation of the dumbbell)
-INSERT INTO Rigs VALUES ("dumbbell pair", ?);
-INSERT INTO Rigs VALUES ("dumbbell single", ?);
-
--- Imbalanced dumbbell, e.g. adjustable dumbbell that has more weight on one dial than the other
--- (can be used for exercises that move in the orientation of the dumbbell)
-INSERT INTO Rigs VALUES ("imbalanced dumbbell pair", ?);
-INSERT INTO Rigs VALUES ("imbalanced dumbbell single", ?);
-
--- Balanced barbell
-INSERT INTO Rigs VALUES ("barbell", ?);
-
--- Imbalanced barbell, e.g. a barbell loaded with more weight on one side than the other
-INSERT INTO Rigs VALUES ("imbalanced barbell", ?);
-
--- These typically aren't used imbalanced
-INSERT INTO Rigs VALUES ("trap bar", ?);
-INSERT INTO Rigs VALUES ("ez bar", ?);
-
--- optional weight plate for things like situps (not connected to any fixture or other accessory)
-INSERT INTO Rigs VALUES ("plate", ?);
-
--- optional weight belt
-INSERT INTO Rigs VALUES ("weighted belt", ?);
+PRAGMA foreign_keys = ON;
+INSERT INTO MuscleAntagonists VALUES ("abductor digiti minimi (foot)","flexor digiti minimi brevis (foot)");
+-- TODO: add more

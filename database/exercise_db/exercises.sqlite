@@ -6,10 +6,8 @@ in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
-
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -19,363 +17,107 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-
 -- TODO(jessepinnell) This will likely be the bulk of the data so it will likely need to be split into different files
-
 -- If count(fixtures) > 1 then any single fixture can be used
 -- If count(rigs) >= 1 and all are optional, then any single one or none can be used
 -- If count(rigs) > 1 and all are not optional, then any single one can be used
-
+PRAGMA foreign_keys = ON;
 INSERT INTO Exercises VALUES ("overhead back press");
 -- example of some info
 INSERT INTO ExerciseInfo VALUES ("overhead back press", "description", "pick it up and put it down");
 INSERT INTO ExerciseInfo VALUES ("overhead back press", "url", "www.shadynonprofit.org/index.php");
 INSERT INTO ExerciseInfo VALUES ("overhead back press", "picture", "www.shadynonprofit.org/");
-INSERT INTO ExerciseFixtures VALUES ("overhead back press", "horizontal bench");
-INSERT INTO ExerciseFixtures VALUES ("overhead back press", "floor");
-INSERT INTO ExerciseRigs VALUES ("overhead back press", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("side-lying lateral raise");
-INSERT INTO ExerciseFixtures VALUES ("side-lying lateral raise", "floor");
-INSERT INTO ExerciseRigs VALUES ("side-lying lateral raise", "dumbbell single", ?);
-
 INSERT INTO Exercises VALUES ("low-pulley front raise, overhand grip");
-INSERT INTO ExerciseFixtures VALUES ("low-pulley front raise, overhand grip", "cable system, low position");
-
 INSERT INTO Exercises VALUES ("chin-up");
-INSERT INTO ExerciseFixtures VALUES ("chin-up", "pull-up bar");
-INSERT INTO ExerciseRigs VALUES ("chin-up", "weighted belt", ?);
-
 INSERT INTO Exercises VALUES ("lying barbell triceps extension");
-INSERT INTO ExerciseFixtures VALUES ("lying barbell triceps extension", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("lying barbell triceps extension", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("lying ez bar triceps extension");
-INSERT INTO ExerciseFixtures VALUES ("lying ez bar triceps extension", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("lying ez bar triceps extension", "ez bar", ?);
-
+INSERT INTO Exercises VALUES ("lying triceps extension");
 INSERT INTO Exercises VALUES ("back lat pulldown");
-INSERT INTO ExerciseFixtures VALUES ("back lat pulldown", "cable system, high position");
-
 INSERT INTO Exercises VALUES ("lying dumbbell triceps extension");
-INSERT INTO ExerciseFixtures VALUES ("lying triceps extension", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("lying triceps extension", "dumbbell pair", ?);
-
 INSERT INTO Exercises VALUES ("overhead cable triceps extension");
-INSERT INTO ExerciseFixtures VALUES ("overhead cable triceps extension", "cable system, high position");
-
 INSERT INTO Exercises VALUES ("triceps push-down");
-INSERT INTO ExerciseFixtures VALUES ("triceps push-down", "cable system, high position");
-
 INSERT INTO Exercises VALUES ("overhead barbell triceps extension");
-INSERT INTO ExerciseFixtures VALUES ("overhead barbell triceps extension", "floor");
-INSERT INTO ExerciseFixtures VALUES ("overhead barbell triceps extension", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("overhead barbell triceps extension", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("overhead ez bar triceps extension");
-INSERT INTO ExerciseFixtures VALUES ("overhead ez bar extension", "floor");
-INSERT INTO ExerciseFixtures VALUES ("overhead ez bar extension", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("overhead ez bar triceps extension", "ez bar", ?);
-
 INSERT INTO Exercises VALUES ("seated cable row");
-INSERT INTO ExerciseFixtures VALUES ("seated cable row", "cable system, middle position");
-
 INSERT INTO Exercises VALUES ("lat pulldown");
-INSERT INTO ExerciseFixtures VALUES ("lat pulldown", "cable system, top position");
-
 INSERT INTO Exercises VALUES ("close grip lat pulldown");
-INSERT INTO ExerciseFixtures VALUES ("close grip lat pulldown", "cable system, top position");
-
 INSERT INTO Exercises VALUES ("cable back kick");
-INSERT INTO ExerciseRigs VALUES ("cable back kick", "cable system, low position", ?);
-
 INSERT INTO Exercises VALUES ("one-dumbbell front raise");
-INSERT INTO ExerciseRigs VALUES ("one-dumbbell front raise", "dumbbell single", ?);
-INSERT INTO ExerciseRigs VALUES ("one-dumbbell front raise", "imbalanced dumbbell single", ?);
-
 INSERT INTO Exercises VALUES ("incline bench press");
-INSERT INTO ExerciseFixtures VALUES ("incline bench press", "incline bench");
-INSERT INTO ExerciseRigs VALUES ("incline bench press", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("arnold dumbbell press");
-INSERT INTO ExerciseFixtures VALUES ("arnold dumbbell press", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("arnold dumbbell press", "dumbbell pair", ?);
-
 INSERT INTO Exercises VALUES ("one-arm dumbbell row");
-INSERT INTO ExerciseFixtures VALUES ("one-arm dumbbell row", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("one-arm dumbbell row", "dumbbell single", ?);
-
 INSERT INTO Exercises VALUES ("single-leg toe raise");
-INSERT INTO ExerciseFixtures VALUES ("single-leg toe raise", "block on floor");
-INSERT INTO ExerciseRigs VALUES ("single-leg toe raise", "dumbbell pair", 1);
-INSERT INTO ExerciseRigs VALUES ("single-leg toe raise", "barbell", 1);
-
 INSERT INTO Exercises VALUES ("seated dumbbell press");
-INSERT INTO ExerciseFixtures VALUES ("seated dumbbell press", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("seated dumbbell press", "dumbbell pair", ?);
-
 INSERT INTO Exercises VALUES ("dumbbell curl");
-INSERT INTO ExerciseFixtures VALUES ("dumbbell curl", "floor");
-INSERT INTO ExerciseRigs VALUES ("dumbbell curl", "dumbbell pair", ?);
-
 INSERT INTO Exercises VALUES ("deadlift");
-INSERT INTO ExerciseFixtures VALUES ("deadlift", "floor");
-INSERT INTO ExerciseRigs VALUES ("deadlift", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("seated e-z bar triceps extension");
-INSERT INTO ExerciseFixtures VALUES ("seated e-z bar triceps extension", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("seated e-z bar triceps extension", "e-z bar", ?);
-
 INSERT INTO Exercises VALUES ("bridging");
-INSERT INTO ExerciseFixtures VALUES ("bridging", "floor");
-
 INSERT INTO Exercises VALUES ("bridging on bench");
-INSERT INTO ExerciseFixtures VALUES ("bridging on bench", "horizontal bench");
-
 INSERT INTO Exercises VALUES ("leg extension");
-INSERT INTO ExerciseFixtures VALUES ("leg extension machine", "horizontal bench");
-
 INSERT INTO Exercises VALUES ("low-pulley bent lateral raise");
-INSERT INTO ExerciseFixtures VALUES ("low-pulley bent lateral raise", "cable system, low position");
-
 INSERT INTO Exercises VALUES ("dumbbell bench press");
-INSERT INTO ExerciseFixtures VALUES ("dumbbell bench press", "horizontal rbench");
-INSERT INTO ExerciseRigs VALUES ("dumbbell bench press", "dumbbell", ?);
-
 INSERT INTO Exercises VALUES ("standing calf raise");
-INSERT INTO ExerciseFixtures VALUES ("standing calf raise", "floor");
-INSERT INTO ExerciseRigs VALUES ("standing calf raise", "dumbbell", 1);
-INSERT INTO ExerciseRigs VALUES ("standing calf raise", "barbell", 1);
-
 INSERT INTO Exercises VALUES ("wide grip seated row");
-INSERT INTO ExerciseFixtures VALUES ("wide grip seated row", "cable system, low position");
-
 INSERT INTO Exercises VALUES ("roman chair side bend");
-INSERT INTO ExerciseFixtures VALUES ("roman chair side bend", "roman chair");
-
 INSERT INTO Exercises VALUES ("sumo deadlift");
-INSERT INTO ExerciseFixtures VALUES ("sumo deadlift", "floor");
-INSERT INTO ExerciseRigs VALUES ("sumo deadlift", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("foot flexion and extension");
-INSERT INTO ExerciseFixtures VALUES ("foot flexion and extension", "floor");
-INSERT INTO ExerciseFixtures VALUES ("foot flexion and extension", "block on floor");
-
 INSERT INTO Exercises VALUES ("concentration curl");
-INSERT INTO ExerciseFixtures VALUES ("concentration curl", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("concentration curl", "dumbbell", ?);
-
 INSERT INTO Exercises VALUES ("decline bench press");
-INSERT INTO ExerciseFixtures VALUES ("decline bench press", "decline bench");
-INSERT INTO ExerciseRigs VALUES ("decline bench press", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("straight-arm dumbbell pullover");
-INSERT INTO ExerciseFixtures VALUES ("straight-arm dumbbell pullover", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("straight-arm dumbbell pullover", "dumbbell", ?);
-
 INSERT INTO Exercises VALUES ("straight arm lat pulldown");
-INSERT INTO ExerciseFixtures VALUES ("straight arm lat pulldown", "cable system, high position");
-
 INSERT INTO Exercises VALUES ("dumbbell upright row");
-INSERT INTO ExerciseFixtures VALUES ("dumbbell upright row", "floor");
-INSERT INTO ExerciseRigs VALUES ("dumbbell upright row", "dumbbell", ?);
-
 INSERT INTO Exercises VALUES ("barbell upright row");
-INSERT INTO ExerciseFixtures VALUES ("barbell upright row", "floor");
-INSERT INTO ExerciseRigs VALUES ("barbell upright row", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("low-pulley lateral raises");
-INSERT INTO ExerciseFixtures VALUES ("low-pulley lateral raises", "cable system, low position");
-INSERT INTO ExerciseRigs VALUES ("low-pulley lateral raises", "cable system, low position", ?);
-
 INSERT INTO Exercises VALUES ("front squat");
-INSERT INTO ExerciseFixtures VALUES ("front squat", "floor");
-INSERT INTO ExerciseRigs VALUES ("front squat", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("push-up");
-INSERT INTO ExerciseFixtures VALUES ("push-up", "floor");
-
 INSERT INTO Exercises VALUES ("dumbbell lateral raise");
-INSERT INTO ExerciseFixtures VALUES ("dumbbell lateral raise", "floor");
-INSERT INTO ExerciseRigs VALUES ("dumbbell lateral raise", "dumbbell", ?);
-
 INSERT INTO Exercises VALUES ("low pulley curl");
-INSERT INTO ExerciseFixtures VALUES ("low pulley curl", "cable system, low position");
-
 INSERT INTO Exercises VALUES ("seated dumbbell triceps extension");
-INSERT INTO ExerciseFixtures VALUES ("seated dumbbell triceps extension", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("seated dumbbell triceps extension", "dumbbell single", ?);
-
 INSERT INTO Exercises VALUES ("lying cable leg curl");
-INSERT INTO ExerciseFixtures VALUES ("lying cable leg curl", "cable system, low position");
-INSERT INTO ExerciseRigs VALUES ("lying cable leg curl", "cable system, low position", ?);
-
 INSERT INTO Exercises VALUES ("incline dumbbell press");
-INSERT INTO ExerciseFixtures VALUES ("incline dumbbell press", "incline bench");
-INSERT INTO ExerciseRigs VALUES ("incline dumbbell press", "dumbbell pair", ?);
-
 INSERT INTO Exercises VALUES ("reverse triceps push-down");
-INSERT INTO ExerciseFixtures VALUES ("reverse triceps push-down", "cable system, high position");
-INSERT INTO ExerciseRigs VALUES ("reverse triceps push-down", "cable system, high position", ?);
-
 INSERT INTO Exercises VALUES ("power squat");
-INSERT INTO ExerciseFixtures VALUES ("power squat", "floor");
-INSERT INTO ExerciseRigs VALUES ("power squat", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("hanging leg raise");
-INSERT INTO ExerciseFixtures VALUES ("hanging leg raise", "pull-up bar");
-
 INSERT INTO Exercises VALUES ("trap bar shrug");
-INSERT INTO ExerciseFixtures VALUES ("trap bar shrug", "floor");
-INSERT INTO ExerciseRigs VALUES ("trap bar shrug", "trap bar", ?);
-
 INSERT INTO Exercises VALUES ("dumbbell lunge");
-INSERT INTO ExerciseFixtures VALUES ("dumbbell lunge", "floor");
-INSERT INTO ExerciseRigs VALUES ("dumbbell lunge", "dumbbell pair", ?);
-
 INSERT INTO Exercises VALUES ("dumbbell shrug");
-INSERT INTO ExerciseFixtures VALUES ("dumbbell shrug", "floor");
-INSERT INTO ExerciseRigs VALUES ("dumbbell shrug", "dumbbell pair", ?);
-
 INSERT INTO Exercises VALUES ("reverse barbell curl");
-INSERT INTO ExerciseFixtures VALUES ("reverse barbell curl", "floor");
-INSERT INTO ExerciseRigs VALUES ("reverse barbell curl", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("reverse ez bar curl");
-INSERT INTO ExerciseFixtures VALUES ("reverse ez bar curl", "floor");
-INSERT INTO ExerciseRigs VALUES ("reverse ez bar curl", "ez bar", ?);
-
 INSERT INTO Exercises VALUES ("incline dumbbell fly");
-INSERT INTO ExerciseFixtures VALUES ("incline dumbbell fly", "incline bench");
-INSERT INTO ExerciseRigs VALUES ("incline dumbbell fly", "dumbbell pair", ?);
-
 INSERT INTO Exercises VALUES ("barbell shrug");
-INSERT INTO ExerciseFixtures VALUES ("barbell shrug", "floor");
-INSERT INTO ExerciseRigs VALUES ("barbell shrug", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("trap bar deadlift");
-INSERT INTO ExerciseFixtures VALUES ("trap bar deadlift", "floor");
-INSERT INTO ExerciseRigs VALUES ("trap bar deadlift", "trap bar", ?);
-
 INSERT INTO Exercises VALUES ("sit-up");
-INSERT INTO ExerciseFixtures VALUES ("sit-up", "floor");
-INSERT INTO ExerciseRigs VALUES ("sit-up", "plate", 1);
-
 INSERT INTO Exercises VALUES ("cable hip abduction");
-INSERT INTO ExerciseFixtures VALUES ("cable hip abduction", "cable system, low position");
-
 INSERT INTO Exercises VALUES ("straight-arm barbell pullover");
-INSERT INTO ExerciseFixtures VALUES ("straight-arm barbell pullover", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("straight-arm barbell pullover", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("dumbbell side bend");
-INSERT INTO ExerciseFixtures VALUES ("dumbbell side bend", "floor");
-INSERT INTO ExerciseRigs VALUES ("dumbbell side bend", "dumbbell single", ?);
-
 INSERT INTO Exercises VALUES ("cable hip adduction");
-INSERT INTO ExerciseFixtures VALUES ("cable hip adduction", "cable system, low position");
-
 INSERT INTO Exercises VALUES ("lat bar low-pulley front raise");
-INSERT INTO ExerciseFixtures VALUES ("lat bar low-pulley front raise", "cable system, low position");
-
 INSERT INTO Exercises VALUES ("external arm rotation");
-INSERT INTO ExerciseFixtures VALUES ("external arm rotation", "cable system, middle position");
-
 INSERT INTO Exercises VALUES ("hammer curl");
-INSERT INTO ExerciseFixtures VALUES ("hammer curl", "floor");
-INSERT INTO ExerciseRigs VALUES ("hammer curl", "dumbbell pair", ?);
-
 INSERT INTO Exercises VALUES ("plié dumbbell squat");
-INSERT INTO ExerciseFixtures VALUES ("plié dumbbell squat", "floor");
-INSERT INTO ExerciseRigs VALUES ("plié dumbbell squat", "dumbbell", ?); -- can also use imbalanced
-
 INSERT INTO Exercises VALUES ("bench press");
-INSERT INTO ExerciseFixtures VALUES ("bench press", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("bench press", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("pull-up");
-INSERT INTO ExerciseFixtures VALUES ("pull-up", "pull-up bar");
-
 INSERT INTO Exercises VALUES ("crunch");
-INSERT INTO ExerciseFixtures VALUES ("crunch", "floor");
-
 INSERT INTO Exercises VALUES ("barbell front raise");
-INSERT INTO ExerciseFixtures VALUES ("barbell front raise", "floor");
-INSERT INTO ExerciseRigs VALUES ("barbell front raise", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("alternate front arm raise");
-INSERT INTO ExerciseFixtures VALUES ("alternate front arm raise", "floor");
-INSERT INTO ExerciseRigs VALUES ("alternate front arm raise", "dumbbell pair", ?);
-
 INSERT INTO Exercises VALUES ("back extension");
-INSERT INTO ExerciseFixtures VALUES ("back extension", "roman chair");
-
 INSERT INTO Exercises VALUES ("bent low-pulley lateral raise");
-INSERT INTO ExerciseFixtures VALUES ("bent low-pulley lateral raise", "cable system, low position");
-
 INSERT INTO Exercises VALUES ("dumbbell sqat");
-INSERT INTO ExerciseFixtures VALUES ("dumbbell sqat", "floor");
-INSERT INTO ExerciseRigs VALUES ("dumbbell sqat", "dumbbell pair", ?);
-
 INSERT INTO Exercises VALUES ("barbell curl");
-INSERT INTO ExerciseFixtures VALUES ("barbell curl", "floor");
-INSERT INTO ExerciseRigs VALUES ("barbell curl", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("triceps dip");
-INSERT INTO ExerciseFixtures VALUES ("triceps dip", "tricep dip bars");
-
 INSERT INTO Exercises VALUES ("dumbbell fly");
-INSERT INTO ExerciseFixtures VALUES ("dumbbell fly", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("dumbbell fly", "dumbbell", ?);
-
 INSERT INTO Exercises VALUES ("dumbbell wrist curl");
-INSERT INTO ExerciseFixtures VALUES ("dumbbell wrist curl", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("dumbbell wrist curl", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("barbell wrist curl");
-INSERT INTO ExerciseFixtures VALUES ("barbell wrist curl", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("barbell bar wrist curl", "ez bar", ?);
-
 INSERT INTO Exercises VALUES ("ez bar wrist curl");
-INSERT INTO ExerciseFixtures VALUES ("ez bar wrist curl", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("ez bar wrist curl", "ez bar", ?);
-
 INSERT INTO Exercises VALUES ("reverse dumbbell wrist curl");
-INSERT INTO ExerciseFixtures VALUES ("reverse dumbbell wrist curl", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("reverse dumbbell wrist curl", "dumbbell pair", ?);
-
 INSERT INTO Exercises VALUES ("reverse barbell wrist curl");
-INSERT INTO ExerciseFixtures VALUES ("reverse barbell wrist curl", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("reverse barbell wrist curl", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("reverse ez bar wrist curl");
-INSERT INTO ExerciseFixtures VALUES ("reverse ez bar wrist curl", "horizontal bench");
-INSERT INTO ExerciseRigs VALUES ("reverse ez bar wrist curl", "ez bar", ?);
-
 INSERT INTO Exercises VALUES ("barbell lunges");
-INSERT INTO ExerciseFixtures VALUES ("barbell lunges", "floor");
-INSERT INTO ExerciseRigs VALUES ("barbell lunges", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("incline sit-up");
-INSERT INTO ExerciseFixtures VALUES ("incline sit-up", "incline bench");
-
 INSERT INTO Exercises VALUES ("calves over bench sit-up");
-INSERT INTO ExerciseFixtures VALUES ("calves over bench sit-up", "horizontal bench");
-
 INSERT INTO Exercises VALUES ("high pulley curl");
-INSERT INTO ExerciseFixtures VALUES ("high pulley curl", "cable system, middle position");
-
 INSERT INTO Exercises VALUES ("good morning");
-INSERT INTO ExerciseFixtures VALUES ("good morning", "floor");
-INSERT INTO ExerciseRigs VALUES ("good morning", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("low-pulley front raise, neutral grip");
-INSERT INTO ExerciseFixtures VALUES ("low-pulley front raise, neutral grip", "cable system, low position");
-INSERT INTO ExerciseRigs VALUES ("low-pulley front raise, neutral grip", "cable system, low position", ?);
-
 INSERT INTO Exercises VALUES ("overhead front press");
-INSERT INTO ExerciseFixtures VALUES ("overhead front press", "floor");
-INSERT INTO ExerciseRigs VALUES ("overhead front press", "barbell", ?);
-
 INSERT INTO Exercises VALUES ("one-arm reverse push-down");
-INSERT INTO ExerciseFixtures VALUES ("one-arm reverse push-down", "cable system, high position");

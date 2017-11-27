@@ -24,27 +24,36 @@
 
 import collections
 
-# **** Equipment types ****
-
+# **** Exercise types ****
 # name: muscle name
 # group: muscle grouping
-# info: additional information about the muscle
-Muscle = collections.namedtuple("Muscle", "name, group, info")
+# antagonists: muscle antagonists
+# info: dictionary of additional information about the muscle
+Muscle = collections.namedtuple("Muscle", "name, group, antagonist, info")
 
 # name: exercise name
 # fixtures: fixtures required
-# info: dictionary of additional information about the exercise
-# equipment_rigs: equpment_rig required or None if none required
+# rigs: rigs to be used with this exercise
 # muscles_exercised: list of muscles exercised
+# info: dictionary of additional information about the exercise
 Exercise = collections.namedtuple(\
-    "Exercise", "name, fixtures, info, equipment_rigs, muscles_exercised")
+    "Exercise", "name, fixtures, rigs, muscles_exercised, info")
 
+# name: rig name
+# optional: optional in exercise
+ExerciseRig = collections.namedtuple("ExerciseRig", "name, optional")
 
 # **** User types ****
+# name: fixture name
+# min_setting: either minimum speed, weight, or resistance
+# max_setting: either maximum speed, weight, or resistance
+UserFixture = collections.namedtuple("UserFixture", "name, min_setting, max_setting")
+
+# name: rig name
+# min_setting: either minimum speed, weight, or resistance
+# max_setting: either maximum speed, weight, or resistance
+UserRig = collections.namedtuple("UserRig", "name, min_setting, max_setting")
+
 # name: equipment accessory name (must match expected names in exercise_db)
 # quantity: equipment accessory quantity available
 EquipmentAccessory = collections.namedtuple("EquipmentAccessory", "name, quantity")
-
-# name: rig name
-# possible_resistances: possible reistances in lbs resistance
-EquipmentRig = collections.namedtuple("EquipmentRig", "name, possible_resistances")

@@ -24,7 +24,7 @@
 
 import unittest
 from xrsrv import routine_engine
-from xrsrv.type_factories import EquipmentAccessory
+from xrsrv.type_factories import UserRig, UserFixture 
 
 EXERCISE_DATABASE_NAME = "exercise.db"
 
@@ -35,34 +35,36 @@ class TestRoutineEngine(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
         super(TestRoutineEngine, self).__init__(*args, **kwargs)
-        self.generator = routine_engine.RoutineEngine(EXERCISE_DATABASE_NAME)
+        self.engine = routine_engine.RoutineEngine(EXERCISE_DATABASE_NAME)
         self.build_user()
 
 
     def build_user(self):
         """ Builds up test user data """
         self.user_fixtures = [
-            "floor",
-            "fixed bench",
-            "treadmill"
+            UserFixture("floor", 0, 0),
+            UserFixture("horizontal bench", 0, 0)
         ]
 
-        self.user_accessories = [
-            EquipmentAccessory("olympic barbell", 1),
-            EquipmentAccessory("olympic 2.5# plate", 2)
+        self.user_rigs = [
+            UserRig("barbell", 25, 25),
+            UserRig("barbell", 35, 35),
+            UserRig("barbell", 45, 45),
+            UserRig("barbell", 55, 55),
+            UserRig("dumbbell", 55, 55)
         ]
 
 
     def test_instantiation(self):
         """ Test the creation of the connection to the database """
-        self.assertIsInstance(self.generator, routine_engine.RoutineEngine)
+        self.assertIsInstance(self.engine, routine_engine.RoutineEngine)
 
 
     def test_generate_single_plan(self):
         """ Test the generate_single_plan() method """
         num_exercises_in_plan = 12
-        self.generator.set_user_environment([], [])
-        plan = self.generator.generate_plan("basic_random", n=num_exercises_in_plan)
+        self.engine.set_user_environment(self.user_fixtures, self.user_rigs)
+        plan = self.engine.generate_plan("basic_random", n=num_exercises_in_plan)
         self.assertEqual(len(plan), num_exercises_in_plan)
 
 
@@ -72,7 +74,7 @@ class TestRoutineEngine(unittest.TestCase):
         than could be possibly selected
         """
         num_exercises_in_plan = 342
-        self.generator.set_user_environment([], [])
+        self.generator.set_user_environment(self.user_fixtures, self.user_rigs)
         plan = self.generator.generate_plan("basic_random", n=num_exercises_in_plan)
         self.assertNotEqual(len(plan), num_exercises_in_plan)
 

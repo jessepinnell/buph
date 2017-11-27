@@ -44,24 +44,21 @@ CREATE TABLE Muscles
 (
    Name TEXT NOT NULL PRIMARY KEY,
    MuscleGroup TEXT NOT NULL,
-   Info TEXT DEFAULT NULL,
-   FOREIGN KEY(MuscleGroup) REFERENCES MuscleGroups(Name)
+   Info TEXT DEFAULT NULL
 );
 
 DROP TABLE IF EXISTS MuscleAntagonists;
 CREATE TABLE MuscleAntagonists
 (
-   Agonist TEXT NOT NULL PRIMARY KEY,
-   Antagonist TEXT DEFAULT NULL,
-   FOREIGN KEY(Agonist) REFERENCES Muscles(Name)
-   FOREIGN KEY(Antagonist) REFERENCES Muscles(Name)
+   Agonist TEXT NOT NULL REFERENCES Muscles(Name),
+   Antagonist TEXT NOT NULL REFERENCES Muscles(Name)
 );
 
 -- Exercise equipment that is stationary
 DROP TABLE IF EXISTS Fixtures;
 CREATE TABLE Fixtures
 (
-   Name TEXT NOT NULL, -- can have more than one to be able to have > 1 reistance record
+   Name TEXT NOT NULL PRIMARY KEY,
    Note TEXT DEFAULT ""
 );
 
@@ -70,7 +67,7 @@ CREATE TABLE Fixtures
 DROP TABLE IF EXISTS Rigs;
 CREATE TABLE Rigs
 (
-   Name TEXT NOT NULL,
+   Name TEXT NOT NULL PRIMARY KEY,
    Note TEXT DEFAULT ""
 );
 
@@ -83,19 +80,16 @@ CREATE TABLE Stretches
 DROP TABLE IF EXISTS StretchInfo;
 CREATE TABLE StretchInfo
 (
-   StretchName TEXT NOT NULL,
+   StretchName TEXT NOT NULL REFERENCES Stretches(Name),
    Key TEXT NOT NULL,
-   Value TEXT NOT NULL,
-   FOREIGN KEY(StretchName) REFERENCES Stretches(Name)
+   Value TEXT NOT NULL
 );
 
 DROP TABLE IF EXISTS MusclesStretched;
 CREATE TABLE MusclesStretched
 (
-   StretchName TEXT NOT NULL, -- can be many per stretch, so not unique
-   Muscle TEXT NOT NULL,
-   FOREIGN KEY(StretchName) REFERENCES Stretch(Name),
-   FOREIGN KEY(Muscle) REFERENCES Muscles(Name)
+   StretchName TEXT NOT NULL REFERENCES Stretch(Name), -- can be many per stretch, so not unique
+   Muscle TEXT NOT NULL REFERENCES Muscles(Name)
 );
 
 -- Individual exercises and the required equipment
@@ -108,37 +102,30 @@ CREATE TABLE Exercises
 DROP TABLE IF EXISTS ExerciseInfo;
 CREATE TABLE ExerciseInfo
 (
-   ExerciseName TEXT NOT NULL,
+   ExerciseName TEXT NOT NULL REFERENCES Exercises(Name),
    Key TEXT NOT NULL,
-   Value TEXT NOT NULL,
-   FOREIGN KEY(ExerciseName) REFERENCES Exercises(Name)
+   Value TEXT NOT NULL
 );
 
 DROP TABLE IF EXISTS ExerciseFixtures;
 CREATE TABLE ExerciseFixtures
 (
-   ExerciseName TEXT NOT NULL,
-   FixtureName TEXT NOT NULL,
-   FOREIGN KEY(ExerciseName) REFERENCES Exercise(Name)
-   FOREIGN KEY(FixtureName) REFERENCES Fixtures(Name)
+   ExerciseName TEXT NOT NULL REFERENCES Exercises(Name),
+   FixtureName TEXT NOT NULL REFERENCES Fixtures(Name)
 );
 
 DROP TABLE IF EXISTS ExerciseRigs;
 CREATE TABLE ExerciseRigs
 (
-   ExerciseName TEXT NOT NULL,
-   RigName TEXT NOT NULL,
-   Optional BOOLEAN DEFAULT 0,
-   FOREIGN KEY(ExerciseName) REFERENCES Exercise(Name)
-   FOREIGN KEY(RigName) REFERENCES Rigs(Name)
+   ExerciseName TEXT NOT NULL REFERENCES Exercises(Name),
+   RigName TEXT NOT NULL REFERENCES Rigs(Name),
+   Optional INTEGER DEFAULT 0
 );
 
 DROP TABLE IF EXISTS MusclesExercised;
 CREATE TABLE MusclesExercised
 (
-   ExerciseName TEXT NOT NULL, -- can be many per exercise, so not unique
-   Muscle TEXT NOT NULL,
-   Weighting REAL NOT NULL DEFAULT 1.0, -- how much a particular exercise acts on a muscles compared to others
-   FOREIGN KEY(ExerciseName) REFERENCES Exercises(Name),
-   FOREIGN KEY(Muscle) REFERENCES Muscles(Name)
+   ExerciseName TEXT NOT NULL REFERENCES Exercises(Name), -- can be many per exercise, so not unique
+   Muscle TEXT NOT NULL REFERENCES Muscles(Name),
+   Weighting REAL NOT NULL DEFAULT 1.0 -- how much a particular exercise acts on a muscles compared to others
 );

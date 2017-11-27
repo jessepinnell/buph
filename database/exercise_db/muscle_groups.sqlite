@@ -25,6 +25,8 @@ SOFTWARE.
 * @date 2017-11-gobble-gobble
 */
 
+PRAGMA foreign_keys = ON;
+
 INSERT INTO MuscleGroups VALUES ("abdomen", ?);
 INSERT INTO MuscleGroups VALUES ("arms", ?);
 INSERT INTO MuscleGroups VALUES ("shoulders", ?);

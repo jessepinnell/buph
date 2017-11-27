@@ -24,9 +24,9 @@ SOFTWARE.
 * @author Jesse Pinnell
 * @date 2017-09-16
 */
+PRAGMA foreign_keys = ON;
 
 INSERT INTO Muscles VALUES ("abductor digiti minimi (foot)", "legs", "");
-INSERT INTO MuscleAntagonists VALUES ("abductor digiti minimi (foot)","flexor digiti minimi brevis (foot)");
 INSERT INTO Muscles VALUES ("abductor digiti minimi (hand)", "arms", "");
 INSERT INTO Muscles VALUES ("abductor hallucis", "legs", "");
 INSERT INTO Muscles VALUES ("abductor pollicis brevis", "arms", "");
@@ -167,3 +167,4 @@ INSERT INTO Muscles VALUES ("triceps brachii", "arms", "");
 INSERT INTO Muscles VALUES ("vastus intermedius", "legs", "");
 INSERT INTO Muscles VALUES ("vastus lateralis", "legs", "");
 INSERT INTO Muscles VALUES ("vastus medialis", "legs", "");
+INSERT INTO MuscleAntagonists VALUES ("abductor digiti minimi (foot)","flexor digiti minimi brevis (foot)");

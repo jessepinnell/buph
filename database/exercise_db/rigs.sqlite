@@ -19,28 +19,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /** 
-* @file fixtures.sqlite
-* @brief Initial data for fixtures
+* @file equipment_rigs.sqlite
+* @brief Data defining equipment rigs
 * @author Jesse Pinnell
 * @date 2017-09-16
 */
 PRAGMA foreign_keys = ON;
 
-INSERT INTO Fixtures VALUES ("floor", ?);
-INSERT INTO Fixtures VALUES ("block on floor", ?);
-INSERT INTO Fixtures VALUES ("roman chair", ?);
-INSERT INTO Fixtures VALUES ("horizontal bench", ?);
-INSERT INTO Fixtures VALUES ("incline bench", ?);
-INSERT INTO Fixtures VALUES ("decline bench", ?);
-INSERT INTO Fixtures VALUES ("pull-up bar", ?); -- TODO handle rotated grip bars
--- three different settings will handle things like a trap bar on a machine that's not adjustable
-INSERT INTO Fixtures VALUES ("cable system, high position", ?);
-INSERT INTO Fixtures VALUES ("cable system, middle position", ?);
-INSERT INTO Fixtures VALUES ("cable system, low position", ?);
-INSERT INTO Fixtures VALUES ("heavy bag", ?);
-INSERT INTO Fixtures VALUES ("elliptical", ?);
-INSERT INTO Fixtures VALUES ("treadmill", ?);
-INSERT INTO Fixtures VALUES ("bench press machine", ?);
-INSERT INTO Fixtures VALUES ("exercise ball", ?);
-INSERT INTO Fixtures VALUES ("leg extension machine", ?);
-INSERT INTO Fixtures VALUES ("tricep dip bars", ?);
+-- Balanced dumbbell (for exercises that move against the orientation of the dumbbell)
+INSERT INTO Rigs VALUES ("dumbbell pair", ?);
+INSERT INTO Rigs VALUES ("dumbbell single", ?);
+
+-- Imbalanced dumbbell, e.g. adjustable dumbbell that has more weight on one dial than the other
+-- (can be used for exercises that move in the orientation of the dumbbell)
+INSERT INTO Rigs VALUES ("imbalanced dumbbell pair", ?);
+INSERT INTO Rigs VALUES ("imbalanced dumbbell single", ?);
+
+-- Balanced barbell
+INSERT INTO Rigs VALUES ("barbell", ?);
+
+-- Imbalanced barbell, e.g. a barbell loaded with more weight on one side than the other
+INSERT INTO Rigs VALUES ("imbalanced barbell", ?);
+
+-- These typically aren't used imbalanced
+INSERT INTO Rigs VALUES ("trap bar", ?);
+INSERT INTO Rigs VALUES ("ez bar", ?);
+
+-- optional weight plate for things like situps (not connected to any fixture or other accessory)
+INSERT INTO Rigs VALUES ("plate", ?);
+
+-- optional weight belt
+INSERT INTO Rigs VALUES ("weighted belt", ?);

@@ -30,18 +30,21 @@ exercise routines
 4) the routine generators generate lists of exercises meeting requirements
 """
 
+# TODO Add logging
+
 from xrsrv import exercise_database
 from xrsrv import routine_generators
 
 class RoutineEngine(object):
     """ Routine engine """
-    def __init__(self, exercise_database_name):
+    def __init__(self, exercise_database_name, verbose=True):
         self.exercise_database = exercise_database.Connection(exercise_database_name)
         self.generators = {}
         self.user_fixtures = []
-        self.user_accessories = []
+        self.user_rigs = []
         self.user_routine_history = []
         self.possible_exercises = []
+        self.verbose = verbose
 
 
     def add_generator(self, generator_name, generator):
@@ -49,30 +52,46 @@ class RoutineEngine(object):
         self.generators[generator_name] = generator
 
 
-    def set_user_environment(self, user_fixtures, user_accessories):
+    def set_user_environment(self, user_fixtures, user_rigs):
         """ set the user environment to use for generation functions
 
-        if user_fixtures and user_accessories are len() = 0, give all
+        if user_fixtures and user_rigs are len() = 0, give all
         """
         self.user_fixtures = user_fixtures
-        self.user_accessories = user_accessories
+        self.user_rigs = user_rigs
 
         exercise_names = self.exercise_database.get_list_of_exercise_names()
         exercise_data = {exercise: self.exercise_database.get_exercise_data(exercise)\
                 for exercise in exercise_names}
 
-
         selected_exercises = set()
+
 
         # Starting with the full list of exercise choices, remove or use them depending on
         # whether they pass all the rules tests
+        for exercise_name, exercise in exercise_data.items():
+            #Check if the user has any fixture satisfying this exercise
+            #if count(exercise_fixtures) > 1 then any single fixture can be used
+            if self.user_fixtures:
+                if not exercise.fixtures.intersection({uf.name for uf in self.user_fixtures}):
+                    print("No suitable fixture for " + exercise.name)
+                    continue
+            else:
+                print("No user fixtures supplied, allowing all fixtures")
+            
+            # If count(exercise_rigs) >= 1 and all are optional, then any single one or none can be used
+            # If count(exercise_rigs) > 1 and all are not optional, then any single one can be used
+            if self.user_rigs and exercise.rigs:
+                piggy = {rig.optional for rig in exercise.rigs}
+                print("REX")
+                print(piggy)
+                if exercise.rigs and all(rig.optional for rig in exercise.rigs):
+                    print("OPTIONAL: " + exercise.name + " IS ALL!")
+   
 
-        for exercise_name in exercise_names:
-
+            print("Adding: " + exercise_name)
             selected_exercises.add(exercise_name)
 
-
-        # XXX TODO possible exercises and resistances
 
         self.possible_exercises = [exercise_data[exercise] for exercise in selected_exercises]
 

@@ -52,7 +52,7 @@ class BasicHTMLRenderer(object):
             "<th>Rig(s)</th></tr>\n"
         for exercise in exercise_data:
             rig_name = \
-                ", ".join(exercise.equipment_rigs) if exercise.equipment_rigs is not None else ""
+                ", ".join([rig.name for rig in exercise.rigs]) if exercise.rigs is not None else ""
             body += "{0}<tr><td>{1}</td><td>{2}</td><td>{3}</td>"\
                 "<td>{4}</td></tr>\n".format(\
                     " " * 16, exercise.name, ", ".join(exercise.muscles_exercised),\

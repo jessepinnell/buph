@@ -18,15 +18,28 @@ SOFTWARE.
 */
 
 -- TODO(jessepinnell) This will likely be the bulk of the data so it will likely need to be split into different files
+
+-- Keys with trailing underscores are for testing
+
 -- If count(fixtures) > 1 then any single fixture can be used
 -- If count(rigs) >= 1 and all are optional, then any single one or none can be used
 -- If count(rigs) > 1 and all are not optional, then any single one can be used
 PRAGMA foreign_keys = ON;
+
+INSERT INTO Exercises VALUES ("test_exercise_1_");
+INSERT INTO ExerciseInfo VALUES ("test_exercise_1_", "description", "Test exercise using one fixture");
+INSERT INTO ExerciseInfo VALUES ("test_exercise_1_", "url", "https://github.com/jessepinnell/xrsrv");
+INSERT INTO Exercises VALUES ("test_exercise_2_");
+INSERT INTO ExerciseInfo VALUES ("test_exercise_2_", "description", "Test exercise using two fixtures");
+INSERT INTO ExerciseInfo VALUES ("test_exercise_2_", "url", "https://github.com/jessepinnell/xrsrv");
+INSERT INTO Exercises VALUES ("test_exercise_3_");
+INSERT INTO ExerciseInfo VALUES ("test_exercise_3_", "description", "Test exercise using multiple optional rigs");
+INSERT INTO ExerciseInfo VALUES ("test_exercise_3_", "url", "https://github.com/jessepinnell/xrsrv");
+INSERT INTO Exercises VALUES ("test_exercise_4_");
+INSERT INTO ExerciseInfo VALUES ("test_exercise_4_", "description", "Test exercise using more than one required rig");
+INSERT INTO ExerciseInfo VALUES ("test_exercise_4_", "url", "https://github.com/jessepinnell/xrsrv");
+
 INSERT INTO Exercises VALUES ("overhead back press");
--- example of some info
-INSERT INTO ExerciseInfo VALUES ("overhead back press", "description", "pick it up and put it down");
-INSERT INTO ExerciseInfo VALUES ("overhead back press", "url", "www.shadynonprofit.org/index.php");
-INSERT INTO ExerciseInfo VALUES ("overhead back press", "picture", "www.shadynonprofit.org/");
 INSERT INTO Exercises VALUES ("side-lying lateral raise");
 INSERT INTO Exercises VALUES ("low-pulley front raise, overhand grip");
 INSERT INTO Exercises VALUES ("chin-up");

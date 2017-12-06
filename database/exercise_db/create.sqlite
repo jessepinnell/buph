@@ -119,7 +119,7 @@ CREATE TABLE ExerciseRigs
 (
    ExerciseName TEXT NOT NULL REFERENCES Exercises(Name),
    RigName TEXT NOT NULL REFERENCES Rigs(Name),
-   Optional INTEGER DEFAULT 0
+   Optional INTEGER NOT NULL DEFAULT 0
 );
 
 DROP TABLE IF EXISTS MusclesExercised;

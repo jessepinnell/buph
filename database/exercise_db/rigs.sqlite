@@ -26,6 +26,13 @@ SOFTWARE.
 */
 PRAGMA foreign_keys = ON;
 
+
+-- Keys with trailing underscores are for testing
+INSERT INTO Rigs VALUES ("test_rig_1_", ?);
+INSERT INTO Rigs VALUES ("test_rig_2_", ?);
+INSERT INTO Rigs VALUES ("test_rig_3_", ?);
+INSERT INTO Rigs VALUES ("test_rig_4_", ?);
+
 -- Balanced dumbbell (for exercises that move against the orientation of the dumbbell)
 INSERT INTO Rigs VALUES ("dumbbell pair", ?);
 INSERT INTO Rigs VALUES ("dumbbell single", ?);

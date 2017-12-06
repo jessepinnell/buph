@@ -31,6 +31,7 @@ exercise routines
 """
 
 # TODO Add logging
+# pylint: disable=too-many-branches
 
 from xrsrv import exercise_database
 from xrsrv import routine_generators
@@ -52,49 +53,81 @@ class RoutineEngine(object):
         self.generators[generator_name] = generator
 
 
-    def set_user_environment(self, user_fixtures, user_rigs):
+    def set_user_environment(self, user_fixtures, user_rigs, verbose=False):
         """ set the user environment to use for generation functions
 
-        if user_fixtures and user_rigs are len() = 0, give all
+        if len(user_fixtures) = 0, give all exercises possible
         """
+        print_verbose = print if verbose else lambda *a, **k: None
         self.user_fixtures = user_fixtures
         self.user_rigs = user_rigs
 
         exercise_names = self.exercise_database.get_list_of_exercise_names()
+        print_verbose("Number of exercises: {0}".format(len(exercise_names)))
         exercise_data = {exercise: self.exercise_database.get_exercise_data(exercise)\
                 for exercise in exercise_names}
 
         selected_exercises = set()
 
-
         # Starting with the full list of exercise choices, remove or use them depending on
         # whether they pass all the rules tests
         for exercise_name, exercise in exercise_data.items():
+            # *** Fixture checks ***
+            if not self.user_fixtures:
+                print_verbose("Y: No user fixtures supplied, adding by default: " + exercise_name)
+                selected_exercises.add(exercise_name)
+                continue
+
             #Check if the user has any fixture satisfying this exercise
             #if count(exercise_fixtures) > 1 then any single fixture can be used
-            if self.user_fixtures:
-                if not exercise.fixtures.intersection({uf.name for uf in self.user_fixtures}):
-                    print("No suitable fixture for " + exercise.name)
-                    continue
-            else:
-                print("No user fixtures supplied, allowing all fixtures")
-            
-            # If count(exercise_rigs) >= 1 and all are optional, then any single one or none can be used
-            # If count(exercise_rigs) > 1 and all are not optional, then any single one can be used
-            if self.user_rigs:
-                if exercise.rigs:
-                    optionals = [rig.optional for rig in exercise.rigs]
-                    requireds = [rig for rig in exercise.rigs if not rig.optional]
-                    if optionals and all(optionals):
-                        #All rigs are optional
-                        selected_exercises.add(exercise_name)
-                    elif not self.user_fixtures.issubset(requireds):
-                        print("Missing required rig(s)") 
-                        continue
-                else:
-                    print("No user rigs supplied, allowing all rigs")
+            if self.user_fixtures and exercise.fixtures.intersection({uf.name for uf in self.user_fixtures}):
+                # User had the fixture, check rigs
 
-            selected_exercises.add(exercise_name)
+                if exercise.rigs:
+                    exercise_rig_names = {rig.name for rig in exercise.rigs}
+                    user_rig_names = {rig.name for rig in self.user_rigs}
+                    #print("Exercise {0} has rigs: {1}".format(exercise.name, str(exercise.rigs)))
+                    #print("user rigs: " + str(user_rig_names))
+                    #print("exer rigs: " + str(exercise_rig_names))
+
+                    # If count(exercise_rigs) > 0 and all are optional, then any single one or none can be used
+                    optional_values = [rig.optional for rig in exercise.rigs]
+                    if optional_values and all(optional_values):
+                        print_verbose("Y: All rigs are optional ({0}), adding {1}".format(exercise.rigs, exercise_name))
+                        selected_exercises.add(exercise_name)
+                        continue
+
+                    # If count(exercise_rigs) > 1 and all are not optional, then any single one can be used
+                    if len(exercise_rig_names) == 1:
+                        if exercise_rig_names.issubset(user_rig_names):
+                            print_verbose("Y: Has the single required rig ({0}), adding {1}".format(\
+                                    *exercise_rig_names, exercise_name))
+                            selected_exercises.add(exercise_name)
+                            continue
+                        else:
+                            print_verbose("N: User doesn't have the fixture, skipping " + exercise_name)
+                            continue
+
+                    else: # assume > 1
+                        required_rig_names = {rig.name for rig in exercise.rigs if not rig.optional}
+                        if user_rig_names.intersection(required_rig_names):
+                            print_verbose("Y: Has more than one that work as the required rig ({0}), adding {1}"\
+                                .format(user_rig_names.intersection(required_rig_names), exercise_name))
+                            selected_exercises.add(exercise_name)
+                            continue
+                        else:
+                            print_verbose("N: User doesn't have any that work for " + exercise_name)
+                            continue
+
+                else:
+                    print_verbose("Y: User has fixture and exercise requires no rigs, adding " + exercise_name)
+                    selected_exercises.add(exercise_name)
+                    continue
+
+                raise Exception("failed to classify exercise: " + exercise_name)
+
+            else:
+                print_verbose("N: User doesn't have the fixture, skipping " + exercise_name)
 
         self.possible_exercises = [exercise_data[exercise] for exercise in selected_exercises]
 

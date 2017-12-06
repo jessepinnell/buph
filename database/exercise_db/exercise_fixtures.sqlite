@@ -21,6 +21,14 @@ SOFTWARE.
 
 PRAGMA foreign_keys = ON;
 
+-- Keys with trailing underscores are for testing
+INSERT INTO ExerciseFixtures VALUES ("test_exercise_1_", "test_fixture_1_");
+INSERT INTO ExerciseFixtures VALUES ("test_exercise_2_", "test_fixture_2a_");
+INSERT INTO ExerciseFixtures VALUES ("test_exercise_2_", "test_fixture_2b_");
+INSERT INTO ExerciseFixtures VALUES ("test_exercise_3_", "test_fixture_3_");
+INSERT INTO ExerciseFixtures VALUES ("test_exercise_4_", "test_fixture_4_");
+
+
 INSERT INTO ExerciseFixtures VALUES ("overhead back press", "horizontal bench");
 INSERT INTO ExerciseFixtures VALUES ("overhead back press", "floor");
 INSERT INTO ExerciseFixtures VALUES ("side-lying lateral raise", "floor");

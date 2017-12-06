@@ -26,7 +26,6 @@
 #    with an sqlite3 implementation; refactor it
 
 import sqlite3
-import collections
 
 # TODO(jessepinnell) figure out why lint doesn't like pathlib
 # pylint: disable=import-error
@@ -82,7 +81,7 @@ class Connection(object):
 
         self.cursor.execute(\
             "SELECT RigName, Optional FROM ExerciseRigs WHERE ExerciseName = ?", (name, ))
-        rigs = map(type_factories.ExerciseRig._make, self.cursor.fetchall())
+        rigs = list(map(type_factories.ExerciseRig._make, self.cursor.fetchall()))
 
         self.cursor.execute(\
             "SELECT Muscle FROM MusclesExercised WHERE ExerciseName = ?", (name, ))

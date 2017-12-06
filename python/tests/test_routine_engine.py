@@ -24,8 +24,10 @@
 
 import unittest
 from xrsrv import routine_engine
-from xrsrv.type_factories import UserRig, UserFixture 
+from xrsrv.type_factories import UserRig, UserFixture
 
+# The test function names are quite long
+# pylint: disable=invalid-name
 EXERCISE_DATABASE_NAME = "exercise.db"
 
 class TestRoutineEngine(unittest.TestCase):
@@ -36,10 +38,10 @@ class TestRoutineEngine(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super(TestRoutineEngine, self).__init__(*args, **kwargs)
         self.engine = routine_engine.RoutineEngine(EXERCISE_DATABASE_NAME)
-        self.build_user()
+        self.build_user_all()
 
 
-    def build_user(self):
+    def build_user_all(self):
         """ Builds up test user data """
         self.user_fixtures = [
             UserFixture("floor", 0, 0),
@@ -52,13 +54,108 @@ class TestRoutineEngine(unittest.TestCase):
             UserRig("barbell", 35, 35),
             UserRig("barbell", 45, 45),
             UserRig("barbell", 55, 55),
-            UserRig("dumbbell", 55, 55)
+            UserRig("dumbbell pair", 55, 55),
+            UserRig("dumbbell single", 55, 55),
+            UserRig("imbalanced dumbbell single", 55, 55),
         ]
 
 
     def test_instantiation(self):
         """ Test the creation of the connection to the database """
         self.assertIsInstance(self.engine, routine_engine.RoutineEngine)
+
+    def test_exercise_one_fixture(self):
+        """ Simple test for a single fixture exercise """
+        user_fixtures = [
+            UserFixture("test_fixture_1_", 0, 0)
+        ]
+        user_rigs = []
+        self.engine.set_user_environment(user_fixtures, user_rigs)
+        self.assertEqual(len(self.engine.possible_exercises), 1)
+        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
+        self.assertIn("test_exercise_1_", possible_exercise_names)
+
+
+    def test_exercise_two_fixtures(self):
+        """ Test exercise having two acceptable fixtures """
+        user_fixtures = [
+            UserFixture("test_fixture_2a_", 0, 0),
+        ]
+        user_rigs = []
+        self.engine.set_user_environment(user_fixtures, user_rigs)
+        self.assertEqual(len(self.engine.possible_exercises), 1)
+        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
+        self.assertIn("test_exercise_2_", possible_exercise_names)
+
+        user_fixtures = [
+            UserFixture("test_fixture_2b_", 0, 0),
+        ]
+        self.engine.set_user_environment(user_fixtures, user_rigs)
+        self.assertEqual(len(self.engine.possible_exercises), 1)
+        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
+        self.assertIn("test_exercise_2_", possible_exercise_names)
+
+
+    def test_exercise_multiple_optional_rigs(self):
+        """ Test exercise having one or more optional rigs
+
+        Examples:
+        *  holding a plate when doing sit-ups
+        *  holding barbells when doing calf raises
+        """
+        user_fixtures = [
+            UserFixture("test_fixture_3_", 0, 0)
+        ]
+        user_rigs = [
+            UserRig("test_rig_1_", 0, 0)
+        ]
+        self.engine.set_user_environment(user_fixtures, user_rigs)
+        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
+        self.assertIn("test_exercise_3_", possible_exercise_names)
+
+        user_rigs = [
+            UserRig("test_rig_2_", 0, 0)
+        ]
+        self.engine.set_user_environment(user_fixtures, user_rigs)
+        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
+        self.assertIn("test_exercise_3_", possible_exercise_names)
+
+        user_rigs = []
+        self.engine.set_user_environment(user_fixtures, user_rigs)
+        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
+        self.assertIn("test_exercise_3_", possible_exercise_names)
+
+
+    def test_exercise_multiple_required_rigs(self):
+        """ Test exercise having more than one possible rig
+
+        Example:
+        *  front dumbbell raise using either balanced dumbbell or an imbalanced dumbbell
+
+        This wouldn't apply to things such as overhead presses with barbells versus dumbbells.
+        They would be considered different exercises due to range of motion, angle, etc.
+        """
+        user_fixtures = [
+            UserFixture("test_fixture_4_", 0, 0)
+        ]
+        user_rigs = [
+            UserRig("test_rig_1_", 0, 0)
+        ]
+        self.engine.set_user_environment(user_fixtures, user_rigs)
+        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
+        self.assertIn("test_exercise_4_", possible_exercise_names)
+
+        user_rigs = [
+            UserRig("test_rig_2_", 0, 0)
+        ]
+        self.engine.set_user_environment(user_fixtures, user_rigs)
+        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
+        self.assertIn("test_exercise_4_", possible_exercise_names)
+
+        user_rigs = []
+        self.engine.set_user_environment(user_fixtures, user_rigs)
+        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
+        self.assertNotIn("test_exercise_4_", possible_exercise_names)
 
 
     def test_generate_single_plan(self):
@@ -69,14 +166,13 @@ class TestRoutineEngine(unittest.TestCase):
         self.assertEqual(len(plan), num_exercises_in_plan)
 
 
-    # pylint: disable=invalid-name
     def test_generate_single_plan_too_many(self):
         """ Test the generate_single_plan() method but with too many exercises requested
         than could be possibly selected
         """
         num_exercises_in_plan = 342
-        self.generator.set_user_environment(self.user_fixtures, self.user_rigs)
-        plan = self.generator.generate_plan("basic_random", n=num_exercises_in_plan)
+        self.engine.set_user_environment(self.user_fixtures, self.user_rigs)
+        plan = self.engine.generate_plan("basic_random", n=num_exercises_in_plan)
         self.assertNotEqual(len(plan), num_exercises_in_plan)
 
 

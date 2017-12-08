@@ -70,10 +70,9 @@ class TestRoutineEngine(unittest.TestCase):
             UserFixture("test_fixture_1_", 0, 0)
         ]
         user_rigs = []
-        self.engine.set_user_environment(user_fixtures, user_rigs)
-        self.assertEqual(len(self.engine.possible_exercises), 1)
-        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
-        self.assertIn("test_exercise_1_", possible_exercise_names)
+        self.engine.set_user_exercise_environment(user_fixtures, user_rigs)
+        self.assertEqual(len(self.engine.available_exercises), 1)
+        self.assertIn("test_exercise_1_", self.engine.available_exercises)
 
 
     def test_exercise_two_fixtures(self):
@@ -82,18 +81,16 @@ class TestRoutineEngine(unittest.TestCase):
             UserFixture("test_fixture_2a_", 0, 0),
         ]
         user_rigs = []
-        self.engine.set_user_environment(user_fixtures, user_rigs)
-        self.assertEqual(len(self.engine.possible_exercises), 1)
-        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
-        self.assertIn("test_exercise_2_", possible_exercise_names)
+        self.engine.set_user_exercise_environment(user_fixtures, user_rigs)
+        self.assertEqual(len(self.engine.available_exercises), 1)
+        self.assertIn("test_exercise_2_", self.engine.available_exercises)
 
         user_fixtures = [
             UserFixture("test_fixture_2b_", 0, 0),
         ]
-        self.engine.set_user_environment(user_fixtures, user_rigs)
-        self.assertEqual(len(self.engine.possible_exercises), 1)
-        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
-        self.assertIn("test_exercise_2_", possible_exercise_names)
+        self.engine.set_user_exercise_environment(user_fixtures, user_rigs)
+        self.assertEqual(len(self.engine.available_exercises), 1)
+        self.assertIn("test_exercise_2_", self.engine.available_exercises)
 
 
     def test_exercise_multiple_optional_rigs(self):
@@ -109,21 +106,18 @@ class TestRoutineEngine(unittest.TestCase):
         user_rigs = [
             UserRig("test_rig_1_", 0, 0)
         ]
-        self.engine.set_user_environment(user_fixtures, user_rigs)
-        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
-        self.assertIn("test_exercise_3_", possible_exercise_names)
+        self.engine.set_user_exercise_environment(user_fixtures, user_rigs)
+        self.assertIn("test_exercise_3_", self.engine.available_exercises)
 
         user_rigs = [
             UserRig("test_rig_2_", 0, 0)
         ]
-        self.engine.set_user_environment(user_fixtures, user_rigs)
-        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
-        self.assertIn("test_exercise_3_", possible_exercise_names)
+        self.engine.set_user_exercise_environment(user_fixtures, user_rigs)
+        self.assertIn("test_exercise_3_", self.engine.available_exercises)
 
         user_rigs = []
-        self.engine.set_user_environment(user_fixtures, user_rigs)
-        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
-        self.assertIn("test_exercise_3_", possible_exercise_names)
+        self.engine.set_user_exercise_environment(user_fixtures, user_rigs)
+        self.assertIn("test_exercise_3_", self.engine.available_exercises)
 
 
     def test_exercise_multiple_required_rigs(self):
@@ -141,27 +135,24 @@ class TestRoutineEngine(unittest.TestCase):
         user_rigs = [
             UserRig("test_rig_1_", 0, 0)
         ]
-        self.engine.set_user_environment(user_fixtures, user_rigs)
-        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
-        self.assertIn("test_exercise_4_", possible_exercise_names)
+        self.engine.set_user_exercise_environment(user_fixtures, user_rigs)
+        self.assertIn("test_exercise_4_", self.engine.available_exercises)
 
         user_rigs = [
             UserRig("test_rig_2_", 0, 0)
         ]
-        self.engine.set_user_environment(user_fixtures, user_rigs)
-        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
-        self.assertIn("test_exercise_4_", possible_exercise_names)
+        self.engine.set_user_exercise_environment(user_fixtures, user_rigs)
+        self.assertIn("test_exercise_4_", self.engine.available_exercises)
 
         user_rigs = []
-        self.engine.set_user_environment(user_fixtures, user_rigs)
-        possible_exercise_names = {exercise.name for exercise in self.engine.possible_exercises}
-        self.assertNotIn("test_exercise_4_", possible_exercise_names)
+        self.engine.set_user_exercise_environment(user_fixtures, user_rigs)
+        self.assertNotIn("test_exercise_4_", self.engine.available_exercises)
 
 
     def test_generate_single_plan(self):
         """ Test the generate_single_plan() method """
         num_exercises_in_plan = 12
-        self.engine.set_user_environment(self.user_fixtures, self.user_rigs)
+        self.engine.set_user_exercise_environment(self.user_fixtures, self.user_rigs)
         plan = self.engine.generate_plan("basic_random", n=num_exercises_in_plan)
         self.assertEqual(len(plan), num_exercises_in_plan)
 
@@ -171,7 +162,7 @@ class TestRoutineEngine(unittest.TestCase):
         than could be possibly selected
         """
         num_exercises_in_plan = 342
-        self.engine.set_user_environment(self.user_fixtures, self.user_rigs)
+        self.engine.set_user_exercise_environment(self.user_fixtures, self.user_rigs)
         plan = self.engine.generate_plan("basic_random", n=num_exercises_in_plan)
         self.assertNotEqual(len(plan), num_exercises_in_plan)
 

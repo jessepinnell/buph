@@ -43,19 +43,23 @@ class ExerciseRenderer(object):
         """ Generates the list of exercises and renders the HTML """
         engine = routine_engine.RoutineEngine(database_filename)
 
-        fixtures = [
-            "floor",
-            "fixed bench",
-            "treadmill"
+        user_fixtures = [
+            type_factories.UserFixture("floor", 0, 0),
+            type_factories.UserFixture("block on floor", 0, 0),
+            type_factories.UserFixture("horizontal bench", 0, 0)
         ]
 
-        # TODO this is rigs and the possible resistances/settings
-        accessories = [
-            type_factories.EquipmentAccessory("olympic barbell", 1),
-            type_factories.EquipmentAccessory("olympic 2.5# plate", 2)
+        user_rigs = [
+            type_factories.UserRig("barbell", 25, 25),
+            type_factories.UserRig("barbell", 35, 35),
+            type_factories.UserRig("barbell", 45, 45),
+            type_factories.UserRig("barbell", 55, 55),
+            type_factories.UserRig("dumbbell pair", 5.5, 55.2),
+            type_factories.UserRig("dumbbell single", 5.5, 55.2),
+            type_factories.UserRig("imbalanced dumbbell single", 5.5, 55.2),
         ]
 
-        engine.set_user_environment(fixtures, accessories)
+        engine.set_user_exercise_environment(user_fixtures, user_rigs)
         plan = engine.generate_plan("basic_random", n=int(number_of_routines))
 
         basic_html_renderer = exercise_rendering.BasicHTMLRenderer()

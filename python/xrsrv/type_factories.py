@@ -25,12 +25,14 @@
 import collections
 
 # **** Exercise types ****
+# Muscle: The details of a muscle
 # name: muscle name
 # group: muscle grouping
 # antagonists: muscle antagonists
 # info: dictionary of additional information about the muscle
 Muscle = collections.namedtuple("Muscle", "name, group, antagonist, info")
 
+# Exercise: The details of an exercise
 # name: exercise name
 # fixtures: fixtures required
 # rigs: rigs to be used with this exercise
@@ -39,21 +41,51 @@ Muscle = collections.namedtuple("Muscle", "name, group, antagonist, info")
 Exercise = collections.namedtuple(\
     "Exercise", "name, fixtures, rigs, muscles_exercised, info")
 
+# ExerciseRig: A generic set of non-fixed equipment required or optional for given exercise
 # name: rig name
 # optional: optional in exercise
 ExerciseRig = collections.namedtuple("ExerciseRig", "name, optional")
 
+# ExerciseSet: An instance of an exercise whether in the past or future
+# exercise_name: exercise name
+# repetitions: number of repetitions done
+# resistance: resistance at which to do the reps
+# time: time when exercise was completed or is to be completed or None if N/A
+ExerciseSet = collections.namedtuple("ExerciseSet", "exercise_name, repititions, resistance, time")
+
+# RoutineEnvironment: The overall representation of the user to the routine engine
+# available_exercises: set of available exercise names
+# unavailable_exercises: set of unavailable exercise names
+# exercise_set_history: exercise set history directly preceding generation
+# user_preferences: user preferences
+RoutineEnvironment = collections.namedtuple(\
+    "RoutineEnvironment", "available_exercises, unavailable_exercises, exercise_set_history, user_preferences")
+
+
 # **** User types ****
+# UserFixture: A fixture with optional max and min settings
 # name: fixture name
 # min_setting: either minimum speed, weight, or resistance
 # max_setting: either maximum speed, weight, or resistance
 UserFixture = collections.namedtuple("UserFixture", "name, min_setting, max_setting")
 
+# UserRig: A rig with possible resistance settings based on EquipmentAccessories on hand
 # name: rig name
 # min_setting: either minimum speed, weight, or resistance
 # max_setting: either maximum speed, weight, or resistance
 UserRig = collections.namedtuple("UserRig", "name, min_setting, max_setting")
 
+# EquipmentAccessory: An accessory used to fulfill a rig and the quantity on hand
 # name: equipment accessory name (must match expected names in exercise_db)
 # quantity: equipment accessory quantity available
 EquipmentAccessory = collections.namedtuple("EquipmentAccessory", "name, quantity")
+
+# UserPreference: The set of values used by any or all of the routine generators
+# this differs from the values specific to each type of routine passed to the generate function
+# name: rig name
+# muscles_to_target: a set of muscles the user would like to target
+# muscles_to_avoid: a set of muscles the user would like to avoid due to injury, etc.
+# preferred_exrcises: a set of exercises the user would like to be included in a routine
+# eschewed_exrcises: a set of exercises the user would like to not be included in a routine
+UserPreferences = collections.namedtuple(\
+    "UserPreferences", "muscles_to_target, muscles_to_avoid, preferred_exercises, eschewed_exercises")

@@ -35,66 +35,56 @@ exercise routines
 
 from xrsrv import exercise_database
 from xrsrv import routine_generators
+from xrsrv.type_factories import RoutineEnvironment
 
 class RoutineEngine(object):
     """ Routine engine """
-    def __init__(self, exercise_database_name, verbose=True):
+    def __init__(self, exercise_database_name):
         self.exercise_database = exercise_database.Connection(exercise_database_name)
-        self.generators = {}
-        self.user_fixtures = []
-        self.user_rigs = []
         self.user_routine_history = []
-        self.possible_exercises = []
-        self.verbose = verbose
+        self.user_preferences = None
+        self.available_exercises = set()
+        self.unavailable_exercises = set()
+        self.exercise_data = {exercise: self.exercise_database.get_exercise_data(exercise)\
+                for exercise in self.exercise_database.get_list_of_exercise_names()}
+        self.generators = {
+            "basic_random": routine_generators.BasicRandomRoutineGenerator(self.exercise_data)
+        }
 
 
-    def add_generator(self, generator_name, generator):
-        """ TODO """
-        self.generators[generator_name] = generator
-
-
-    def set_user_environment(self, user_fixtures, user_rigs, verbose=False):
+    def set_user_exercise_environment(self, user_fixtures, user_rigs, verbose=False):
         """ set the user environment to use for generation functions
 
         if len(user_fixtures) = 0, give all exercises possible
         """
         print_verbose = print if verbose else lambda *a, **k: None
-        self.user_fixtures = user_fixtures
-        self.user_rigs = user_rigs
 
-        exercise_names = self.exercise_database.get_list_of_exercise_names()
-        print_verbose("Number of exercises: {0}".format(len(exercise_names)))
-        exercise_data = {exercise: self.exercise_database.get_exercise_data(exercise)\
-                for exercise in exercise_names}
-
-        selected_exercises = set()
+        self.available_exercises = set()
+        self.unavailable_exercises = set()
 
         # Starting with the full list of exercise choices, remove or use them depending on
         # whether they pass all the rules tests
-        for exercise_name, exercise in exercise_data.items():
+        for exercise_name, exercise in self.exercise_data.items():
             # *** Fixture checks ***
-            if not self.user_fixtures:
+            if not user_fixtures:
                 print_verbose("Y: No user fixtures supplied, adding by default: " + exercise_name)
-                selected_exercises.add(exercise_name)
+                self.available_exercises.add(exercise_name)
                 continue
 
             #Check if the user has any fixture satisfying this exercise
             #if count(exercise_fixtures) > 1 then any single fixture can be used
-            if self.user_fixtures and exercise.fixtures.intersection({uf.name for uf in self.user_fixtures}):
+            if user_fixtures and exercise.fixtures.intersection({uf.name for uf in user_fixtures}):
                 # User had the fixture, check rigs
 
                 if exercise.rigs:
                     exercise_rig_names = {rig.name for rig in exercise.rigs}
-                    user_rig_names = {rig.name for rig in self.user_rigs}
-                    #print("Exercise {0} has rigs: {1}".format(exercise.name, str(exercise.rigs)))
-                    #print("user rigs: " + str(user_rig_names))
-                    #print("exer rigs: " + str(exercise_rig_names))
+                    user_rig_names = {rig.name for rig in user_rigs}
 
                     # If count(exercise_rigs) > 0 and all are optional, then any single one or none can be used
                     optional_values = [rig.optional for rig in exercise.rigs]
                     if optional_values and all(optional_values):
                         print_verbose("Y: All rigs are optional ({0}), adding {1}".format(exercise.rigs, exercise_name))
-                        selected_exercises.add(exercise_name)
+                        self.available_exercises.add(exercise_name)
                         continue
 
                     # If count(exercise_rigs) > 1 and all are not optional, then any single one can be used
@@ -102,10 +92,11 @@ class RoutineEngine(object):
                         if exercise_rig_names.issubset(user_rig_names):
                             print_verbose("Y: Has the single required rig ({0}), adding {1}".format(\
                                     *exercise_rig_names, exercise_name))
-                            selected_exercises.add(exercise_name)
+                            self.available_exercises.add(exercise_name)
                             continue
                         else:
                             print_verbose("N: User doesn't have the fixture, skipping " + exercise_name)
+                            self.unavailable_exercises.add(exercise_name)
                             continue
 
                     else: # assume > 1
@@ -113,39 +104,50 @@ class RoutineEngine(object):
                         if user_rig_names.intersection(required_rig_names):
                             print_verbose("Y: Has more than one that work as the required rig ({0}), adding {1}"\
                                 .format(user_rig_names.intersection(required_rig_names), exercise_name))
-                            selected_exercises.add(exercise_name)
+                            self.available_exercises.add(exercise_name)
                             continue
                         else:
                             print_verbose("N: User doesn't have any that work for " + exercise_name)
+                            self.unavailable_exercises.add(exercise_name)
                             continue
 
                 else:
                     print_verbose("Y: User has fixture and exercise requires no rigs, adding " + exercise_name)
-                    selected_exercises.add(exercise_name)
+                    self.available_exercises.add(exercise_name)
                     continue
 
                 raise Exception("failed to classify exercise: " + exercise_name)
 
             else:
                 print_verbose("N: User doesn't have the fixture, skipping " + exercise_name)
+                self.unavailable_exercises.add(exercise_name)
 
-        self.possible_exercises = [exercise_data[exercise] for exercise in selected_exercises]
-
-        self.generators["basic_random"] =\
-            routine_generators.BasicRandomRoutineGenerator(self.possible_exercises)
 
     def set_user_routine_history(self, user_routine_history):
         """ set the user exercise history
-        This should be a sequence of outputs from generate_single_plan()
+        This should be a sequence of ExerciseSets
         """
         self.user_routine_history = user_routine_history
+
+    def set_user_preferences(self, user_preferences):
+        """ set the user preferences
+
+        This describes general workout preferences which may or may not be used by the routines
+        Used as a hint for some routines
+        This should be a UserPreferences
+        """
+        self.user_preferences = user_preferences
 
 
     def generate_plan(self, generator, **kwargs):
         """ generates single plan by generator referred to by name with arbitrary args
         TODO document args in a consistent format
+        This returns a sequence of ExerciseSets
         """
         if generator in self.generators:
-            return self.generators[generator].generate_plan(self.user_routine_history, **kwargs)
+            routine_environment = RoutineEnvironment(self.available_exercises,\
+                self.unavailable_exercises, self.user_preferences, self.user_routine_history)
+            self.generators[generator].set_routine_environment(routine_environment)
+            return self.generators[generator].generate_plan(**kwargs)
         else:
             raise Exception("Invalid generator: " + str(generator))

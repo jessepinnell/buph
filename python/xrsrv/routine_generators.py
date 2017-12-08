@@ -32,30 +32,45 @@ import random
 class RoutineGeneratorBase(object):
     """ Abstract base class for routine """
 
-    def __init__(self, possible_exercises):
-        """ possible_exercies given equipment available """
-        self.possible_exercises = possible_exercises
+    def __init__(self, exercise_data):
+        """ TODO """
+        self.routine_environment = None
+        self.exercise_data = exercise_data
 
-    def generate_plan(self, user_data, **kwargs):
+    def set_routine_environment(self, routine_environment):
+        """ set the environment in which to generate the routines
+
+        This consists of information any or all generators may use
+        It differs from values that are passed to the generators which are specific to the routines
+        """
+        self.routine_environment = routine_environment
+
+    def generate_plan(self, **kwargs):
         """ Generate a routine given user_data and arbitrary arguments """
-        pass
+        if self.routine_environment is None:
+            raise Exception("Routine environment is not set")
 
 
 class BasicRandomRoutineGenerator(RoutineGeneratorBase):
     """ TODO """
 
-    def __init__(self, possible_exercises):
+    def __init__(self, exercise_data):
         """ blah blah """
-        super(BasicRandomRoutineGenerator, self).__init__(possible_exercises)
+        super(BasicRandomRoutineGenerator, self).__init__(exercise_data)
 
-    def generate_plan(self, user_data, **kwargs):
+
+    def generate_plan(self, **kwargs):
         """ generates single plan
         This is a quick and dirty first pass with limited functionality and a crude
         selection algorithm
         TODO document args in a consistent format
         """
-        if len(self.possible_exercises) == 0:
-            raise Exception("No possible exercises from which to choose")
+        super(BasicRandomRoutineGenerator, self).generate_plan(**kwargs)
+
+        if len(self.routine_environment.available_exercises) == 0:
+            raise Exception("No available exercises from which to choose")
 
         choose_n = kwargs['n']
-        return random.sample(self.possible_exercises, min(choose_n, len(self.possible_exercises)))
+        exercise_names = random.sample(self.routine_environment.available_exercises,\
+            min(choose_n, len(self.routine_environment.available_exercises)))
+        return [self.exercise_data[name] for name in exercise_names]

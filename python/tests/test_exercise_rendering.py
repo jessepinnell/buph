@@ -66,8 +66,7 @@ class TestExerciseHTMLRendering(unittest.TestCase):
     def test_basic_html_renderer(self):
         """ Test the basic_html_renderer.render() method """
         num_exercises_in_plan = 14
-        #self.engine.set_user_environment(self.user_fixtures, self.user_accessories)
-        self.engine.set_user_environment([], [])
+        self.engine.set_user_exercise_environment([], [])
         plan = self.engine.generate_plan("basic_random", n=num_exercises_in_plan)
         self.assertEqual(len(plan), num_exercises_in_plan)
 

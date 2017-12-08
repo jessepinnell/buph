@@ -51,12 +51,14 @@ class BasicHTMLRenderer(object):
         body += "    <tr><th>Exercise</th><th>Muscles</th><th>Fixture(s)</th>"\
             "<th>Rig(s)</th></tr>\n"
         for exercise in exercise_data:
-            rig_name = \
-                ", ".join([rig.name for rig in exercise.rigs]) if exercise.rigs is not None else ""
+            if exercise.rigs is not None:
+                rig_names = ", ".join(["({0})".format(rig.name) if rig.optional else rig.name for rig in exercise.rigs])
+            else:
+                rig_names = ""
             body += "{0}<tr><td>{1}</td><td>{2}</td><td>{3}</td>"\
                 "<td>{4}</td></tr>\n".format(\
                     " " * 16, exercise.name, ", ".join(exercise.muscles_exercised),\
-                    ", ".join(exercise.fixtures), rig_name)
+                    ", ".join(exercise.fixtures), rig_names)
         body += "    </table>\n"
 
         html = """

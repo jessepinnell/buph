@@ -25,9 +25,6 @@
 import abc
 import textwrap
 
-import sys
-sys.path.append("./xrsrv")
-
 # pylint: disable=too-few-public-methods
 # pylint: disable=no-self-use
 # pylint: disable=unused-argument

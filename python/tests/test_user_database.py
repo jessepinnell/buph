@@ -46,15 +46,15 @@ class TestUserDatabase(unittest.TestCase):
         """ Test the get_uids() method """
         uids = self.database.get_uids("%")
         self.assertEqual(len(uids), 1)
-        self.assertIn(0, uids)
+        self.assertIn(8675309, uids)
 
         uids = self.database.get_uids("Test User")
         self.assertEqual(len(uids), 1)
-        self.assertIn(0, uids)
+        self.assertIn(8675309, uids)
 
         uids = self.database.get_uids("Test%")
         self.assertEqual(len(uids), 1)
-        self.assertIn(0, uids)
+        self.assertIn(8675309, uids)
 
         uids = self.database.get_uids("bleh")
         self.assertEqual(len(uids), 0)

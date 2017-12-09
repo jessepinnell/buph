@@ -35,7 +35,8 @@ exercise routines
 
 from xrsrv import exercise_database
 from xrsrv.type_factories import RoutineEnvironment
-from xrsrv.routine_generators import basic_random
+import xrsrv.routine_generators.debug
+import xrsrv.routine_generators.basic_random
 
 class RoutineEngine(object):
     """ Routine engine """
@@ -48,7 +49,8 @@ class RoutineEngine(object):
         self.exercise_data = {exercise: self.exercise_database.get_exercise_data(exercise)\
                 for exercise in self.exercise_database.get_list_of_exercise_names()}
         self.generators = {
-            "basic_random": basic_random
+            "debug": xrsrv.routine_generators.debug,
+            "basic_random": xrsrv.routine_generators.basic_random
         }
 
 

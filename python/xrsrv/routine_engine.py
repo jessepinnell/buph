@@ -34,8 +34,8 @@ exercise routines
 # pylint: disable=too-many-branches
 
 from xrsrv import exercise_database
-from xrsrv import routine_generators
 from xrsrv.type_factories import RoutineEnvironment
+from xrsrv.routine_generators import basic_random
 
 class RoutineEngine(object):
     """ Routine engine """
@@ -48,7 +48,7 @@ class RoutineEngine(object):
         self.exercise_data = {exercise: self.exercise_database.get_exercise_data(exercise)\
                 for exercise in self.exercise_database.get_list_of_exercise_names()}
         self.generators = {
-            "basic_random": routine_generators.BasicRandomRoutineGenerator(self.exercise_data)
+            "basic_random": basic_random
         }
 
 
@@ -144,10 +144,10 @@ class RoutineEngine(object):
         TODO document args in a consistent format
         This returns a sequence of ExerciseSets
         """
+
         if generator in self.generators:
             routine_environment = RoutineEnvironment(self.available_exercises,\
                 self.unavailable_exercises, self.user_preferences, self.user_routine_history)
-            self.generators[generator].set_routine_environment(routine_environment)
-            return self.generators[generator].generate_plan(**kwargs)
+            return self.generators[generator].generate_plan(routine_environment, self.exercise_data, **kwargs)
         else:
             raise Exception("Invalid generator: " + str(generator))

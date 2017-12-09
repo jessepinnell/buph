@@ -20,14 +20,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" debugging generator """
+""" generator exception class """
 
-def generate_plan(routine_environment, exercise_data, **kwargs):
-    """ dumps output helpful for debugging and returns all routines
-    """
-    output = print if "output" not in kwargs else kwargs["output"].write
+class GeneratorException(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return self.value
 
-    output(routine_environment)
-    for exercise_name, exercise in exercise_data.items():
-        output(exercise_name)
-    return []

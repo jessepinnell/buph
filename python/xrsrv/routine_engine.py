@@ -38,6 +38,12 @@ from xrsrv.type_factories import RoutineEnvironment
 import xrsrv.routine_generators.debug
 import xrsrv.routine_generators.basic_random
 
+class EngineException(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return self.value
+
 class RoutineEngine(object):
     """ Routine engine """
     def __init__(self, exercise_database_name):
@@ -118,7 +124,7 @@ class RoutineEngine(object):
                     self.available_exercises.add(exercise_name)
                     continue
 
-                raise Exception("failed to classify exercise: " + exercise_name)
+                raise EngineException("failed to classify exercise: " + exercise_name)
 
             else:
                 print_verbose("N: User doesn't have the fixture, skipping " + exercise_name)
@@ -152,4 +158,4 @@ class RoutineEngine(object):
                 self.unavailable_exercises, self.user_preferences, self.user_routine_history)
             return self.generators[generator].generate_plan(routine_environment, self.exercise_data, **kwargs)
         else:
-            raise Exception("Invalid generator: " + str(generator))
+            raise EngineException("Invalid generator: " + str(generator))

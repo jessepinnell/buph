@@ -22,6 +22,7 @@
 
 """ Very basic routine generation """
 import random
+from xrsrv.routine_generators.generator_exception import GeneratorException
 
 def generate_plan(routine_environment, exercise_data, **kwargs):
     """ generates single plan
@@ -31,9 +32,16 @@ def generate_plan(routine_environment, exercise_data, **kwargs):
     """
 
     if len(routine_environment.available_exercises) == 0:
-        raise Exception("No available exercises from which to choose")
+        raise GeneratorException("No available exercises from which to choose")
 
-    choose_n = kwargs['n']
+    if 'n' not in kwargs:
+        raise GeneratorException("Missing argument n")
+
+    try:
+        choose_n = int(kwargs['n'])
+    except Exception as ex:
+        raise GeneratorException("Failed to convert n argument: {0}".format(ex))
+
     exercise_names = random.sample(routine_environment.available_exercises,\
         min(choose_n, len(routine_environment.available_exercises)))
     return [exercise_data[name] for name in exercise_names]

@@ -26,7 +26,6 @@ import unittest
 
 from xrsrv import routine_engine
 from xrsrv import exercise_rendering
-from xrsrv import type_factories
 
 EXERCISE_DATABASE_NAME = "exercise.db"
 
@@ -41,22 +40,6 @@ class TestExerciseHTMLRendering(unittest.TestCase):
         super(TestExerciseHTMLRendering, self).__init__(*args, **kwargs)
         self.engine = routine_engine.RoutineEngine(EXERCISE_DATABASE_NAME)
         self.basic_html_renderer = exercise_rendering.BasicHTMLRenderer()
-
-        self.build_user()
-
-    def build_user(self):
-        """ Builds up test user data """
-        self.user_fixtures = [
-            "floor",
-            "fixed bench",
-            "treadmill"
-        ]
-
-        self.user_accessories = [
-            type_factories.EquipmentAccessory("olympic barbell", 1),
-            type_factories.EquipmentAccessory("olympic 2.5# plate", 2)
-        ]
-
 
     def test_instantiation(self):
         """ Test the creation of the connection to the database """

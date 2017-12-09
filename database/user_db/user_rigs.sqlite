@@ -19,18 +19,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 /** 
-* @file fixtures.sqlite
-* @brief Initial data for fixtures and some quantities
+* @file user_rigs.sqlite
+* @brief Data defining test user rigs
 * @author Jesse Pinnell
-* @date 2017-09-23
+* @date 2017-12-8
 */
+PRAGMA foreign_keys = ON;
 
-INSERT INTO Fixtures VALUES ("floor", 1);
-INSERT INTO Fixtures VALUES ("roman chair", 1);
-INSERT INTO Fixtures VALUES ("fixed bench", 1);
-INSERT INTO Fixtures VALUES ("adjustable bench", 1);
-INSERT INTO Fixtures VALUES ("pull-up bar", 1);
-INSERT INTO Fixtures VALUES ("cable system", 1);
-INSERT INTO Fixtures VALUES ("punching bag", 1);
-INSERT INTO Fixtures VALUES ("elliptical", 1);
-INSERT INTO Fixtures VALUES ("treadmill", 1);
+INSERT INTO UserRigs VALUES (8675309, "test_rig_1_", 0, 0, 1);
+INSERT INTO UserRigs VALUES (8675309, "test_rig_2_", 25, 200, 1);
+INSERT INTO UserRigs VALUES (8675309, "test_rig_3_", 55, 55, 1);
+INSERT INTO UserRigs VALUES (8675309, "test_rig_4_", 10, 135, 1);

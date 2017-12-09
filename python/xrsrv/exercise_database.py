@@ -94,18 +94,6 @@ class Connection(object):
         return type_factories.Exercise(name, fixtures, rigs, muscles_exercised, info)
 
 
-    # TODO Implement this and remove these when implemented
-    # pylint: disable=unused-argument
-    # pylint: disable=no-self-use
-    def get_accessories_in_rig(self, rig):
-        """ get all the accessories in a rig
-
-        This is used to look up whether a particular exercise can be done given a
-        set of accessories
-        """
-        return []
-
-
     def __del__(self):
         if self.database_connection is not None:
             self.database_connection.close()

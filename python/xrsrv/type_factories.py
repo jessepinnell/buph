@@ -48,10 +48,10 @@ ExerciseRig = collections.namedtuple("ExerciseRig", "name, optional")
 
 # ExerciseSet: An instance of an exercise whether in the past or future
 # exercise_name: exercise name
-# repetitions: number of repetitions done
-# resistance: resistance at which to do the reps
+# duration: number of repetitions done or seconds exercising
+# setting: setting at which to do the reps
 # time: time when exercise was completed or is to be completed or None if N/A
-ExerciseSet = collections.namedtuple("ExerciseSet", "exercise_name, repititions, resistance, time")
+ExerciseSet = collections.namedtuple("ExerciseSet", "exercise_name, duration, setting, time")
 
 # RoutineEnvironment: The overall representation of the user to the routine engine
 # available_exercises: set of available exercise names
@@ -63,6 +63,12 @@ RoutineEnvironment = collections.namedtuple(\
 
 
 # **** User types ****
+# UserProfile general information about a user
+# uid: the unique id for the user
+# name: user's actual name
+# notes: a placeholder for additional information
+UserProfile = collections.namedtuple("UserProfile", "uid, name, notes")
+
 # UserFixture: A fixture with optional max and min settings
 # name: fixture name
 # min_setting: either minimum speed, weight, or resistance
@@ -74,11 +80,6 @@ UserFixture = collections.namedtuple("UserFixture", "name, min_setting, max_sett
 # min_setting: either minimum speed, weight, or resistance
 # max_setting: either maximum speed, weight, or resistance
 UserRig = collections.namedtuple("UserRig", "name, min_setting, max_setting")
-
-# EquipmentAccessory: An accessory used to fulfill a rig and the quantity on hand
-# name: equipment accessory name (must match expected names in exercise_db)
-# quantity: equipment accessory quantity available
-EquipmentAccessory = collections.namedtuple("EquipmentAccessory", "name, quantity")
 
 # UserPreference: The set of values used by any or all of the routine generators
 # this differs from the values specific to each type of routine passed to the generate function

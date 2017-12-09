@@ -48,21 +48,41 @@ class Connection(object):
         self.database_connection = sqlite3.connect(database_name)
         self.cursor = self.database_connection.cursor()
 
+    def get_uids(self, search):
+        """
+        Find matching uids
+        """
+        self.cursor.execute("SELECT UID FROM UserProfiles WHERE Name LIKE (?)", (search, ))
+        return {i[0] for i in self.cursor.fetchall()}
 
-    def get_equipment_accessories(self):
+    def get_user_profile(self, uid):
         """
-        Get set of equipment accessory quantities
+        Get user profile by UID
         """
-        self.cursor.execute("SELECT Name, Quantity FROM EquipmentAccessories")
-        return map(type_factories.EquipmentAccessory._make, self.cursor.fetchall())
+        self.cursor.execute("SELECT UID, Name, Notes FROM UserProfiles WHERE UID = ?", (uid,))
+        return type_factories.UserProfile._make(self.cursor.fetchone())
 
+    def get_user_fixtures(self, uid):
+        """
+        Get set of fixtures by UID
+        """
+        self.cursor.execute("SELECT Name, MinSetting, MaxSetting FROM UserFixtures WHERE UID = ?", (uid,))
+        return list(map(type_factories.UserFixture._make, self.cursor.fetchall()))
 
-    def get_fixtures(self):
+    def get_user_rigs(self, uid):
         """
-        Get set of fixture quantities
+        Get set of rigs by UID
         """
-        self.cursor.execute("SELECT Name, Quantity FROM Fixtures")
-        return [i[0] if i[1] > 0 else None for i in self.cursor.fetchall()]
+        self.cursor.execute("SELECT Name, MinSetting, MaxSetting FROM UserRigs WHERE UID = ?", (uid, ))
+        return list(map(type_factories.UserRig._make, self.cursor.fetchall()))
+
+    # TODO(jessepinnell) probably add a limit
+    def get_exercise_set_history(self, uid):
+        """
+        Get the set history by UID
+        """
+        self.cursor.execute("SELECT Name, Duration, Setting, Time FROM UserRigs WHERE UID = ?", (uid, ))
+        return list(map(type_factories.ExerciseSet._make, self.cursor.fetchall()))
 
 
     def __del__(self):

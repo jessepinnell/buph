@@ -81,8 +81,21 @@ class Connection(object):
         """
         Get the set history by UID
         """
-        self.cursor.execute("SELECT Name, Duration, Setting, Time FROM UserRigs WHERE UID = ?", (uid, ))
+        self.cursor.execute("SELECT ExerciseName, Duration, Setting, Time FROM ExerciseSetHistory WHERE UID = ?", (uid, ))
         return list(map(type_factories.ExerciseSet._make, self.cursor.fetchall()))
+
+    def add_to_exercise_set_history(self, uid, exercise_set):
+        """
+        Get the set history by UID
+        """
+        if type(exercise_set) is not list:
+            exercise_set = [exercise_set]
+
+        # executemany would be nice here, but the UID isn't part of exercise_set
+        for this_set in exercise_set:
+            self.cursor.execute("INSERT INTO ExerciseSetHistory(UID, ExerciseName, Duration, Setting, Time) VALUES (?, ?, ?, ?, ?)",\
+                (uid, this_set.name, this_set.duration, this_set.setting, this_set.time))
+        self.database_connection.commit()
 
 
     def __del__(self):

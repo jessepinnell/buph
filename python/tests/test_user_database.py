@@ -24,6 +24,7 @@
 
 import unittest
 from xrsrv import user_database
+from xrsrv import type_factories
 
 TEST_DATABASE_NAME = "user.db"
 
@@ -98,6 +99,36 @@ class TestUserDatabase(unittest.TestCase):
         self.assertIn(55, min_settings)
         self.assertIn(200, max_settings)
         self.assertIn(135, max_settings)
+
+    def test_get_exercise_set_history(self):
+        """ Test the get_exercise_set_history() method """
+        uids = self.database.get_uids("%")
+        exercise_sets = self.database.get_exercise_set_history(uids.pop())
+        names = [this_set.name for this_set in exercise_sets]
+        self.assertEqual(names.count("test_exercise_4_"), 9)
+ 
+    def test_add_to_exercise_set_history(self):
+        uids = self.database.get_uids("%")
+        in_set = type_factories.ExerciseSet._make(["test_exercise_5_", 999, 1234, "2017-12-10 20:23:50.000"])
+        self.database.add_to_exercise_set_history(8675309, in_set)
+        out_sets = self.database.get_exercise_set_history(uids.pop())
+        names = [this_set.name for this_set in out_sets]
+        settings = [this_set.setting for this_set in out_sets]
+        durations = [this_set.duration for this_set in out_sets]
+        self.assertIn(in_set.name, names)
+        self.assertIn(in_set.duration, durations)
+        self.assertIn(in_set.setting, settings)
+
+    def test_add_to_exercise_set_history_set(self):
+        uids = self.database.get_uids("%")
+        in_sets = [type_factories.ExerciseSet._make(["test_exercise_6_", 999, 1234, "2017-12-10 20:23:50.000"]),
+           type_factories.ExerciseSet._make(["test_exercise_7_", 999, 1234, "2017-12-10 20:23:50.000"]),
+           type_factories.ExerciseSet._make(["test_exercise_8_", 999, 1234, "2017-12-10 20:23:50.000"])]
+        self.database.add_to_exercise_set_history(8675309, in_sets)
+        out_sets = self.database.get_exercise_set_history(uids.pop())
+        names = {this_set.name for this_set in out_sets}
+        in_names = {this_set.name for this_set in in_sets}
+        self.assertTrue(in_names.issubset(names))
 
 
 if __name__ == '__main__':

@@ -51,7 +51,7 @@ ExerciseRig = collections.namedtuple("ExerciseRig", "name, optional")
 # duration: number of repetitions done or seconds exercising
 # setting: setting at which to do the reps
 # time: time when exercise was completed or is to be completed or None if N/A
-ExerciseSet = collections.namedtuple("ExerciseSet", "exercise_name, duration, setting, time")
+ExerciseSet = collections.namedtuple("ExerciseSet", "name, duration, setting, time")
 
 # RoutineEnvironment: The overall representation of the user to the routine engine
 # available_exercises: set of available exercise names

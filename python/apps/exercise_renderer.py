@@ -27,6 +27,7 @@ import argparse
 
 from xrsrv import routine_engine
 from xrsrv import exercise_rendering
+from xrsrv import user_database
 from xrsrv.routine_generators.generator_exception import GeneratorException
 
 
@@ -40,6 +41,7 @@ def generate_and_render():
     """ Generates the list of exercises and renders the HTML """
     app_args_parser = argparse.ArgumentParser()
     app_args_parser.add_argument("--generator", type=str, help="generator to use", default="debug")
+    app_args_parser.add_argument("--uid", type=str, help="database UID of user", required=True)
     app_args_parser.add_argument("--userdb", type=str, help="user db file name", default=USER_DATABASE_NAME)
     app_args_parser.add_argument("--exercisedb", type=str, help="exercise db file name",\
                                  default=EXERCISE_DATABASE_NAME)
@@ -48,10 +50,9 @@ def generate_and_render():
 
     engine = routine_engine.RoutineEngine(app_args.exercisedb)
 
-
-    user_fixtures = []
-
-    user_rigs = []
+    user_db = user_database.Connection(app_args.userdb)
+    user_fixtures = user_db.get_user_fixtures(app_args.uid)
+    user_rigs = user_db.get_user_rigs(app_args.uid)
 
     # XXX this is cheesy.  Maybe add a subparser per generator?  Need to read from engine.
     generator_args = {}

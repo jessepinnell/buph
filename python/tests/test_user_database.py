@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 """ Test cases for classes in user_database.py """
+# pylint: disable=invalid-name
 
 import unittest
 from xrsrv import user_database
@@ -106,9 +107,12 @@ class TestUserDatabase(unittest.TestCase):
         exercise_sets = self.database.get_exercise_set_history(uids.pop())
         names = [this_set.name for this_set in exercise_sets]
         self.assertEqual(names.count("test_exercise_4_"), 9)
- 
+
     def test_add_to_exercise_set_history(self):
+        """ Test the add_to_exercise_set_history() method using a single ExerciseSet """
+        # pylint: disable=no-member
         uids = self.database.get_uids("%")
+
         in_set = type_factories.ExerciseSet._make(["test_exercise_5_", 999, 1234, "2017-12-10 20:23:50.000"])
         self.database.add_to_exercise_set_history(8675309, in_set)
         out_sets = self.database.get_exercise_set_history(uids.pop())
@@ -120,10 +124,12 @@ class TestUserDatabase(unittest.TestCase):
         self.assertIn(in_set.setting, settings)
 
     def test_add_to_exercise_set_history_set(self):
+        """ Test the add_to_exercise_set_history() method using a list of ExerciseSets """
+        # pylint: disable=no-member
         uids = self.database.get_uids("%")
         in_sets = [type_factories.ExerciseSet._make(["test_exercise_6_", 999, 1234, "2017-12-10 20:23:50.000"]),
-           type_factories.ExerciseSet._make(["test_exercise_7_", 999, 1234, "2017-12-10 20:23:50.000"]),
-           type_factories.ExerciseSet._make(["test_exercise_8_", 999, 1234, "2017-12-10 20:23:50.000"])]
+                   type_factories.ExerciseSet._make(["test_exercise_7_", 999, 1234, "2017-12-10 20:23:50.000"]),
+                   type_factories.ExerciseSet._make(["test_exercise_8_", 999, 1234, "2017-12-10 20:23:50.000"])]
         self.database.add_to_exercise_set_history(8675309, in_sets)
         out_sets = self.database.get_exercise_set_history(uids.pop())
         names = {this_set.name for this_set in out_sets}

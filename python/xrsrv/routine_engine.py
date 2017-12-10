@@ -39,8 +39,11 @@ import xrsrv.routine_generators.debug
 import xrsrv.routine_generators.basic_random
 
 class EngineException(Exception):
+    """ Routine engine exception class """
     def __init__(self, value):
+        super(EngineException, self).__init__()
         self.value = value
+
     def __str__(self):
         return self.value
 

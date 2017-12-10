@@ -29,5 +29,5 @@ def generate_plan(routine_environment, exercise_data, **kwargs):
 
     output(routine_environment)
     for exercise_name, exercise in exercise_data.items():
-        output(exercise_name)
+        output("{0}:\n   {1}".format(exercise_name, exercise))
     return []

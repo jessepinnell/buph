@@ -27,7 +27,6 @@ import argparse
 
 from xrsrv import routine_engine
 from xrsrv import exercise_rendering
-from xrsrv import type_factories
 from xrsrv.routine_generators.generator_exception import GeneratorException
 
 
@@ -37,46 +36,41 @@ USER_DATABASE_NAME = "user.db"
 # pylint: disable=too-few-public-methods
 # pylint: disable=no-self-argument
 
-class ExerciseRenderer(object):
-    """ Application that generates an HTML rendering based on number of exercises requested """
+def generate_and_render():
+    """ Generates the list of exercises and renders the HTML """
+    app_args_parser = argparse.ArgumentParser()
+    app_args_parser.add_argument("--generator", type=str, help="generator to use", default="debug")
+    app_args_parser.add_argument("--userdb", type=str, help="user db file name", default=USER_DATABASE_NAME)
+    app_args_parser.add_argument("--exercisedb", type=str, help="exercise db file name",\
+                                 default=EXERCISE_DATABASE_NAME)
+    app_args_parser.add_argument("--args", help="genrator arguments", nargs=argparse.REMAINDER)
+    app_args = app_args_parser.parse_args()
 
-    def __init__():
-        pass
-
-    def generate_and_render():
-        """ Generates the list of exercises and renders the HTML """
-        app_args_parser = argparse.ArgumentParser()
-        app_args_parser.add_argument("--generator", type=str, help="generator to use", default="debug")
-        app_args_parser.add_argument("--userdb", type=str, help="user db file name", default=USER_DATABASE_NAME)
-        app_args_parser.add_argument("--exercisedb", type=str, help="exercise db file name", default=EXERCISE_DATABASE_NAME)
-        app_args_parser.add_argument("--args", help="genrator arguments", nargs=argparse.REMAINDER)
-        app_args = app_args_parser.parse_args()
-
-        engine = routine_engine.RoutineEngine(app_args.exercisedb)
+    engine = routine_engine.RoutineEngine(app_args.exercisedb)
 
 
-        user_fixtures = []
+    user_fixtures = []
 
-        user_rigs = []
+    user_rigs = []
 
-        # XXX this is cheesy.  Maybe add a subparser per generator?  Need to read from engine.
-        generator_args = {}
-        if (app_args.args is not None):
-            split_args = [arg.split("=") for arg in app_args.args]
-            generator_args = {val[0]: val[1] for val in split_args}
+    # XXX this is cheesy.  Maybe add a subparser per generator?  Need to read from engine.
+    generator_args = {}
+    if app_args.args is not None:
+        split_args = [arg.split("=") for arg in app_args.args]
+        generator_args = {val[0]: val[1] for val in split_args}
 
-        engine.set_user_exercise_environment(user_fixtures, user_rigs)
-        plan = engine.generate_plan(app_args.generator, **generator_args)
+    engine.set_user_exercise_environment(user_fixtures, user_rigs)
+    plan = engine.generate_plan(app_args.generator, **generator_args)
 
-        basic_html_renderer = exercise_rendering.BasicHTMLRenderer()
+    basic_html_renderer = exercise_rendering.BasicHTMLRenderer()
 
-        if (plan):
-            sys.stdout.write(basic_html_renderer.render("exercise_renderer output", plan))
+    if plan:
+        sys.stdout.write(basic_html_renderer.render("exercise_renderer output", plan))
 
 
 if __name__ == "__main__":
     try:
-        ExerciseRenderer.generate_and_render()
+        generate_and_render()
     except GeneratorException as ex:
         exit("Generator exception: {0}".format(ex))
     except routine_engine.EngineException as ex:

@@ -20,11 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" generator exception class """
+""" generator exception class declaration """
 
 class GeneratorException(Exception):
+    """ Generator exception class """
     def __init__(self, value):
+        super(GeneratorException, self).__init__()
         self.value = value
+
     def __str__(self):
         return self.value
-

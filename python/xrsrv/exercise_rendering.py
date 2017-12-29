@@ -47,40 +47,94 @@ class BasicHTMLRenderer(object):
 
         This is a simple table for printing onto paper (not meant to be pretty)
         """
-        body = "    <table>\n"
-        body += "    <tr><th>Exercise</th><th>Muscles</th><th>Fixture(s)</th>"\
-            "<th>Rig(s)</th></tr>\n"
-        for exercise in exercise_data:
-            if exercise.rigs is not None:
-                rig_names = ", ".join(["({0})".format(rig.name) if rig.optional else rig.name for rig in exercise.rigs])
-            else:
-                rig_names = ""
-            body += "{0}<tr><td>{1}</td><td>{2}</td><td>{3}</td>"\
-                "<td>{4}</td></tr>\n".format(\
-                    " " * 16, exercise.name, ", ".join(exercise.muscles_exercised),\
-                    ", ".join(exercise.fixtures), rig_names)
-        body += "    </table>\n"
 
-        html = """
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>{0}</title>
-            <style>
-                table {{
-                    border-collapse: collapse;
-                }}
-                table, th, td {{
-                    border: 1px solid black;
-                }}
-            </style>
-        </head>
-        <body>
-        {1}
-        </body>
-        </html>
-        """.format(title, body)
+        if len(exercise_data) == 1:
+            body = "    <table>\n"
+            body += "    <tr><th>Exercise</th><th>Muscles</th><th>Fixture(s)</th>"\
+                "<th>Rig(s)</th></tr>\n"
+            this_exercise_data = exercise_data[0]
+            for exercise in this_exercise_data:
+                if exercise.rigs is not None:
+                    rig_names = ", ".join(["({0})".format(rig.name) if rig.optional else rig.name for rig in exercise.rigs])
+                else:
+                    rig_names = ""
+                body += "{0}<tr><td>{1}</td><td>{2}</td><td>{3}</td>"\
+                    "<td>{4}</td></tr>\n".format(\
+                        " " * 16, exercise.name, ", ".join(exercise.muscles_exercised),\
+                        ", ".join(exercise.fixtures), rig_names)
+            body += "    </table>\n"
+
+            html = """
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>{0}</title>
+                <style>
+                    table {{
+                        border-collapse: collapse;
+                    }}
+                    table, th, td {{
+                        border: 1px solid black;
+                    }}
+                </style>
+            </head>
+            <body>
+            {1}
+            </body>
+            </html>
+            """.format(title, body)
+        else:
+            body = "    <table>\n    "
+            
+            NUM_SETS_PER_EXERCISE = 3
+            for day_i, day in enumerate(exercise_data):
+                body += "<tr><td class=\"heady\">Day {0}</td>".format(day_i + 1)
+                for exercise in day:
+                    body += "<td><table class=\"checkly\">{1}</table>{0}</td>".format(exercise.name, "<td></td>"\
+                        * NUM_SETS_PER_EXERCISE)
+                body += "</tr>\n"
+
+            body += "    </table>"
+            html = """
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>{0}</title>
+                <style>
+                    table {{
+                        border-collapse: collapse;
+                        font-family: "Courier New", sans-serif;
+                        table-layout: fixed;
+                        font-size: 60%;
+                    }}
+                    table.checkly {{
+                    }}
+                    table.checkly td {{
+                        width: 13px;
+                        height: 13px;
+                    }}
+                    td {{
+                        overflow: hidden;
+                        width: 100px;
+                    }}
+                    td.heady {{
+                        background-color: black;
+                        color: white;
+                    }}
+                    table, th, td {{
+                        border: 1px solid black;
+                        text-align: left;
+                        vertical-align: top;
+                    }}
+                </style>
+            </head>
+            <body>
+            {1}
+            </body>
+            </html>
+            """.format(title, body)
 
         return textwrap.dedent(html)
 

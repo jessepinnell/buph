@@ -20,29 +20,41 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" Very basic routine generation """
+""" Routine generation which applies rules and gives N days of routines """
 import random
 from xrsrv.routine_generators.generator_exception import GeneratorException
 
 def generate_plan(routine_environment, exercise_data, **kwargs):
-    """ generates single plan
-    This is a quick and dirty first pass with limited functionality and a crude
-    selection algorithm
-    TODO document args in a consistent format
-    returns a list of one list of exercises
+    """ generates n random daily plans
+    returns a list of lists of exercises
     """
 
     if len(routine_environment.available_exercises) == 0:
         raise GeneratorException("No available exercises from which to choose")
 
-    if 'n' not in kwargs:
-        raise GeneratorException("Missing argument n")
+    if 'n_exercises' not in kwargs:
+        raise GeneratorException("Missing argument n_exercises")
+    if 'n_days' not in kwargs:
+        raise GeneratorException("Missing argument n_days")
 
     try:
-        choose_n = int(kwargs['n'])
+        choose_n = int(kwargs['n_exercises'])
     except Exception as ex:
-        raise GeneratorException("Failed to convert n argument: {0}".format(ex))
+        raise GeneratorException("Failed to convert choose_n argument: {0}".format(ex))
 
-    exercise_names = random.sample(routine_environment.available_exercises,\
-        min(choose_n, len(routine_environment.available_exercises)))
-    return [[exercise_data[name] for name in exercise_names]]
+    try:
+        n_days = int(kwargs['n_days'])
+    except Exception as ex:
+        raise GeneratorException("Failed to convert n_days argument: {0}".format(ex))
+
+    # 1) remove nevers
+    # 2) add alwayses
+
+    #print("Available: " + str(routine_environment.available_exercises))
+
+    routines = []
+    for i in range(n_days):
+        routines.append([exercise_data[name] for name in random.sample(routine_environment.available_exercises,\
+            min(choose_n, len(routine_environment.available_exercises)))])
+
+    return routines

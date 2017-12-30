@@ -371,9 +371,9 @@ INSERT INTO MusclesExercised VALUES ("alternate front arm raise", "pectoralis ma
 INSERT INTO MusclesExercised VALUES ("back extension", "longissimus", 1.0);
 INSERT INTO MusclesExercised VALUES ("back extension", "gluteus maximus", 1.0);
 INSERT INTO MusclesExercised VALUES ("back extension", "spinalis", 1.0);
-INSERT INTO MusclesExercised VALUES ("dumbbell sqat", "gluteus medius", 1.0);
-INSERT INTO MusclesExercised VALUES ("dumbbell sqat", "gluteus maximus", 1.0);
-INSERT INTO MusclesExercised VALUES ("dumbbell sqat", "quadriceps femoris", 1.0);
+INSERT INTO MusclesExercised VALUES ("dumbbell squat", "gluteus medius", 1.0);
+INSERT INTO MusclesExercised VALUES ("dumbbell squat", "gluteus maximus", 1.0);
+INSERT INTO MusclesExercised VALUES ("dumbbell squat", "quadriceps femoris", 1.0);
 INSERT INTO MusclesExercised VALUES ("barbell curl", "brachialis", 1.0);
 INSERT INTO MusclesExercised VALUES ("barbell curl", "biceps brachii", 1.0);
 INSERT INTO MusclesExercised VALUES ("triceps dip", "anconeus", 1.0);

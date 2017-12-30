@@ -107,7 +107,7 @@ INSERT INTO ExerciseFixtures VALUES ("crunch", "floor");
 INSERT INTO ExerciseFixtures VALUES ("barbell front raise", "floor");
 INSERT INTO ExerciseFixtures VALUES ("alternate front arm raise", "floor");
 INSERT INTO ExerciseFixtures VALUES ("back extension", "roman chair");
-INSERT INTO ExerciseFixtures VALUES ("dumbbell sqat", "floor");
+INSERT INTO ExerciseFixtures VALUES ("dumbbell squat", "floor");
 INSERT INTO ExerciseFixtures VALUES ("barbell curl", "floor");
 INSERT INTO ExerciseFixtures VALUES ("triceps dip", "tricep dip bars");
 INSERT INTO ExerciseFixtures VALUES ("dumbbell fly", "horizontal bench");

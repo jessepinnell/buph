@@ -78,7 +78,7 @@ INSERT INTO ExerciseRigs VALUES ("plié dumbbell squat", "dumbbell single", 0); 
 INSERT INTO ExerciseRigs VALUES ("bench press", "barbell", 0);
 INSERT INTO ExerciseRigs VALUES ("barbell front raise", "barbell", 0);
 INSERT INTO ExerciseRigs VALUES ("alternate front arm raise", "dumbbell pair", 0);
-INSERT INTO ExerciseRigs VALUES ("dumbbell sqat", "dumbbell pair", 0);
+INSERT INTO ExerciseRigs VALUES ("dumbbell squat", "dumbbell pair", 0);
 INSERT INTO ExerciseRigs VALUES ("barbell curl", "barbell", 0);
 INSERT INTO ExerciseRigs VALUES ("dumbbell fly", "dumbbell pair", 0);
 INSERT INTO ExerciseRigs VALUES ("dumbbell wrist curl", "barbell", 0);

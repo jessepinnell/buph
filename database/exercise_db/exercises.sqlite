@@ -115,7 +115,7 @@ INSERT INTO Exercises VALUES ("crunch");
 INSERT INTO Exercises VALUES ("barbell front raise");
 INSERT INTO Exercises VALUES ("alternate front arm raise");
 INSERT INTO Exercises VALUES ("back extension");
-INSERT INTO Exercises VALUES ("dumbbell sqat");
+INSERT INTO Exercises VALUES ("dumbbell squat");
 INSERT INTO Exercises VALUES ("barbell curl");
 INSERT INTO Exercises VALUES ("triceps dip");
 INSERT INTO Exercises VALUES ("dumbbell fly");

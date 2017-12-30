@@ -26,11 +26,18 @@ from xrsrv.routine_generators.generator_exception import GeneratorException
 
 def generate_plan(routine_environment, exercise_data, **kwargs):
     """ generates n random daily plans
+    example json:
+    {
+    "n_exercises" : 14,
+    "n_days" : 10,
+    "exclude" : ["sumo deadlift", "overhead back press"],
+    "include" : ["dumbbell wrist curl", "dumbbell reverse wrist curl"],
+    "exclude_if" : {"leg extension": ["cable back kick"]},
+    "include_if" : {"deadlift" : ["bridging"]}
+    }
     returns a list of lists of exercises
     """
 
-    if len(routine_environment.available_exercises) == 0:
-        raise GeneratorException("No available exercises from which to choose")
 
     if 'n_exercises' not in kwargs:
         raise GeneratorException("Missing argument n_exercises")
@@ -47,14 +54,65 @@ def generate_plan(routine_environment, exercise_data, **kwargs):
     except Exception as ex:
         raise GeneratorException("Failed to convert n_days argument: {0}".format(ex))
 
-    # 1) remove nevers
-    # 2) add alwayses
+    # 1) remove exercises explicitly excluded
+    if 'exclude' in kwargs:
+        exclude_set = set(kwargs['exclude'])
+        for exclude in exclude_set:
+            if exclude not in routine_environment.available_exercises:
+                raise GeneratorException("Exercise ({0}) was in exclude list but is not available".format(exclude))
+            else:
+                routine_environment.available_exercises.remove(exclude)
+
+    includes = []
+    # 2) add exercises explicitly added if available
+    if 'include' in kwargs:
+        include_set = set(kwargs['include'])
+        for include in include_set:
+            if include in routine_environment.available_exercises:
+                includes.append(include)
+            else:
+                raise GeneratorException("Exercise ({0}) was in include list but is not available".format(include))
+
+    if len(routine_environment.available_exercises) < choose_n:
+        raise GeneratorException("Not enough available exercises from which to choose ({0} < {1})".format(\
+            len(routine_environment.available_exercises), choose_n))
 
     #print("Available: " + str(routine_environment.available_exercises))
 
     routines = []
     for i in range(n_days):
-        routines.append([exercise_data[name] for name in random.sample(routine_environment.available_exercises,\
-            min(choose_n, len(routine_environment.available_exercises)))])
+        this_days_available_names = list(routine_environment.available_exercises)
+        this_days_routine = [exercise_data[name] for name in includes]
+
+        # TODO(jessepinnell) handle loop conditions due to bogus include_ifs and exclude_ifs
+        while len(this_days_routine) < choose_n:
+            this_random = random.choice(this_days_available_names)
+            this_days_available_names.remove(this_random)
+
+            this_days_routine.append(exercise_data[this_random])
+            print(exercise_data[this_random])
+
+            # check for exclude_ifs and remove
+            if 'exclude_if' in kwargs:
+                exclude_if_set = kwargs['exclude_if']
+                for exclude_if in exclude_if_set:
+                    if exclude_if == this_random:
+                        for name in exclude_if_set[exclude_if]:
+                            if name in this_days_available_names:
+                                this_days_available_names.remove(name)
+
+            # check for include_ifs and replace
+            if 'include_if' in kwargs and len(this_days_routine) < choose_n:
+                include_if_set = kwargs['include_if']
+                for include_if in include_if_set:
+                    if include_if == this_random:
+                        for name in include_if_set[include_if]:
+                            if name in this_days_available_names:
+                                this_days_routine.append(exercise_data[name])
+                                this_days_available_names.remove(name)
+
+        random.shuffle(this_days_routine)
+        routines.append(this_days_routine)
+
 
     return routines

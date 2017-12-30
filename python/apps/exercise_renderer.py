@@ -24,6 +24,7 @@
 
 import sys
 import argparse
+import json
 
 from xrsrv import routine_engine
 from xrsrv import exercise_rendering
@@ -45,6 +46,7 @@ def generate_and_render():
     app_args_parser.add_argument("--userdb", type=str, help="user db file name", default=USER_DATABASE_NAME)
     app_args_parser.add_argument("--exercisedb", type=str, help="exercise db file name",\
                                  default=EXERCISE_DATABASE_NAME)
+    app_args_parser.add_argument("--json", help="JSON genrator arguments filename", required=False)
     app_args_parser.add_argument("--args", help="genrator arguments", nargs=argparse.REMAINDER)
     app_args = app_args_parser.parse_args()
 
@@ -54,6 +56,11 @@ def generate_and_render():
     user_fixtures = user_db.get_user_fixtures(app_args.uid)
     user_rigs = user_db.get_user_rigs(app_args.uid)
 
+    json_args = {}
+    if app_args.json is not None:
+        with open(app_args.json) as f:
+            json_args = json.load(f)
+
     # XXX this is cheesy.  Maybe add a subparser per generator?  Need to read from engine.
     generator_args = {}
     if app_args.args is not None:
@@ -61,7 +68,7 @@ def generate_and_render():
         generator_args = {val[0]: val[1] for val in split_args}
 
     engine.set_user_exercise_environment(user_fixtures, user_rigs)
-    plan = engine.generate_plan(app_args.generator, **generator_args)
+    plan = engine.generate_plan(app_args.generator, **{**generator_args, **json_args})
 
     basic_html_renderer = exercise_rendering.BasicHTMLRenderer()
 

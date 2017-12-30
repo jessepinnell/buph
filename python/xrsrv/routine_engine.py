@@ -109,7 +109,8 @@ class RoutineEngine(object):
                             self.available_exercises.add(exercise_name)
                             continue
                         else:
-                            print_verbose("N: User doesn't have the fixture, skipping " + exercise_name)
+                            print_verbose("N: User doesn't have the rig ({0}), skipping {1}".format(\
+                                *exercise_rig_names, exercise_name))
                             self.unavailable_exercises.add(exercise_name)
                             continue
 
@@ -121,7 +122,8 @@ class RoutineEngine(object):
                             self.available_exercises.add(exercise_name)
                             continue
                         else:
-                            print_verbose("N: User doesn't have any that work for " + exercise_name)
+                            print_verbose("N: User doesn't have any rigs ({0}) that work for {1}".format(\
+                                *required_rig_names, exercise_name))
                             self.unavailable_exercises.add(exercise_name)
                             continue
 
@@ -133,7 +135,8 @@ class RoutineEngine(object):
                 raise EngineException("failed to classify exercise: " + exercise_name)
 
             else:
-                print_verbose("N: User doesn't have the fixture, skipping " + exercise_name)
+                print_verbose("N: User doesn't have the fixture(s) ({0}), skipping {1}".format(\
+                   exercise.fixtures, exercise_name))
                 self.unavailable_exercises.add(exercise_name)
 
 

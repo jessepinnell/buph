@@ -40,6 +40,7 @@ INSERT INTO ExerciseFixtures VALUES ("back lat pulldown", "cable system, high po
 INSERT INTO ExerciseFixtures VALUES ("lying triceps extension", "horizontal bench");
 INSERT INTO ExerciseFixtures VALUES ("overhead cable triceps extension", "cable system, high position");
 INSERT INTO ExerciseFixtures VALUES ("triceps push-down", "cable system, high position");
+INSERT INTO ExerciseFixtures VALUES ("lying dumbbell triceps extension", "horizontal bench");
 INSERT INTO ExerciseFixtures VALUES ("overhead barbell triceps extension", "floor");
 INSERT INTO ExerciseFixtures VALUES ("overhead barbell triceps extension", "horizontal bench");
 INSERT INTO ExerciseFixtures VALUES ("overhead ez bar triceps extension", "floor");
@@ -125,3 +126,5 @@ INSERT INTO ExerciseFixtures VALUES ("good morning", "floor");
 INSERT INTO ExerciseFixtures VALUES ("low-pulley front raise, neutral grip", "cable system, low position");
 INSERT INTO ExerciseFixtures VALUES ("overhead front press", "floor");
 INSERT INTO ExerciseFixtures VALUES ("one-arm reverse push-down", "cable system, high position");
+INSERT INTO ExerciseFixtures VALUES ("cable back kick", "cable system, low position");
+INSERT INTO ExerciseFixtures VALUES ("one-dumbbell front raise", "floor");

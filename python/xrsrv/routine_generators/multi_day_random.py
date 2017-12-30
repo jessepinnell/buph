@@ -90,7 +90,7 @@ def generate_plan(routine_environment, exercise_data, **kwargs):
             this_days_available_names.remove(this_random)
 
             this_days_routine.append(exercise_data[this_random])
-            print(exercise_data[this_random])
+            # TODO should just be a set of mutually-exclusive so that it's reflective
 
             # check for exclude_ifs and remove
             if 'exclude_if' in kwargs:

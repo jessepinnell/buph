@@ -82,14 +82,15 @@ def generate_plan(routine_environment, exercise_data, **kwargs):
     routines = []
     for i in range(n_days):
         this_days_available_names = list(routine_environment.available_exercises)
-        this_days_routine = [exercise_data[name] for name in includes]
+        this_days_routine = []
+        this_days_routine.extend(includes)
 
         # TODO(jessepinnell) handle loop conditions due to bogus include_ifs and exclude_ifs
         while len(this_days_routine) < choose_n:
             this_random = random.choice(this_days_available_names)
             this_days_available_names.remove(this_random)
 
-            this_days_routine.append(exercise_data[this_random])
+            this_days_routine.append(this_random)
             # TODO should just be a set of mutually-exclusive so that it's reflective
 
             # check for exclude_ifs and remove
@@ -108,11 +109,11 @@ def generate_plan(routine_environment, exercise_data, **kwargs):
                     if include_if == this_random:
                         for name in include_if_set[include_if]:
                             if name in this_days_available_names:
-                                this_days_routine.append(exercise_data[name])
+                                this_days_routine.append(name)
                                 this_days_available_names.remove(name)
 
         random.shuffle(this_days_routine)
-        routines.append(this_days_routine)
+        routines.append([exercise_data[name] for name in this_days_routine])
 
 
     return routines

@@ -24,14 +24,14 @@
 
 from setuptools import setup, find_packages
 
-with open('LICENSE') as f:
+with open('../LICENSE') as f:
     PROJECT_LICENSE = f.read()
 
 setup(
     name="xrsrv",
-    version="0.0.0",
-    description="XRSRV - ExeRcise SeRVer",
-    long_description="XRSRV - eXeRcise SeRVer",
+    version="0.2-dev",
+    description="XRSRV - eXeRcise SeRVer library",
+    long_description="XRSRV - eXeRcise SeRVer library: backend for physical exercise apps and utilities",
     author="Jesse Pinnell",
     author_email="jesse@vapid.io",
     url="https://github.com/jessepinnell/xrsrv",

@@ -349,7 +349,7 @@ class YAMLProcessor():
         for key in self.rigs.keys():
             print(f"INSERT INTO Rigs VALUES (\"{key}\", ?);")
         for key in self.stretches.keys():
-            print(f"INSERT INTO Stretches VALUES (\"{key}\", ?);")
+            print(f"INSERT INTO Stretches VALUES (\"{key}\");")
 
         for key, muscle in self.muscles.items():
             for antagonist in muscle.antagonists:
@@ -357,8 +357,8 @@ class YAMLProcessor():
         for key, stretch in self.stretches.items():
             for muscle in stretch.muscles:
                 print(f"INSERT INTO MusclesStretched VALUES (\"{key}\", \"{muscle}\");")
-            for info_key, info in stretch.info.items():
-                print(f"INSERT INTO MuscleInfo VALUES (\"{key}\", \"{info_key}\", \"{info}\");")
+            #for info_key, info in stretch.info.items():
+            #    print(f"INSERT INTO MuscleInfo VALUES (\"{key}\", \"{info_key}\", \"{info}\");")
 
         for key, exercise in self.exercises.items():
             print(f"INSERT INTO Exercises VALUES (\"{key}\");")

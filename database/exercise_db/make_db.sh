@@ -16,13 +16,14 @@ function source_sql
 rm -f $1
 
 source_sql create.sqlite
-source_sql muscle_groups.sqlite
-source_sql muscles.sqlite
-source_sql stretches.sqlite
-source_sql fixtures.sqlite
-source_sql rigs.sqlite
-source_sql exercises.sqlite
-source_sql muscles_exercised.sqlite
-source_sql muscle_antagonists.sqlite
-source_sql exercise_rigs.sqlite
-source_sql exercise_fixtures.sqlite
+sqlite3 ${DB_FILENAME} < /tmp/testo.sqlite || { echo "Error in ${1}"; exit -1; }
+#source_sql muscle_groups.sqlite
+#source_sql muscles.sqlite
+#source_sql stretches.sqlite
+#source_sql fixtures.sqlite
+#source_sql rigs.sqlite
+#source_sql exercises.sqlite
+#source_sql muscles_exercised.sqlite
+#source_sql muscle_antagonists.sqlite
+#source_sql exercise_rigs.sqlite
+#source_sql exercise_fixtures.sqlite

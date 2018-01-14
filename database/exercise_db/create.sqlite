@@ -88,7 +88,7 @@ CREATE TABLE StretchInfo
 DROP TABLE IF EXISTS MusclesStretched;
 CREATE TABLE MusclesStretched
 (
-   StretchName TEXT NOT NULL REFERENCES Stretch(Name), -- can be many per stretch, so not unique
+   StretchName TEXT NOT NULL REFERENCES Stretches(Name), -- can be many per stretch, so not unique
    Muscle TEXT NOT NULL REFERENCES Muscles(Name)
 );
 

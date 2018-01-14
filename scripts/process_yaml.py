@@ -335,8 +335,45 @@ class YAMLProcessor():
 
 
 
-
     def write_sqlite3(self):
+        # this assumes the schema has been applied
+        print("PRAGMA foreign_keys = ON;")
+        for muscle_group in {muscle.group for key, muscle in self.muscles.items()}:
+            print(f"INSERT INTO MuscleGroups VALUES (\"{muscle_group}\", ?);")
+
+        #all of these need to come out before the relationships
+        for key, muscle in self.muscles.items():
+            print(f"INSERT INTO Muscles VALUES (\"{key}\", \"{muscle.group}\", ?);")
+        for key in self.fixtures.keys():
+            print(f"INSERT INTO Fixtures VALUES (\"{key}\", ?);")
+        for key in self.rigs.keys():
+            print(f"INSERT INTO Rigs VALUES (\"{key}\", ?);")
+        for key in self.stretches.keys():
+            print(f"INSERT INTO Stretches VALUES (\"{key}\", ?);")
+
+        for key, muscle in self.muscles.items():
+            for antagonist in muscle.antagonists:
+                print(f"INSERT INTO MuscleAntagonists VALUES (\"{key}\", \"{antagonist}\");")
+        for key, stretch in self.stretches.items():
+            for muscle in stretch.muscles:
+                print(f"INSERT INTO MusclesStretched VALUES (\"{key}\", \"{muscle}\");")
+            for info_key, info in stretch.info.items():
+                print(f"INSERT INTO MuscleInfo VALUES (\"{key}\", \"{info_key}\", \"{info}\");")
+
+        for key, exercise in self.exercises.items():
+            print(f"INSERT INTO Exercises VALUES (\"{key}\");")
+            for info_key, info in exercise.info.items():
+                print(f"INSERT INTO ExerciseInfo VALUES (\"{key}\", \"{info_key}\", \"{info}\");")
+            for fixture in exercise.fixtures:
+                print(f"INSERT INTO ExerciseFixtures VALUES (\"{key}\", \"{fixture}\");")
+            for rig in exercise.rigs:
+                print(f"INSERT INTO ExerciseRigs VALUES (\"{key}\", \"{rig}\", 0);")
+            for rig in exercise.optional_rigs:
+                print(f"INSERT INTO ExerciseRigs VALUES (\"{key}\", \"{rig}\", 1);")
+            for muscle, amount in exercise.muscles.items():
+                print(f"INSERT INTO MusclesExercised VALUES (\"{key}\", \"{muscle}\", {amount});")
+
+        # MusclesExercised
         pass
 
     def write_postgre(self):

@@ -80,13 +80,13 @@ coracobrachialis: !muscle
   group: arms
 
 anterior deltoid: !muscle
-  group: shou
+  group: shoulders
 
 lateral deltoid: !muscle
-  group: shou
+  group: shoulders
 
 posterior deltoid: !muscle
-  group: shou
+  group: shoulders
 
 dorsal interosseous (foot): !muscle
   group: legs
@@ -194,13 +194,13 @@ gemellus, superior: !muscle
   group: legs
 
 gluteus maximus: !muscle
-  group: butt
+  group: buttocks
 
 gluteus medius: !muscle
-  group: butt
+  group: buttocks
 
 gluteus minimus: !muscle
-  group: butt
+  group: buttocks
 
 gracilis: !muscle
   group: hips
@@ -293,10 +293,10 @@ pectineus: !muscle
   group: hips
 
 pectoralis major: !muscle
-  group: ches
+  group: chest
 
 pectoralis minor: !muscle
-  group: ches
+  group: chest
 
 piriformis: !muscle
   group: legs
@@ -371,7 +371,7 @@ semitendinosus: !muscle
   group: legs
 
 serratus anterior: !muscle
-  group: ches
+  group: chest
 
 serratus posterior inferior: !muscle
   group: back

@@ -75,12 +75,12 @@ low-pulley front raise, overhand grip: !exercise
   fixtures:
     ? cable system, low position
 
-chin-up:
+chin-up: !exercise
   abbreviation: cu
   muscles:
     - brachioradialis: 1.0
     - brachialis: 1.0
-    - biceps brachii: 1.0
+    - biceps brachii: 0.7 
     - latissimus dorsi: 1.0
   fixtures:
     ? pull-up bar

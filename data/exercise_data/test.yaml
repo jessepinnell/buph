@@ -1,0 +1,79 @@
+# Copyright (c) 2018 Jesse Pinnell
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# test data definitions
+test fixture 1: !fixture
+  info: null
+
+test fixture 2a: !fixture
+  info: null
+
+test fixture 2b: !fixture
+  info: null
+
+test fixture 3: !fixture
+  info: null
+
+test fixture 4: !fixture
+  info: null
+
+test rig 1: !rig
+  info: null
+
+test rig 2: !rig
+  info: null
+
+test rig 3: !rig
+  info: null
+
+test rig 4: !rig
+  info: null
+
+test exercise 1: !exercise
+  info:
+    - description: Test exercise using one fixture
+    - url: https://github.com/jessepinnell/xrsrv
+  fixtures:
+    ? test fixture 1
+
+test exercise 2: !exercise
+  info:
+    - description: Test exercise using two fixtures
+    - url: https://github.com/jessepinnell/xrsrv
+  fixtures:
+    ? test fixture 2a
+    ? test fixture 2b
+
+test exercise 3: !exercise
+  info:
+    - description: Test exercise using multiple optional rigs
+    - url: https://github.com/jessepinnell/xrsrv
+  fixtures:
+    ? test fixture 3
+  optional rigs:
+    ? test rig 1
+    ? test rig 2
+
+test exercise 4: !exercise
+  info:
+    - description: Test exercise using more than one required rig
+    - url: https://github.com/jessepinnell/xrsrv
+  fixtures:
+    ? test fixture 4
+  rigs:
+    ? test rig 1
+    ? test rig 2

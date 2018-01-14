@@ -20,7 +20,7 @@
 dumbbell pair: !rig
   info: null
 
-dumbbell single:
+dumbbell single: !rig
   info: null
 
 # Imbalanced dumbbell, e.g. adjustable dumbbell that has more weight on one dial than the other

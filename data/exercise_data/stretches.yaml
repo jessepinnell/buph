@@ -16,11 +16,12 @@
 # SOFTWARE.
 
 lat stretch at the wall: !stretch
+  abbreviation: lsaw
   aka:
     - wall lat stretch
-  desc: >
-    Place both hands on the corner of a wall or post.
-    Keep your spine long while slowly pushing your hips out to the side.
+  steps:
+    - place both hands on the corner of a wall or post
+    - keep your spine long while slowly pushing your hips out to the side
   info:
-    url: https://www.davidwolfe.com/34-pictures-muscles-stretching/
-    picture: https://cdn.davidwolfe.com/wp-content/uploads/2016/01/15-and-16-e1453676406620.jpg
+    - url: https://www.davidwolfe.com/34-pictures-muscles-stretching/
+    - picture: https://cdn.davidwolfe.com/wp-content/uploads/2016/01/15-and-16-e1453676406620.jpg

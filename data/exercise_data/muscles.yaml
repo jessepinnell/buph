@@ -15,12 +15,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# fma is the Foundational Model of Anatomy number:
+# https://en.wikipedia.org/wiki/Foundational_Model_of_Anatomy
+
 abductor digiti minimi (foot): !muscle
+  fma: 37451
   group: arms
   info:
     - wiki: https://en.wikipedia.org/wiki/Abductor_digiti_minimi_muscle_of_foot
   antagonists: 
     ? flexor digiti minimi brevis (foot)
+    ? something else
 
 #TODO: add info, antagonists, etc. to all these fields
 

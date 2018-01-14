@@ -22,7 +22,7 @@ overhead front press: !exercise &ofp
   abbreviation: ofp
   aka:
     - shoulder press
-  steps: # this is just for example; might be outside of the scope of this
+  steps:
     - pick up weight
     - push it up over your head
     - lower it in front of your head
@@ -47,8 +47,8 @@ overhead back press: !exercise
   aka:
     - back shoulder press
   abbreviation: obp
-  variation of: overhead front press
-  steps: # this is just for example; might be outside of the scope of this
+  variation of: ofp
+  steps:
     - pick up weight
     - push it up over your head
     - lower it behind your head

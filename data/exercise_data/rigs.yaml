@@ -1,0 +1,55 @@
+# Copyright (c) 2018 Jesse Pinnell
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+
+# Balanced dumbbell (for exercises that move against the orientation of the dumbbell)
+dumbbell pair: !rig
+  info: null
+
+dumbbell single:
+  info: null
+
+# Imbalanced dumbbell, e.g. adjustable dumbbell that has more weight on one dial than the other
+# (can be used for exercises that move in the orientation of the dumbbell)
+imbalanced dumbbell pair: !rig
+  info: null
+
+imbalanced dumbbell single: !rig
+  info: null
+
+# Balanced barbell
+barbell: !rig
+  info: null
+
+# Imbalanced barbell, e.g. a barbell loaded with more weight on one side than the other
+imbalanced barbell: !rig
+  info: null
+
+# These typically aren't used imbalanced
+trap bar: !rig
+  info: null
+
+ez bar: !rig
+  info: null
+
+# optional weight plate for things like situps (not connected to any fixture or other accessory)
+plate: !rig
+  info: null
+
+# optional weight belt
+weighted belt: !rig
+  info: null

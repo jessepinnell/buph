@@ -1,0 +1,437 @@
+# Copyright (c) 2018 Jesse Pinnell
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# TODO update with more accurate muscle weighting, especially deltoids
+
+overhead press: !exercise &overhead_press 
+  aka:
+    - shoulder press
+  steps: # this is just for example; might be outside of the scope of this
+    - pick up weight
+    - push it up over your head
+    - lower it in front of your head
+    - repeat
+  muscles:
+    - supraspinatus: 1.0
+    - triceps brachii: 1.0
+    - anterior deltoid: 1.0
+    - lateral deltoid: 1.0
+    - posterior deltoid: 1.0
+  info:
+    - url: https://en.wikipedia.org/wiki/Overhead_press
+    - image: https://commons.wikimedia.org/wiki/File%3A1978_Plymouth_Volare_4_door.JPG
+  fixtures:
+    - floor
+    - horizontal bench
+  rigs:
+    - barbell
+
+overhead back press: !exercise
+  <<: *overhead_press
+  variation of: overhead front press
+  steps: # this is just for example; might be outside of the scope of this
+    - pick up weight
+    - push it up over your head
+    - lower it behind your head
+    - repeat
+
+side-lying lateral raise: !exercise
+  muscles:
+    - anterior deltoid: 1.0
+    - lateral deltoid: 1.0
+    - posterior deltoid: 1.0
+  fixtures:
+    - floor
+  rigs:
+    - dumbbell single
+
+low-pulley front raise, overhand grip: !exercise
+  muscles:
+    - anterior deltoid: 1.0
+    - lateral deltoid: 1.0
+    - posterior deltoid: 1.0
+    - pectoralis major: 1.0
+  fixtures:
+    - cable system, low position
+
+chin-up:
+  muscles:
+    - brachioradialis: 1.0
+    - brachialis: 1.0
+    - biceps brachii: 1.0
+    - latissimus dorsi: 1.0
+  fixtures:
+    - pull-up bar
+  optional rigs:
+    - weighted belt
+
+#lying barbell triceps extension:
+#  fixtures:
+#  rigs:
+#
+#lying ez bar triceps extension:
+#  fixtures:
+#  rigs:
+#
+#lying triceps extension:
+#  fixtures:
+#  rigs:
+#
+#back lat pulldown:
+#  fixtures:
+#  rigs:
+#
+#lying dumbbell triceps extension:
+#  fixtures:
+#  rigs:
+#
+#overhead cable triceps extension:
+#  fixtures:
+#  rigs:
+#
+#triceps push-down:
+#  fixtures:
+#  rigs:
+#
+#overhead barbell triceps extension:
+#  fixtures:
+#  rigs:
+#
+#overhead ez bar triceps extension:
+#  fixtures:
+#  rigs:
+#
+#seated cable row:
+#  fixtures:
+#  rigs:
+#
+#lat pulldown:
+#  fixtures:
+#  rigs:
+#
+#close grip lat pulldown:
+#  fixtures:
+#  rigs:
+#
+#cable back kick:
+#  fixtures:
+#  rigs:
+#
+#one-dumbbell front raise:
+#  fixtures:
+#  rigs:
+#
+#incline bench press:
+#  fixtures:
+#  rigs:
+#
+#arnold dumbbell press:
+#  fixtures:
+#  rigs:
+#
+#one-arm dumbbell row:
+#  fixtures:
+#  rigs:
+#
+#single-leg toe raise:
+#  fixtures:
+#  rigs:
+#
+#seated dumbbell press:
+#  fixtures:
+#  rigs:
+#
+#dumbbell curl:
+#  fixtures:
+#  rigs:
+#
+#deadlift:
+#  fixtures:
+#  rigs:
+#
+#seated e-z bar triceps extension:
+#  fixtures:
+#  rigs:
+#
+#bridging:
+#  fixtures:
+#  rigs:
+#
+#bridging on bench:
+#  fixtures:
+#  rigs:
+#
+#leg extension:
+#  fixtures:
+#  rigs:
+#
+#low-pulley bent lateral raise:
+#  fixtures:
+#  rigs:
+#
+#dumbbell bench press:
+#  fixtures:
+#  rigs:
+#
+#standing calf raise:
+#  fixtures:
+#  rigs:
+#
+#wide grip seated row:
+#  fixtures:
+#  rigs:
+#
+#roman chair side bend:
+#  fixtures:
+#  rigs:
+#
+#sumo deadlift:
+#  fixtures:
+#  rigs:
+#
+#foot flexion and extension:
+#  fixtures:
+#  rigs:
+#
+#concentration curl:
+#  fixtures:
+#  rigs:
+#
+#decline bench press:
+#  fixtures:
+#  rigs:
+#
+#straight-arm dumbbell pullover:
+#  fixtures:
+#  rigs:
+#
+#straight arm lat pulldown:
+#  fixtures:
+#  rigs:
+#
+#dumbbell upright row:
+#  fixtures:
+#  rigs:
+#
+#barbell upright row:
+#  fixtures:
+#  rigs:
+#
+#low-pulley lateral raise:
+#  fixtures:
+#  rigs:
+#
+#front squat:
+#  fixtures:
+#  rigs:
+#
+#push-up:
+#  fixtures:
+#  rigs:
+#
+#dumbbell lateral raise:
+#  fixtures:
+#  rigs:
+#
+#low-pulley curl:
+#  fixtures:
+#  rigs:
+#
+#seated dumbbell triceps extension:
+#  fixtures:
+#  rigs:
+#
+#lying cable leg curl:
+#  fixtures:
+#  rigs:
+#
+#incline dumbbell press:
+#  fixtures:
+#  rigs:
+#
+#reverse triceps push-down:
+#  fixtures:
+#  rigs:
+#
+#power squat:
+#  fixtures:
+#  rigs:
+#
+#hanging leg raise:
+#  fixtures:
+#  rigs:
+#
+#trap bar shrug:
+#  fixtures:
+#  rigs:
+#
+#dumbbell lunge:
+#  fixtures:
+#  rigs:
+#
+#dumbbell shrug:
+#  fixtures:
+#  rigs:
+#
+#reverse barbell curl:
+#  fixtures:
+#  rigs:
+#
+#reverse ez bar curl:
+#  fixtures:
+#  rigs:
+#
+#incline dumbbell fly:
+#  fixtures:
+#  rigs:
+#
+#barbell shrug:
+#  fixtures:
+#  rigs:
+#
+#trap bar deadlift:
+#  fixtures:
+#  rigs:
+#
+#sit-up:
+#  fixtures:
+#  rigs:
+#
+#cable hip abduction:
+#  fixtures:
+#  rigs:
+#
+#straight-arm barbell pullover:
+#  fixtures:
+#  rigs:
+#
+#dumbbell side bend:
+#  fixtures:
+#  rigs:
+#
+#cable hip adduction:
+#  fixtures:
+#  rigs:
+#
+#lat bar low-pulley front raise:
+#  fixtures:
+#  rigs:
+#
+#external arm rotation:
+#  fixtures:
+#  rigs:
+#
+#hammer curl:
+#  fixtures:
+#  rigs:
+#
+#plié dumbbell squat:
+#  fixtures:
+#  rigs:
+#
+#bench press:
+#  fixtures:
+#  rigs:
+#
+#pull-up:
+#  fixtures:
+#  rigs:
+#
+#crunch:
+#  fixtures:
+#  rigs:
+#
+#barbell front raise:
+#  fixtures:
+#  rigs:
+#
+#alternate front arm raise:
+#  fixtures:
+#  rigs:
+#
+#back extension:
+#  fixtures:
+#  rigs:
+#
+#dumbbell squat:
+#  fixtures:
+#  rigs:
+#
+#barbell curl:
+#  fixtures:
+#  rigs:
+#
+#triceps dip:
+#  fixtures:
+#  rigs:
+#
+#dumbbell fly:
+#  fixtures:
+#  rigs:
+#
+#dumbbell wrist curl:
+#  fixtures:
+#  rigs:
+#
+#barbell wrist curl:
+#  fixtures:
+#  rigs:
+#
+#ez bar wrist curl:
+#  fixtures:
+#  rigs:
+#
+#dumbbell reverse wrist curl:
+#  fixtures:
+#  rigs:
+#
+#barbell reverse wrist curl:
+#  fixtures:
+#  rigs:
+#
+#ez bar reverse wrist curl:
+#  fixtures:
+#  rigs:
+#
+#barbell lunges:
+#  fixtures:
+#  rigs:
+#
+#incline sit-up:
+#  fixtures:
+#  rigs:
+#
+#calves over bench sit-up:
+#  fixtures:
+#  rigs:
+#
+#high pulley curl:
+#  fixtures:
+#  rigs:
+#
+#good morning:
+#  fixtures:
+#  rigs:
+#
+#low-pulley front raise, neutral grip:
+#  fixtures:
+#  rigs:
+#
+#one-arm reverse push-down:
+#  fixtures:
+#  rigs:
+#

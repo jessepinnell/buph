@@ -1,0 +1,445 @@
+# Copyright (c) 2018 Jesse Pinnell
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+abductor digiti minimi (foot): !muscle
+  group: arms
+  info:
+    - wiki: https://en.wikipedia.org/wiki/Abductor_digiti_minimi_muscle_of_foot
+  antagonists: 
+    ? flexor digiti minimi brevis (foot)
+
+#TODO: add info, antagonists, etc. to all these fields
+
+abductor digiti minimi (hand): !muscle
+  group: arms
+
+abductor hallucis: !muscle
+  group: legs
+
+abductor pollicis brevis: !muscle
+  group: arms
+
+abductor pollicis longus: !muscle
+  group: arms
+
+adductor brevis: !muscle
+  group: hips
+
+adductor hallucis: !muscle
+  group: legs
+
+adductor longus: !muscle
+  group: hips
+
+adductor magnus: !muscle
+  group: hips
+
+adductor minimus: !muscle
+  group: hips
+
+adductor pollicis: !muscle
+  group: arms
+
+anconeus: !muscle
+  group: arms
+
+articularis genu: !muscle
+  group: legs
+
+biceps brachii: !muscle
+  group: arms
+
+biceps femoris: !muscle
+  group: legs
+
+brachialis: !muscle
+  group: arms
+
+brachioradialis: !muscle
+  group: arms
+
+coracobrachialis: !muscle
+  group: arms
+
+anterior deltoid: !muscle
+  group: shou
+
+lateral deltoid: !muscle
+  group: shou
+
+posterior deltoid: !muscle
+  group: shou
+
+dorsal interosseous (foot): !muscle
+  group: legs
+
+dorsal interosseous (hand): !muscle
+  group: arms
+
+erector spinae: !muscle
+  group: back
+
+extensor carpi radialis brevis: !muscle
+  group: arms
+
+extensor carpi radialis longus: !muscle
+  group: arms
+
+extensor carpi ulnaris: !muscle
+  group: arms
+
+extensor digiti minimi: !muscle
+  group: arms
+
+extensor digitorum brevis: !muscle
+  group: legs
+
+extensor digitorum longus: !muscle
+  group: legs
+
+extensor digitorum: !muscle
+  group: arms
+
+extensor hallucis brevis: !muscle
+  group: legs
+
+extensor hallucis longus: !muscle
+  group: legs
+
+extensor indicis: !muscle
+  group: arms
+
+extensor pollicis brevis: !muscle
+  group: arms
+
+extensor pollicis longus: !muscle
+  group: arms
+
+external abdominal oblique: !muscle
+  group: abdomen
+
+external intercostal: !muscle
+  group: abdomen
+
+fibularis (peroneus) brevis: !muscle
+  group: legs
+
+fibularis (peroneus) longus: !muscle
+  group: legs
+
+fibularis (peroneus) tertius: !muscle
+  group: legs
+
+flexor carpi radialis: !muscle
+  group: arms
+
+flexor carpi ulnaris: !muscle
+  group: arms
+
+flexor digiti minimi brevis (foot): !muscle
+  group: legs
+
+flexor digiti minimi brevis (hand): !muscle
+  group: arms
+
+flexor digitorum brevis: !muscle
+  group: legs
+
+flexor digitorum longus: !muscle
+  group: legs
+
+flexor digitorum profundus: !muscle
+  group: arms
+
+flexor digitorum superficialis: !muscle
+  group: arms
+
+flexor hallucis brevis: !muscle
+  group: legs
+
+flexor hallucis longus: !muscle
+  group: legs
+
+flexor pollicis brevis: !muscle
+  group: arms
+
+flexor pollicis longus: !muscle
+  group: arms
+
+gastrocnemius: !muscle
+  group: legs
+
+gemellus, inferior: !muscle
+  group: legs
+
+gemellus, superior: !muscle
+  group: legs
+
+gluteus maximus: !muscle
+  group: butt
+
+gluteus medius: !muscle
+  group: butt
+
+gluteus minimus: !muscle
+  group: butt
+
+gracilis: !muscle
+  group: hips
+
+iliacus: !muscle
+  group: hips
+
+iliocostalis: !muscle
+  group: back
+
+iliopsoas: !muscle
+  group: legs
+
+inferior gemellus: !muscle
+  group: legs
+
+infraspinatus: !muscle
+  group: arms
+
+innermost intercostal: !muscle
+  group: abdomen
+
+internal abdomenminal oblique: !muscle
+  group: abdomen
+
+internal intercostal: !muscle
+  group: abdomen
+
+interosseous, dorsal (foot): !muscle
+  group: legs
+
+interosseous, dorsal (hand): !muscle
+  group: arms
+
+interosseous, palmar: !muscle
+  group: arms
+
+interosseous, plantar: !muscle
+  group: legs
+
+interspinales: !muscle
+  group: back
+
+intertransversarii: !muscle
+  group: back
+
+latissimus dorsi: !muscle
+  group: arms
+
+levator scapulae: !muscle
+  group: arms
+
+levatores costarum: !muscle
+  group: abdomen
+
+longissimus: !muscle
+  group: back
+
+lumbrical (hand): !muscle
+  group: arms
+
+lumbricals (foot): !muscle
+  group: legs
+
+multifidus: !muscle
+  group: back
+
+obturator externus: !muscle
+  group: hips
+
+obturator internus: !muscle
+  group: hips
+
+opponens digiti minimi: !muscle
+  group: arms
+
+opponens pollicis: !muscle
+  group: arms
+
+palmar interosseous: !muscle
+  group: arms
+
+palmaris brevis: !muscle
+  group: arms
+
+palmaris longus: !muscle
+  group: arms
+
+pectineus: !muscle
+  group: hips
+
+pectoralis major: !muscle
+  group: ches
+
+pectoralis minor: !muscle
+  group: ches
+
+piriformis: !muscle
+  group: legs
+
+plantar interosseous: !muscle
+  group: legs
+
+plantaris: !muscle
+  group: legs
+
+popliteus: !muscle
+  group: legs
+
+pronator quadratus: !muscle
+  group: arms
+
+pronator teres: !muscle
+  group: arms
+
+psoas major: !muscle
+  group: hips
+
+psoas minor: !muscle
+  group: hips
+
+pyramidalis: !muscle
+  group: abdomen
+
+quadratus femoris: !muscle
+  group: legs
+
+quadratus lumborum: !muscle
+  group: back
+
+quadratus plantae: !muscle
+  group: legs
+
+quadriceps femoris: !muscle
+  group: legs
+
+rectus abdominis: !muscle
+  group: abdomen
+
+rectus capitis posterior major: !muscle
+  group: back
+
+rectus capitis posterior minor: !muscle
+  group: back
+
+rectus femoris: !muscle
+  group: legs
+
+rhomboideus major: !muscle
+  group: arms
+
+rhomboideus minor: !muscle
+  group: arms
+
+rotatores: !muscle
+  group: back
+
+sartorius: !muscle
+  group: legs
+
+semimembranosus: !muscle
+  group: legs
+
+semispinalis: !muscle
+  group: back
+
+semitendinosus: !muscle
+  group: legs
+
+serratus anterior: !muscle
+  group: ches
+
+serratus posterior inferior: !muscle
+  group: back
+
+serratus posterior superior: !muscle
+  group: back
+
+soleus: !muscle
+  group: legs
+
+spinalis: !muscle
+  group: back
+
+splenius capitis: !muscle
+  group: back
+
+splenius cervicis: !muscle
+  group: back
+
+splenius: !muscle
+  group: back
+
+subclavius: !muscle
+  group: arms
+
+subcostalis: !muscle
+  group: abdomen
+
+subscapularis: !muscle
+  group: arms
+
+superior gemellus: !muscle
+  group: legs
+
+supinator: !muscle
+  group: arms
+
+supraspinatus: !muscle
+  group: arms
+
+tensor fasciae latae: !muscle
+  group: hips
+
+teres major: !muscle
+  group: arms
+
+teres minor: !muscle
+  group: arms
+
+tibialis anterior: !muscle
+  group: legs
+
+tibialis posterior: !muscle
+  group: legs
+
+transversus abdominis: !muscle
+  group: abdomen
+
+transversus thoracis: !muscle
+  group: abdomen
+
+trapezius: !muscle
+  group: arms
+
+triceps brachii: !muscle
+  group: arms
+
+vastus intermedius: !muscle
+  group: legs
+
+vastus lateralis: !muscle
+  group: legs
+
+vastus medialis: !muscle
+  group: legs

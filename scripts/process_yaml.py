@@ -39,8 +39,9 @@ class ExerciseYAML(yaml.YAMLObject):
         self.muscles = {}
         self.steps = []
         self.info = {}
-        self.fixtures = {}
-        self.rigs = {}
+        self.fixtures = set()
+        self.rigs = set()
+        self.optional_rigs = set()
 
         for exercise in data:
             if exercise[0].tag == 'tag:yaml.org,2002:merge':
@@ -66,11 +67,13 @@ class ExerciseYAML(yaml.YAMLObject):
         elif key == 'steps':
             self.steps = [step.value for step in value]
         elif key == 'fixtures':
-            self.fixtures = {fixture.value for fixture in value}
+            self.fixtures = {fixture[0].value for fixture in value}
         elif key == 'rigs':
-            self.rigs = {rig.value for rig in value}
+            self.rigs = {rig[0].value for rig in value}
+        elif key == 'optional rigs':
+            self.optional_rigs = {rig[0].value for rig in value}
         else:
-            print(f"Unknown key: {key}")
+            raise SystemExit(f"ERROR: unknown exercise key: {key}")
 
 
     def __str__(self):
@@ -81,7 +84,8 @@ class ExerciseYAML(yaml.YAMLObject):
             f"info: {self.info}\n" +\
             f"steps: {self.steps}\n" +\
             f"fixtures: {self.fixtures}\n" +\
-            f"rigs: {self.rigs}\n"
+            f"rigs: {self.rigs}\n" +\
+            f"optional rigs: {self.optional_rigs}\n"
 
     @classmethod
     def from_yaml(cls, loader, node):
@@ -104,7 +108,7 @@ class RigYAML(yaml.YAMLObject):
         if key == 'info':
             self.info = value
         else:
-            print(f"Unknown key: {key}")
+            raise SystemExit(f"ERROR: unknown rig key: {key}")
 
     def __str__(self):
         return f"info: {self.info}\n"
@@ -120,7 +124,7 @@ class MuscleYAML(yaml.YAMLObject):
         self.group = ""
         self.fma = None
         self.info = {}
-        self.antagonists = {}
+        self.antagonists = set()
 
         for muscle  in data:
             if muscle[0].tag == 'tag:yaml.org,2002:merge':
@@ -142,7 +146,7 @@ class MuscleYAML(yaml.YAMLObject):
             if isinstance(value, list):
                 self.antagonists = {antagonist[0].value for antagonist in value}
         else:
-            print(f"Unknown key: {key}")
+            raise SystemExit(f"ERROR: unknown muscle key: {key}")
 
     def __str__(self):
         return f"group: {self.group}\n" +\
@@ -164,8 +168,8 @@ class StretchYAML(yaml.YAMLObject):
         self.muscles = {}
         self.info = {}
         self.steps = []
-        self.fixtures = {}
-        self.rigs = {}
+        self.fixtures = set()
+        self.rigs = set()
 
         for exercise in data:
             if exercise[0].tag == 'tag:yaml.org,2002:merge':
@@ -188,14 +192,14 @@ class StretchYAML(yaml.YAMLObject):
         elif key == 'info':
             for info in value:
                 self.info[info.value[0][0].value] = info.value[0][1].value
-        elif key == 'fixtures':
-            self.fixtures = {fixture.value for fixture in value}
         elif key == 'steps':
-            self.steps = {fixture.value for fixture in value}
+            self.steps = {step.value for step in value}
+        elif key == 'fixtures':
+            self.fixtures = {fixture[0].value for fixture in value}
         elif key == 'rigs':
-            self.rigs = {rig.value for rig in value}
+            self.rigs = {rig[0].value for rig in value}
         else:
-            print(f"Unknown key: {key}")
+            raise SystemExit(f"ERROR: unknown stretch key: {key}")
 
 
     def __str__(self):
@@ -231,7 +235,7 @@ class FixtureYAML(yaml.YAMLObject):
         if key == 'info':
             self.info = value
         else:
-            print(f"Unknown key: {key}")
+            raise SystemExit(f"ERROR: unknown fixture key: {key}")
 
     def __str__(self):
         return f"info: {self.info}\n"
@@ -286,7 +290,51 @@ class YAMLProcessor():
                 self.stretches.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, StretchYAML)})
 
     def validate(self):
-        pass
+        abbreviations = [exercise.abbreviation for key, exercise in self.exercises.items()] 
+        for abbreviation in abbreviations:
+            if abbreviations.count(abbreviation) > 1:
+                raise SystemExit(f"ERROR: duplicate abbreviation: {abbreviation}")
+
+
+        for key, exercise in self.exercises.items():
+            if exercise.variation_of and exercise.variation_of not in self.exercises.keys():
+                raise SystemExit(f"ERROR: exercise {key} is a variation of invalid exercise: {exercise.variation_of}")
+
+            muscles = set(exercise.muscles.keys())
+            if not muscles.issubset(self.muscles.keys()):
+                invalid_muscles = ", ".join(exercise.muscles.keys() - self.muscles.keys())
+                raise SystemExit(f"ERROR: exercise {key} has invalid muscle(s): {invalid_muscles}")
+
+            if not exercise.fixtures.issubset(self.fixtures.keys()):
+                invalid_fixtures = ", ".join(exercise.fixtures - self.fixtures.keys())
+                raise SystemExit(f"ERROR: exercise {key} has invalid fixture(s): {invalid_fixtures}")
+
+            if not exercise.rigs.issubset(self.rigs.keys()):
+                invalid_rigs = ", ".join(exercise.rigs - self.rigs.keys())
+                raise SystemExit(f"ERROR: exercise {key} has invalid rig(s): {invalid_rigs}")
+
+        for key, muscle in self.muscles.items():
+            antagonists = set(muscle.antagonists)
+            if not antagonists.issubset(self.muscles.keys()):
+                invalid_antagonists = ", ".join(muscle.antagonists - self.muscles.keys())
+                raise SystemExit(f"ERROR: muscle {key} has invalid antagonist(s): {invalid_antagonists}")
+
+        for key, stretch in self.stretches.items():
+            muscles = set(stretch.muscles.keys())
+            if not muscles.issubset(self.muscles.keys()):
+                invalid_muscles = ", ".join(stretch.muscles.keys() - self.muscles.keys())
+                raise SystemExit(f"ERROR: stretch {key} has invalid muscle(s): {invalid_muscles}")
+
+            if not stretch.fixtures.issubset(self.fixtures.keys()):
+                invalid_fixtures = ", ".join(stretch.fixtures - self.fixtures.keys())
+                raise SystemExit(f"ERROR: stretch {key} has invalid fixture(s): {invalid_fixtures}")
+
+            if not stretch.rigs.issubset(self.rigs.keys()):
+                invalid_rigs = ", ".join(stretch.rigs - self.rigs.keys())
+                raise SystemExit(f"ERROR: stretch {key} has invalid rig(s): {invalid_rigs}")
+
+
+
 
     def write_sqlite3(self):
         pass

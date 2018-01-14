@@ -37,17 +37,17 @@ overhead front press: !exercise &ofp
     - url: https://en.wikipedia.org/wiki/Overhead_press
     - image: https://commons.wikimedia.org/wiki/File%3A1978_Plymouth_Volare_4_door.JPG
   fixtures:
-    - floor
-    - horizontal bench
+    ? floor
+    ? horizontal bench
   rigs:
-    - barbell
+    ? barbell
 
 overhead back press: !exercise
   <<: *ofp
   aka:
     - back shoulder press
   abbreviation: obp
-  variation of: ofp
+  variation of: overhead front press
   steps:
     - pick up weight
     - push it up over your head
@@ -61,9 +61,9 @@ side-lying lateral raise: !exercise
     - lateral deltoid: 1.0
     - posterior deltoid: 1.0
   fixtures:
-    - floor
+    ? floor
   rigs:
-    - dumbbell single
+    ? dumbbell single
 
 low-pulley front raise, overhand grip: !exercise
   abbreviation: lpfro
@@ -73,7 +73,7 @@ low-pulley front raise, overhand grip: !exercise
     - posterior deltoid: 1.0
     - pectoralis major: 1.0
   fixtures:
-    - cable system, low position
+    ? cable system, low position
 
 chin-up:
   abbreviation: cu
@@ -83,9 +83,9 @@ chin-up:
     - biceps brachii: 1.0
     - latissimus dorsi: 1.0
   fixtures:
-    - pull-up bar
+    ? pull-up bar
   optional rigs:
-    - weighted belt
+    ? weighted belt
 
 #lying barbell triceps extension:
 #  fixtures:

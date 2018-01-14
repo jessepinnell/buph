@@ -25,3 +25,5 @@ lat stretch at the wall: !stretch
   info:
     - url: https://www.davidwolfe.com/34-pictures-muscles-stretching/
     - picture: https://cdn.davidwolfe.com/wp-content/uploads/2016/01/15-and-16-e1453676406620.jpg
+  muscles:
+    - latissimus dorsi: 1.0

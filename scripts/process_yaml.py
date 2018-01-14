@@ -241,59 +241,76 @@ class FixtureYAML(yaml.YAMLObject):
         return FixtureYAML(node.value)
 
 
-def process():
-    """ Generates the list of exercises and renders the HTML """
-    app_args_parser = argparse.ArgumentParser()
-    app_args_parser.add_argument('--dbtype', choices=['postgres', 'sqlite3'], default='sqlite3')
-    app_args_parser.add_argument('files', nargs=argparse.REMAINDER)
-    app_args = app_args_parser.parse_args()
+class YAMLProcessor():
+    def __init__(self):
+        """ Generates the list of exercises and renders the HTML """
+        app_args_parser = argparse.ArgumentParser()
+        app_args_parser.add_argument('--format', choices=['dump', 'postgres', 'sqlite3'], default='dump')
+        app_args_parser.add_argument('files', nargs=argparse.REMAINDER)
+        app_args = app_args_parser.parse_args()
 
-    yaml.SafeLoader.add_constructor('!exercise', ExerciseYAML.from_yaml)
-    yaml.SafeLoader.add_constructor('!muscle', MuscleYAML.from_yaml)
-    yaml.SafeLoader.add_constructor('!rig', RigYAML.from_yaml)
-    yaml.SafeLoader.add_constructor('!fixture', FixtureYAML.from_yaml)
-    yaml.SafeLoader.add_constructor('!stretch', StretchYAML.from_yaml)
+        yaml.SafeLoader.add_constructor('!exercise', ExerciseYAML.from_yaml)
+        yaml.SafeLoader.add_constructor('!muscle', MuscleYAML.from_yaml)
+        yaml.SafeLoader.add_constructor('!rig', RigYAML.from_yaml)
+        yaml.SafeLoader.add_constructor('!fixture', FixtureYAML.from_yaml)
+        yaml.SafeLoader.add_constructor('!stretch', StretchYAML.from_yaml)
 
-    everything = {}
-    exercises = {}
-    muscles = {}
-    rigs = {}
-    fixtures = {}
-    stretches = {}
+        self.everything = {}
+        self.exercises = {}
+        self.muscles = {}
+        self.rigs = {}
+        self.fixtures = {}
+        self.stretches = {}
+        
 
-    for yaml_file in app_args.files:
-        print(f"Processing {yaml_file}")
-        with open(yaml_file) as this_file:
-            yaml_objects = yaml.safe_load(this_file)
-            everything.update(yaml_objects)
-            exercises.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, ExerciseYAML)})
-            muscles.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, MuscleYAML)})
-            rigs.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, RigYAML)})
-            fixtures.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, FixtureYAML)})
-            stretches.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, StretchYAML)})
+        self.load_files(app_args.files)
+        self.validate()
 
-    print("Found {} total objects".format(len(everything)))
-    print("Found {} exercises".format(len(exercises)))
-    print("Found {} muscles".format(len(muscles.keys())))
-    print("Found {} rigs".format(len(rigs.keys())))
-    print("Found {} fixtures".format(len(fixtures.keys())))
-    print("Found {} stretches".format(len(stretches.keys())))
+        if app_args.format == 'postgres':
+           self.write_postgres() 
+        elif app_args.format == 'sqlite3':
+           self.write_sqlite3() 
+        else:
+           self.dump() 
+            
 
-    # Validate keys across objects
-    for key, exercise in exercises.items():
-        print(f"\033[32m{key}\033[0m:\n{exercise}")
+    def load_files(self, input_files):
+        for yaml_file in input_files:
+            with open(yaml_file) as this_file:
+                yaml_objects = yaml.safe_load(this_file)
+                self.everything.update(yaml_objects)
+                self.exercises.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, ExerciseYAML)})
+                self.muscles.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, MuscleYAML)})
+                self.rigs.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, RigYAML)})
+                self.fixtures.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, FixtureYAML)})
+                self.stretches.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, StretchYAML)})
 
-    for key, fixture in fixtures.items():
-        print(f"\033[31m{key}\033[0m:\n{fixture}")
+    def validate(self):
+        pass
 
-    for key, rig in rigs.items():
-        print(f"\033[33m{key}\033[0m:\n{rig}")
+    def write_sqlite3(self):
+        pass
 
-    for key, muscle in muscles.items():
-        print(f"\033[35m{key}\033[0m:\n{muscle}")
+    def write_postgre(self):
+        pass
 
-    for key, stretch in stretches.items():
-        print(f"\033[36m{key}\033[0m:\n{stretch}")
+    def dump(self):
+        # Validate keys across objects
+        for key, exercise in self.exercises.items():
+            print(f"\033[32m{key}\033[0m:\n{exercise}")
+
+        for key, fixture in self.fixtures.items():
+            print(f"\033[31m{key}\033[0m:\n{fixture}")
+
+        for key, rig in self.rigs.items():
+            print(f"\033[33m{key}\033[0m:\n{rig}")
+
+        for key, muscle in self.muscles.items():
+            print(f"\033[35m{key}\033[0m:\n{muscle}")
+
+        for key, stretch in self.stretches.items():
+            print(f"\033[36m{key}\033[0m:\n{stretch}")
+
 
 if __name__ == "__main__":
-    process()
+    processor = YAMLProcessor()

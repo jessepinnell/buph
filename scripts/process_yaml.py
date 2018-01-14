@@ -32,14 +32,54 @@ import yaml
 class ExerciseYAML(yaml.YAMLObject):
     yaml_tag = u'!exercise'
 
-    aka = []
-    muscles = []
-    info = []
-    fixtures = []
-    rigs = []
 
     def __init__(self, data):
-        pass
+        self.abbreviation = ""
+        self.aka = []
+        self.muscles = {}
+        self.info = {}
+        self.fixtures = []
+        self.rigs = []
+
+        for exercise in data:
+            if exercise[0].tag == 'tag:yaml.org,2002:merge':
+                for merged_exercise in exercise[1].value:
+                    self.setMembers(merged_exercise[0].value, merged_exercise[1].value)
+            else:
+                self.setMembers(exercise[0].value, exercise[1].value)
+
+    def setMembers(self, key, value):
+        if key == 'abbreviation':
+            self.abbreviation = value
+        elif key == 'aka':
+            # Append to merged akas (if any)
+            #for aka in value:
+            #    self.aka.append(aka.value)
+
+            # overwrite merged akas (if any)
+            self.aka = [aka.value for aka in value]
+        elif key == 'muscles':
+            for muscle in value:
+                self.muscles[muscle.value[0][0].value] = float(muscle.value[0][1].value)
+        elif key == 'info':
+            for info in value:
+                self.info[info.value[0][0].value] = info.value[0][1].value
+        elif key == 'fixtures':
+            self.fixtures = [fixture.value for fixture in value]
+        elif key == 'rigs':
+            for rigs in value:
+                self.rigs.append(rigs.value)
+        else:
+            print(f"Unknown key: {key}")
+
+
+    def __str__(self):
+        return f"abbreviation: {self.abbreviation}\n" +\
+            f"aka: {self.aka}\n" +\
+            f"muscles : {self.muscles}\n" +\
+            f"info: {self.info}\n" +\
+            f"fixtures: {self.fixtures}\n" +\
+            f"rigs: {self.rigs}\n"
 
     @classmethod
     def from_yaml(cls, loader, node):
@@ -95,6 +135,7 @@ class FixtureYAML(yaml.YAMLObject):
         return FixtureYAML(node.value)
 
 
+
 def process():
     """ Generates the list of exercises and renders the HTML """
     app_args_parser = argparse.ArgumentParser()
@@ -135,6 +176,11 @@ def process():
     print("Found {} rigs".format(len(rigs.keys())))
     print("Found {} fixtures".format(len(fixtures.keys())))
     print("Found {} stretches".format(len(stretches.keys())))
+
+    # Validate keys across objects
+    for key, exercise in exercises.items():
+        print(f"\033[32m{key}\033[0m:\n{exercise}")
+
 
 if __name__ == "__main__":
     process()

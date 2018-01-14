@@ -17,7 +17,9 @@
 
 # TODO update with more accurate muscle weighting, especially deltoids
 
-overhead press: !exercise &overhead_press 
+
+overhead front press: !exercise &ofp
+  abbreviation: ofp
   aka:
     - shoulder press
   steps: # this is just for example; might be outside of the scope of this
@@ -41,7 +43,10 @@ overhead press: !exercise &overhead_press
     - barbell
 
 overhead back press: !exercise
-  <<: *overhead_press
+  <<: *ofp
+  aka:
+    - back shoulder press
+  abbreviation: obp
   variation of: overhead front press
   steps: # this is just for example; might be outside of the scope of this
     - pick up weight
@@ -50,6 +55,7 @@ overhead back press: !exercise
     - repeat
 
 side-lying lateral raise: !exercise
+  abbreviation: sllr
   muscles:
     - anterior deltoid: 1.0
     - lateral deltoid: 1.0
@@ -60,6 +66,7 @@ side-lying lateral raise: !exercise
     - dumbbell single
 
 low-pulley front raise, overhand grip: !exercise
+  abbreviation: lpfro
   muscles:
     - anterior deltoid: 1.0
     - lateral deltoid: 1.0
@@ -69,6 +76,7 @@ low-pulley front raise, overhand grip: !exercise
     - cable system, low position
 
 chin-up:
+  abbreviation: cu
   muscles:
     - brachioradialis: 1.0
     - brachialis: 1.0

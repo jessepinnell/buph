@@ -292,7 +292,7 @@ class YAMLProcessor():
     def validate(self):
         abbreviations = [exercise.abbreviation for key, exercise in self.exercises.items()] 
         for abbreviation in abbreviations:
-            if abbreviations.count(abbreviation) > 1:
+            if abbreviation and abbreviations.count(abbreviation) > 1:
                 raise SystemExit(f"ERROR: duplicate abbreviation: {abbreviation}")
 
 

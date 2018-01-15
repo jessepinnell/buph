@@ -43,12 +43,16 @@ class ExerciseYAML(yaml.YAMLObject):
         self.rigs = set()
         self.optional_rigs = set()
 
-        for exercise in data:
-            if exercise[0].tag == 'tag:yaml.org,2002:merge':
-                for merged_exercise in exercise[1].value:
-                    self.setMembers(merged_exercise[0].value, merged_exercise[1].value)
-            else:
-                self.setMembers(exercise[0].value, exercise[1].value)
+        try:
+            for exercise in data:
+                if exercise[0].tag == 'tag:yaml.org,2002:merge':
+                    for merged_exercise in exercise[1].value:
+                        self.setMembers(merged_exercise[0].value, merged_exercise[1].value)
+                else:
+                    self.setMembers(exercise[0].value, exercise[1].value)
+        except Exception as ex:
+            print(f"{self.abbreviation}: {ex}")
+            raise
 
     def setMembers(self, key, value):
         if key == 'abbreviation':

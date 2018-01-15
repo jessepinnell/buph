@@ -223,7 +223,7 @@ infraspinatus: !muscle
 innermost intercostal: !muscle
   group: abdomen
 
-internal abdomenminal oblique: !muscle
+internal abdominal oblique: !muscle
   group: abdomen
 
 internal intercostal: !muscle

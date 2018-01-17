@@ -51,7 +51,8 @@ class TestExerciseHTMLRendering(unittest.TestCase):
         num_exercises_in_plan = 14
         self.engine.set_user_exercise_environment([], [])
         plan = self.engine.generate_plan("basic_random", n=num_exercises_in_plan)
-        self.assertEqual(len(plan), num_exercises_in_plan)
+        self.assertEqual(len(plan), 1)
+        self.assertEqual(len(plan[0]), num_exercises_in_plan)
 
         # TODO perform HTML validation as test
         # lxml would work, but it would add requirement to project just for this

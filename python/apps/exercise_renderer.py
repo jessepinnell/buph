@@ -58,8 +58,8 @@ def generate_and_render():
 
     json_args = {}
     if app_args.json is not None:
-        with open(app_args.json) as f:
-            json_args = json.load(f)
+        with open(app_args.json) as json_file:
+            json_args = json.load(json_file)
 
     # XXX this is cheesy.  Maybe add a subparser per generator?  Need to read from engine.
     generator_args = {}

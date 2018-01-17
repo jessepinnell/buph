@@ -32,7 +32,7 @@ def generate_plan(routine_environment, exercise_data, **kwargs):
     returns a list of one list of exercises
     """
 
-    if len(routine_environment.available_exercises) == 0:
+    if not routine_environment.available_exercises:
         raise GeneratorException("No available exercises from which to choose")
 
     if 'n' not in kwargs:

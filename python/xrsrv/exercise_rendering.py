@@ -55,7 +55,8 @@ class BasicHTMLRenderer(object):
             this_exercise_data = exercise_data[0]
             for exercise in this_exercise_data:
                 if exercise.rigs is not None:
-                    rig_names = ", ".join(["({0})".format(rig.name) if rig.optional else rig.name for rig in exercise.rigs])
+                    rig_names = ", ".join(["({0})".format(rig.name) \
+                       if rig.optional else rig.name for rig in exercise.rigs])
                 else:
                     rig_names = ""
                 body += "{0}<tr><td>{1}</td><td>{2}</td><td>{3}</td>"\
@@ -86,13 +87,13 @@ class BasicHTMLRenderer(object):
             """.format(title, body)
         else:
             body = "    <table>\n    "
-            
-            NUM_SETS_PER_EXERCISE = 3
+
+            num_sets_per_exercise = 3
             for day_i, day in enumerate(exercise_data):
                 body += "<tr><td class=\"heady\">Day {0}</td>".format(day_i + 1)
                 for exercise in day:
                     body += "<td><table class=\"checkly\">{1}</table>{0}</td>".format(exercise.name, "<td></td>"\
-                        * NUM_SETS_PER_EXERCISE)
+                        * num_sets_per_exercise)
                 body += "</tr>\n"
 
             body += "    </table>"

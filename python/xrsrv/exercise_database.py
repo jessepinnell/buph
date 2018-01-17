@@ -28,7 +28,7 @@
 import sqlite3
 
 # TODO(jessepinnell) figure out why lint doesn't like pathlib
-# pylint: disable=import-error
+# peylint: disable=import-error
 from pathlib import Path
 
 from xrsrv import type_factories

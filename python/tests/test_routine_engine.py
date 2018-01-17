@@ -154,7 +154,8 @@ class TestRoutineEngine(unittest.TestCase):
         num_exercises_in_plan = 12
         self.engine.set_user_exercise_environment(self.user_fixtures, self.user_rigs)
         plan = self.engine.generate_plan("basic_random", n=num_exercises_in_plan)
-        #self.assertEqual(len(plan), num_exercises_in_plan)
+        self.assertEqual(len(plan), 1)
+        self.assertEqual(len(plan[0]), num_exercises_in_plan)
 
 
     def test_generate_single_plan_too_many(self):
@@ -164,7 +165,8 @@ class TestRoutineEngine(unittest.TestCase):
         num_exercises_in_plan = 342
         self.engine.set_user_exercise_environment(self.user_fixtures, self.user_rigs)
         plan = self.engine.generate_plan("basic_random", n=num_exercises_in_plan)
-        self.assertNotEqual(len(plan), num_exercises_in_plan)
+        self.assertEqual(len(plan), 1)
+        self.assertNotEqual(len(plan[0]), num_exercises_in_plan)
 
 
 if __name__ == '__main__':

@@ -6,10 +6,10 @@
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -27,6 +27,7 @@ import csv
 import sys
 
 
+# pylint: disable=missing-docstring
 # XXX This defaults to olympic stuff, need to handle multiple rigs for each exercise
 EQUIPMENT_MAP = {
     "B": "balanced olympic barbell",
@@ -41,44 +42,48 @@ EQUIPMENT_MAP = {
 }
 
 class ExerciseConverter():
+    """
+    Utility for converting csv export of exercise data to SQLITE queries
+    """
+
     def __init__(self):
         self.exercises = {}
-        
 
-    def printExercisesSQL(self, filename):
-        with open(filename, "w") as f:
+
+    def print_exercises_sql(self, filename):
+        with open(filename, "w") as sql_file:
             for exercise, info in self.exercises.items():
                 rig = "?" if info[1] is None else "\"{0}\"".format(info[1])
-                f.write("INSERT INTO Exercises VALUES (\"{0}\", \"floor\", {1}, ?);\n".format(exercise, rig))
+                sql_file.write("INSERT INTO Exercises VALUES (\"{0}\", \"floor\", {1}, ?);\n".format(exercise, rig))
 
-    def printMusclesWorkedSQL(self, filename):
-        with open(filename, "w") as f:
+    def print_muscles_worked_sql(self, filename):
+        with open(filename, "w") as sql_file:
             for exercise, info in self.exercises.items():
                 for muscle in info[0]:
-                    f.write("INSERT INTO MusclesExercised VALUES (\"{0}\", \"{1}\");\n".format(exercise, muscle))
+                    sql_file.write("INSERT INTO MusclesExercised VALUES (\"{0}\", \"{1}\");\n".format(exercise, muscle))
 
-    def addExercise(self, exercise, muscle, equipment_char):
+    def add_exercise(self, exercise, muscle, equipment_char):
         if exercise not in self.exercises:
             self.exercises[exercise] = (set(), EQUIPMENT_MAP[equipment_char])
         self.exercises[exercise][0].add(muscle)
 
-    def generateSQLFromCSV(self, input_file, exercises_out_file, muscles_worked_out_file):
+    def generate_sql_from_csv(self, input_file, exercises_out_file, muscles_worked_out_file):
         """ Generates queries based on CSV """
-        with open(input_file, "r") as f:
-            reader = csv.reader(f)
+        with open(input_file, "r") as csv_file:
+            reader = csv.reader(csv_file)
             header = next(reader)
 
             for row in reader:
                 if row[0] != "":
                     for i, field in enumerate(row):
                         if field == "⚫":
-                            self.addExercise(row[1], header[i], row[2])
+                            self.add_exercise(row[1], header[i], row[2])
 
-        self.printExercisesSQL(exercises_out_file)
-        self.printMusclesWorkedSQL(muscles_worked_out_file)
+        self.print_exercises_sql(exercises_out_file)
+        self.print_muscles_worked_sql(muscles_worked_out_file)
 
 if __name__ == "__main__":
-   if len(sys.argv) != 4:
-      sys.exit("usage: {0} [input file] [muscles out] [muscles worked out]".format(sys.argv[0]))
-   converter = ExerciseConverter()
-   converter.generateSQLFromCSV(sys.argv[1], sys.argv[2], sys.argv[3])
+    if len(sys.argv) != 4:
+        sys.exit("usage: {0} [input file] [muscles out] [muscles worked out]".format(sys.argv[0]))
+    CONVERTER = ExerciseConverter()
+    CONVERTER.generate_sql_from_csv(sys.argv[1], sys.argv[2], sys.argv[3])

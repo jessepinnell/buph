@@ -22,14 +22,16 @@
 
 """ Utility to process YAML into various flavors of SQL """
 
-import sys
 import argparse
 import yaml
 
-# pylint: disable=too-few-public-methods
-# pylint: disable=no-self-argument
+# pylint: disable=missing-docstring
+# pylint: disable=too-many-instance-attributes
 
 class ExerciseYAML(yaml.YAMLObject):
+    """
+    Represents a custom YAML exercise type
+    """
     yaml_tag = u'!exercise'
 
     def __init__(self, data):
@@ -47,14 +49,14 @@ class ExerciseYAML(yaml.YAMLObject):
             for exercise in data:
                 if exercise[0].tag == 'tag:yaml.org,2002:merge':
                     for merged_exercise in exercise[1].value:
-                        self.setMembers(merged_exercise[0].value, merged_exercise[1].value)
+                        self.set_members(merged_exercise[0].value, merged_exercise[1].value)
                 else:
-                    self.setMembers(exercise[0].value, exercise[1].value)
+                    self.set_members(exercise[0].value, exercise[1].value)
         except Exception as ex:
             print(f"{self.abbreviation}: {ex}")
             raise
 
-    def setMembers(self, key, value):
+    def set_members(self, key, value):
         if key == 'abbreviation':
             self.abbreviation = value
         elif key == 'variation of':
@@ -96,6 +98,9 @@ class ExerciseYAML(yaml.YAMLObject):
         return ExerciseYAML(node.value)
 
 class RigYAML(yaml.YAMLObject):
+    """
+    Represents a custom YAML rig type
+    """
     yaml_tag = u'!rig'
 
     def __init__(self, data):
@@ -104,11 +109,11 @@ class RigYAML(yaml.YAMLObject):
         for rig in data:
             if rig[0].tag == 'tag:yaml.org,2002:merge':
                 for merged_rigs in rig[1].value:
-                    self.setMembers(merged_rigs[0].value, merged_rigs[1].value)
+                    self.set_members(merged_rigs[0].value, merged_rigs[1].value)
             else:
-                self.setMembers(rig[0].value, rig[1].value)
+                self.set_members(rig[0].value, rig[1].value)
 
-    def setMembers(self, key, value):
+    def set_members(self, key, value):
         if key == 'info':
             self.info = value
         else:
@@ -122,6 +127,9 @@ class RigYAML(yaml.YAMLObject):
         return RigYAML(node.value)
 
 class MuscleYAML(yaml.YAMLObject):
+    """
+    Represents a custom YAML muscle type
+    """
     yaml_tag = u'!muscle'
 
     def __init__(self, data):
@@ -130,14 +138,14 @@ class MuscleYAML(yaml.YAMLObject):
         self.info = {}
         self.antagonists = set()
 
-        for muscle  in data:
+        for muscle in data:
             if muscle[0].tag == 'tag:yaml.org,2002:merge':
-                for merged_muscles in muscles[1].value:
-                    self.setMembers(merged_muscles[0].value, merged_muscles[1].value)
+                for merged_muscles in muscle[1].value:
+                    self.set_members(merged_muscles[0].value, merged_muscles[1].value)
             else:
-                self.setMembers(muscle[0].value, muscle[1].value)
+                self.set_members(muscle[0].value, muscle[1].value)
 
-    def setMembers(self, key, value):
+    def set_members(self, key, value):
         if key == 'group':
             self.group = value
         elif key == 'fma':
@@ -163,6 +171,9 @@ class MuscleYAML(yaml.YAMLObject):
         return MuscleYAML(node.value)
 
 class StretchYAML(yaml.YAMLObject):
+    """
+    Represents a custom YAML stretch type
+    """
     yaml_tag = u'!stretch'
 
     def __init__(self, data):
@@ -178,11 +189,11 @@ class StretchYAML(yaml.YAMLObject):
         for exercise in data:
             if exercise[0].tag == 'tag:yaml.org,2002:merge':
                 for merged_exercise in exercise[1].value:
-                    self.setMembers(merged_exercise[0].value, merged_exercise[1].value)
+                    self.set_members(merged_exercise[0].value, merged_exercise[1].value)
             else:
-                self.setMembers(exercise[0].value, exercise[1].value)
+                self.set_members(exercise[0].value, exercise[1].value)
 
-    def setMembers(self, key, value):
+    def set_members(self, key, value):
         if key == 'abbreviation':
             self.abbreviation = value
         elif key == 'variation of':
@@ -223,6 +234,9 @@ class StretchYAML(yaml.YAMLObject):
 
 
 class FixtureYAML(yaml.YAMLObject):
+    """
+    Represents a custom YAML fixture type
+    """
     yaml_tag = u'!fixture'
 
     def __init__(self, data):
@@ -231,11 +245,11 @@ class FixtureYAML(yaml.YAMLObject):
         for fixture in data:
             if fixture[0].tag == 'tag:yaml.org,2002:merge':
                 for merged_fixtures in fixture[1].value:
-                    self.setMembers(merged_fixtures[0].value, merged_fixtures[1].value)
+                    self.set_members(merged_fixtures[0].value, merged_fixtures[1].value)
             else:
-                self.setMembers(fixture[0].value, fixture[1].value)
+                self.set_members(fixture[0].value, fixture[1].value)
 
-    def setMembers(self, key, value):
+    def set_members(self, key, value):
         if key == 'info':
             self.info = value
         else:
@@ -250,6 +264,9 @@ class FixtureYAML(yaml.YAMLObject):
 
 
 class YAMLProcessor():
+    """
+    YAML parsing and database query converter
+    """
     def __init__(self):
         """ Generates the list of exercises and renders the HTML """
         app_args_parser = argparse.ArgumentParser()
@@ -269,32 +286,43 @@ class YAMLProcessor():
         self.rigs = {}
         self.fixtures = {}
         self.stretches = {}
-        
+
 
         self.load_files(app_args.files)
         self.validate()
 
         if app_args.format == 'postgres':
-           self.write_postgres() 
+            self.write_postgres()
         elif app_args.format == 'sqlite3':
-           self.write_sqlite3() 
+            self.write_sqlite3()
         else:
-           self.dump() 
-            
+            self.dump()
+
 
     def load_files(self, input_files):
         for yaml_file in input_files:
             with open(yaml_file) as this_file:
                 yaml_objects = yaml.safe_load(this_file)
                 self.everything.update(yaml_objects)
-                self.exercises.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, ExerciseYAML)})
-                self.muscles.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, MuscleYAML)})
-                self.rigs.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, RigYAML)})
-                self.fixtures.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, FixtureYAML)})
-                self.stretches.update({key: yaml_object for key, yaml_object in yaml_objects.items() if isinstance(yaml_object, StretchYAML)})
+                self.exercises.update({key: yaml_object\
+                    for key, yaml_object in yaml_objects.items()\
+                    if isinstance(yaml_object, ExerciseYAML)})
+                self.muscles.update({key: yaml_object\
+                    for key, yaml_object in yaml_objects.items()\
+                    if isinstance(yaml_object, MuscleYAML)})
+                self.rigs.update({key: yaml_object\
+                    for key, yaml_object in yaml_objects.items()\
+                    if isinstance(yaml_object, RigYAML)})
+                self.fixtures.update({key: yaml_object\
+                    for key, yaml_object in yaml_objects.items()\
+                    if isinstance(yaml_object, FixtureYAML)})
+                self.stretches.update({key: yaml_object\
+                    for key, yaml_object in yaml_objects.items()\
+                    if isinstance(yaml_object, StretchYAML)})
 
     def validate(self):
-        abbreviations = [exercise.abbreviation for key, exercise in self.exercises.items()] 
+        # pylint: disable=too-many-branches
+        abbreviations = [exercise.abbreviation for key, exercise in self.exercises.items()]
         for abbreviation in abbreviations:
             if abbreviation and abbreviations.count(abbreviation) > 1:
                 raise SystemExit(f"ERROR: duplicate abbreviation: {abbreviation}")
@@ -340,6 +368,9 @@ class YAMLProcessor():
 
 
     def write_sqlite3(self):
+        # pylint: disable=too-many-branches
+        # yeah, probably
+
         # this assumes the schema has been applied
         print("PRAGMA foreign_keys = ON;")
         for muscle_group in {muscle.group for key, muscle in self.muscles.items()}:
@@ -348,11 +379,11 @@ class YAMLProcessor():
         #all of these need to come out before the relationships
         for key, muscle in self.muscles.items():
             print(f"INSERT INTO Muscles VALUES (\"{key}\", \"{muscle.group}\", ?);")
-        for key in self.fixtures.keys():
+        for key in self.fixtures:
             print(f"INSERT INTO Fixtures VALUES (\"{key}\", ?);")
-        for key in self.rigs.keys():
+        for key in self.rigs:
             print(f"INSERT INTO Rigs VALUES (\"{key}\", ?);")
-        for key in self.stretches.keys():
+        for key in self.stretches:
             print(f"INSERT INTO Stretches VALUES (\"{key}\");")
 
         for key, muscle in self.muscles.items():
@@ -377,10 +408,8 @@ class YAMLProcessor():
             for muscle, amount in exercise.muscles.items():
                 print(f"INSERT INTO MusclesExercised VALUES (\"{key}\", \"{muscle}\", {amount});")
 
-        # MusclesExercised
-        pass
 
-    def write_postgre(self):
+    def write_postgres(self):
         pass
 
     def dump(self):
@@ -402,4 +431,4 @@ class YAMLProcessor():
 
 
 if __name__ == "__main__":
-    processor = YAMLProcessor()
+    PROCESSOR = YAMLProcessor()

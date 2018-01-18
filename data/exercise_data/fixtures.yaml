@@ -34,6 +34,9 @@ incline bench: !fixture
 decline bench: !fixture
   info: null
 
+preacher curl support: !fixture
+  info: null
+
 pull-up bar: !fixture
   info: null
 

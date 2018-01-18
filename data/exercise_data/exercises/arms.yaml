@@ -15,18 +15,46 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# TODO update with more accurate muscle weighting, especially deltoids
-
-
-low-pulley front raise, overhand grip: !exercise
-  abbreviation: lpfro
+overhead barbell triceps extension: !exercise
+  abbreviation: obte
   muscles:
-    - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
-    - posterior deltoid: 1.0
-    - pectoralis major: 1.0
+    - anconeus: 1.0
+    - triceps brachii: 1.0
   fixtures:
-    ? cable system, low position
+    ? floor
+    ? horizontal bench
+  rigs:
+    ? barbell
+
+overhead ez bar triceps extension: !exercise
+  abbreviation: oezte
+  muscles:
+    - anconeus: 1.0
+    - triceps brachii: 1.0
+  fixtures:
+    ? floor
+    ? horizontal bench
+  rigs:
+    ? ez bar
+
+seated ez bar triceps extension: !exercise
+  abbreviation: sezte
+  muscles:
+    - triceps brachii: 1.0
+  fixtures:
+    ? horizontal bench
+  rigs:
+    ? ez bar
+
+seated dumbbell triceps extension: !exercise
+  abbreviation: sdte
+  muscles:
+    - anconeus: 1.0
+    - triceps brachii: 1.0
+  fixtures:
+    ? horizontal bench
+  rigs:
+    ? dumbbell single
 
 lying barbell triceps extension: !exercise
   abbreviation: lbte 
@@ -65,112 +93,76 @@ triceps push-down: !exercise
   fixtures:
     ? cable system, high position
 
-overhead barbell triceps extension: !exercise
-  abbreviation: obte
+triceps push-down: !exercise
+  abbreviation: tpd
+  muscles:
+    - triceps brachii: 1.0
+    - anconeus: 1.0
+  fixtures:
+    ? cable system, high position
+
+reverse triceps push-down: !exercise
+  abbreviation: rtpd
+  muscles: # TODO this mix is a guess (extensors are isometric, so 0.5)
+    - triceps brachii: 1.0
+    - extensor digiti minimi: 0.5
+    - extensor carpi radialis longus: 0.5
+    - extensor carpi ulnaris: 0.5
+    - extensor digitorum: 0.5
+    - extensor carpi radialis brevis: 0.5
+    - extensor indicis: 0.5
+    - extensor pollicis brevis: 0.5
+    - extensor pollicis longus: 0.5
+    - anconeus: 1.0
+  fixtures:
+    ? cable system, high position
+
+one-arm reverse push-down: !exercise
+  abbreviation: oarpd
   muscles:
     - anconeus: 1.0
     - triceps brachii: 1.0
   fixtures:
     ? floor
-    ? horizontal bench
-  rigs:
-    ? barbell
 
-overhead ez bar triceps extension: !exercise
-  abbreviation: oezte
-  muscles:
-    - anconeus: 1.0
-    - triceps brachii: 1.0
-  fixtures:
-    ? floor
-    ? horizontal bench
-  rigs:
-    ? ez bar
-
-one-arm dumbbell row: !exercise
-  abbreviation: oadr
-  muscles:
-    - rhomboideus major: 1.0
-    - biceps brachii: 1.0
-    - teres minor: 1.0
-    - rhomboideus minor: 1.0
-    - brachialis: 1.0
-    - latissimus dorsi: 1.0
-    - brachioradialis: 1.0
-    - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
-    - posterior deltoid: 1.0
-  fixtures:
-    ? horizontal bench
-  rigs:
-    ? dumbbell single
+# Curls: 
 
 dumbbell curl: !exercise
   abbreviation: dc
   muscles:
     - brachioradialis: 1.0
+    - coracobrachialis: 0.5
     - brachialis: 1.0
     - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
-    - posterior deltoid: 1.0
     - biceps brachii: 1.0
   fixtures:
     ? floor
   rigs:
     ? dumbbell pair
 
-seated ez bar triceps extension: !exercise
-  abbreviation: sezte
-  muscles:
-    - triceps brachii: 1.0
-  fixtures:
-    ? horizontal bench
-  rigs:
-    ? ez bar
-
 concentration curl: !exercise
   abbreviation: cc
-  muscles:
-    - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
-    - posterior deltoid: 1.0
-    - biceps brachii: 1.0
-  fixtures:
-    ? horizontal bench
-  rigs:
-    ? dumbbell single
-
-low-pulley curl: !exercise
-  abbreviation: lpc
   muscles:
     - brachialis: 1.0
     - biceps brachii: 1.0
   fixtures:
-    ? cable system, low position
-
-seated dumbbell triceps extension: !exercise
-  abbreviation: sdte
-  muscles:
-    - anconeus: 1.0
-    - triceps brachii: 1.0
-  fixtures:
     ? horizontal bench
   rigs:
     ? dumbbell single
 
-reverse triceps push-down: !exercise
-  abbreviation: rtpd
+low pulley curl: !exercise
+  abbreviation: lpc
   muscles:
-    - extensor digiti minimi: 1.0
-    - triceps brachii: 1.0
-    - extensor carpi radialis longus: 1.0
-    - extensor carpi ulnaris: 1.0
-    - extensor digitorum: 1.0
-    - extensor carpi radialis brevis: 1.0
-    - extensor indicis: 1.0
-    - extensor pollicis brevis: 1.0
-    - anconeus: 1.0
-    - extensor pollicis longus: 1.0
+    - brachialis: 0.8
+    - biceps brachii: 1.0
+  fixtures:
+    ? cable system, low position
+
+high pulley curl: !exercise
+  abbreviation: hpc
+  muscles:
+    - brachialis: 1.0
+    - biceps brachii: 1.0
   fixtures:
     ? cable system, high position
 
@@ -337,18 +329,29 @@ ez bar reverse wrist curl: !exercise
   rigs:
     ? ez bar
 
-high pulley curl: !exercise
-  abbreviation: hpc
-  muscles:
-    - brachialis: 1.0
-    - biceps brachii: 1.0
-  fixtures:
-    ? cable system, middle position
-
-one-arm reverse push-down: !exercise
-  abbreviation: oarpd
+triceps kick back: !exercise
+  abbreviation: tkb
   muscles:
     - anconeus: 1.0
     - triceps brachii: 1.0
   fixtures:
     ? floor
+  rigs:
+    ? dumbbell single
+
+barbell preacher curl: &bpc !exercise
+  abbreviation: bpc
+  muscles:
+    - biceps brachii: 1.0
+    - brachialis: 0.8
+  fixtures:
+    ? preacher curl support
+  rigs:
+    ? barbell
+
+ez bar preacher curl: !exercise
+  <<: *bpc
+  abbreviation: ezbpc
+  variation of: barbell preacher curl
+  rigs:
+    ? ez bar

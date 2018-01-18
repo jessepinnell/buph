@@ -92,13 +92,6 @@ power squat: !exercise
   rigs:
     ? barbell
 
-cable hip abduction: !exercise
-  abbreviation: chab
-  muscles:
-    - gluteus medius: 1.0
-  fixtures:
-    ? cable system, low position
-
 cable hip adduction: !exercise
   abbreviation: chad
   muscles:

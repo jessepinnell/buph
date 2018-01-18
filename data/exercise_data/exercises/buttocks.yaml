@@ -21,26 +21,23 @@ cable back kick: !exercise
   abbreviation: cbk
   muscles:
     - gluteus maximus: 1.0
+    - biceps femoris: 0.5
   fixtures:
     ? cable system, low position
 
 bridging: !exercise
   abbreviation: b
   muscles:
-    - semimembranosus: 1.0
-    - biceps femoris: 1.0
+    - biceps femoris: 0.7
     - gluteus maximus: 1.0
-    - semitendinosus: 1.0
   fixtures:
     ? floor
 
 bridging on bench: !exercise
   abbreviation: bb
   muscles:
-    - semimembranosus: 1.0
     - biceps femoris: 1.0
     - gluteus maximus: 1.0
-    - semitendinosus: 1.0
   fixtures:
     ? horizontal bench
 
@@ -55,7 +52,7 @@ dumbbell lunge: !exercise
     ? dumbbell pair
 
 barbell lunge: !exercise
-  abbreviation: br
+  abbreviation: bl
   muscles:
     - gluteus maximus: 1.0
     - quadriceps femoris: 1.0
@@ -63,3 +60,11 @@ barbell lunge: !exercise
     ? floor
   rigs:
     ? barbell
+
+cable hip abduction: !exercise
+  abbreviation: chab
+  muscles:
+    - gluteus medius: 1.0
+    - adductor minimus: 1.0
+  fixtures:
+    ? cable system, low position

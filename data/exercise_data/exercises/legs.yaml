@@ -1,0 +1,151 @@
+# Copyright (c) 2018 Jesse Pinnell
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# TODO update with more accurate muscle weighting, especially deltoids
+
+single-leg toe raise: !exercise
+  abbreviation: sltr
+  muscles:
+    - gastrocnemius: 1.0
+    - soleus: 1.0
+  fixtures:
+    ? block on floor
+  optional rigs:
+    ? dumbbell pair
+    ? barbell
+
+leg extension: !exercise
+  abbreviation: le
+  muscles:
+    - quadriceps femoris: 1.0
+  fixtures:
+    ? leg extension machine
+
+standing calf raise: !exercise
+  abbreviation: scr
+  muscles:
+    - gastrocnemius: 1.0
+    - soleus: 1.0
+  fixtures:
+    ? floor
+  optional rigs:
+    ? dumbbell pair
+    ? barbell
+
+foot flexion and extension: !exercise
+  abbreviation: fle
+  muscles:
+    - gastrocnemius: 1.0
+    - soleus: 1.0
+  fixtures:
+    ? floor
+    ? block on floor
+
+front squat: !exercise
+  abbreviation: fs
+  muscles:
+    - gluteus medius: 1.0
+    - gluteus maximus: 1.0
+    - quadriceps femoris: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? barbell
+
+lying cable leg curl: !exercise
+  abbreviation: lclc
+  muscles:
+    - semimembranosus: 1.0
+    - gastrocnemius: 1.0
+    - biceps femoris: 1.0
+    - soleus: 1.0
+    - semitendinosus: 1.0
+  fixtures:
+    ? cable system, low position
+
+power squat: !exercise
+  abbreviation: ps
+  muscles:
+    - adductor magnus: 1.0
+    - quadriceps femoris: 1.0
+    - adductor longus: 1.0
+    - gluteus medius: 1.0
+    - adductor brevis: 1.0
+    - adductor minimus: 1.0
+    - gluteus maximus: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? barbell
+
+cable hip abduction: !exercise
+  abbreviation: chab
+  muscles:
+    - gluteus medius: 1.0
+  fixtures:
+    ? cable system, low position
+
+cable hip adduction: !exercise
+  abbreviation: chad
+  muscles:
+    - adductor brevis: 1.0
+    - adductor magnus: 1.0
+    - adductor minimus: 1.0
+    - adductor longus: 1.0
+  fixtures:
+    ? cable system, low position
+
+plié dumbbell squat: !exercise
+  abbreviation: pds
+  muscles:
+    - adductor magnus: 1.0
+    - quadriceps femoris: 1.0
+    - adductor longus: 1.0
+    - gluteus medius: 1.0
+    - adductor brevis: 1.0
+    - adductor minimus: 1.0
+    - gluteus maximus: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? dumbbell single # can also use imbalanced
+
+dumbbell squat: !exercise
+  abbreviation: ds
+  muscles:
+    - gluteus medius: 1.0
+    - gluteus maximus: 1.0
+    - quadriceps femoris: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? dumbbell pair
+
+good morning: !exercise
+  abbreviation: gm
+  muscles:
+    - biceps femoris: 1.0
+    - semitendinosus: 1.0
+    - semimembranosus: 1.0
+    - longissimus: 1.0
+    - spinalis: 1.0
+    - gluteus maximus: 1.0
+    - erector spinae: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? barbell

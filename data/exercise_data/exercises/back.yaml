@@ -1,0 +1,240 @@
+# Copyright (c) 2018 Jesse Pinnell
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# TODO update with more accurate muscle weighting, especially deltoids
+
+
+chin-up: !exercise
+  abbreviation: cu
+  muscles:
+    - brachioradialis: 1.0
+    - brachialis: 1.0
+    - biceps brachii: 0.7 
+    - latissimus dorsi: 1.0
+  fixtures:
+    ? pull-up bar
+  optional rigs:
+    ? weighted belt
+
+back lat pulldown: !exercise
+  abbreviation: blp
+  muscles:
+    - trapezius: 1.0
+    - rhomboideus major: 1.0
+    - biceps brachii: 1.0
+    - teres minor: 1.0
+    - rhomboideus minor: 1.0
+    - brachialis: 1.0
+    - latissimus dorsi: 1.0
+    - brachioradialis: 1.0
+    - anterior deltoid: 1.0
+    - lateral deltoid: 1.0
+    - posterior deltoid: 1.0
+  fixtures:
+    ? cable system, high position
+
+seated cable row: !exercise
+  abbreviation: scro
+  muscles:
+    - trapezius: 1.0
+    - rhomboideus major: 1.0
+    - teres minor: 1.0
+    - rhomboideus minor: 1.0
+    - latissimus dorsi: 1.0
+    - brachioradialis: 1.0
+    - anterior deltoid: 1.0
+    - lateral deltoid: 1.0
+    - posterior deltoid: 1.0
+    - erector spinae: 1.0
+  fixtures:
+    ? cable system, middle position
+
+lat pulldown: !exercise
+  abbreviation: lp
+  muscles:
+    - teres minor: 1.0
+    - brachialis: 1.0
+    - biceps brachii: 1.0
+    - latissimus dorsi: 1.0
+  fixtures:
+    ? cable system, high position
+
+close grip lat pulldown: !exercise
+  abbreviation: cglp
+  muscles:
+    - brachioradialis: 1.0
+    - teres minor: 1.0
+    - brachialis: 1.0
+    - biceps brachii: 1.0
+    - latissimus dorsi: 1.0
+  fixtures:
+    ? cable system, high position
+
+one-arm dumbbell row: !exercise
+  abbreviation: oadr
+  muscles:
+    - rhomboideus major: 1.0
+    - biceps brachii: 1.0
+    - teres minor: 1.0
+    - rhomboideus minor: 1.0
+    - brachialis: 1.0
+    - latissimus dorsi: 1.0
+    - brachioradialis: 1.0
+    - anterior deltoid: 1.0
+    - lateral deltoid: 1.0
+    - posterior deltoid: 1.0
+  fixtures:
+    ? horizontal bench
+  rigs:
+    ? dumbbell single
+
+deadlift: !exercise
+  abbreviation: d
+  muscles:
+    - flexor carpi radialis: 1.0
+    - trapezius: 1.0
+    - flexor digitorum superficialis: 1.0
+    - flexor digiti minimi brevis (hand): 1.0
+    - flexor pollicis longus: 1.0
+    - rhomboideus major: 1.0
+    - biceps femoris: 1.0
+    - quadriceps femoris: 1.0
+    - internal abdominal oblique: 1.0
+    - rhomboideus minor: 1.0
+    - flexor digitorum profundus: 1.0
+    - flexor pollicis brevis: 1.0
+    - flexor carpi ulnaris: 1.0
+    - semimembranosus: 1.0
+    - semitendinosus: 1.0
+    - rectus abdominis: 1.0
+    - latissimus dorsi: 1.0
+    - external abdominal oblique: 1.0
+    - gluteus maximus: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? barbell
+
+wide grip seated row: !exercise
+  abbreviation: wgsr
+  muscles:
+    - trapezius: 1.0
+    - rhomboideus major: 1.0
+    - infraspinatus: 1.0
+    - teres minor: 1.0
+    - rhomboideus minor: 1.0
+    - latissimus dorsi: 1.0
+    - brachioradialis: 1.0
+    - anterior deltoid: 1.0
+    - lateral deltoid: 1.0
+    - posterior deltoid: 1.0
+    - erector spinae: 1.0
+  fixtures:
+    ? cable system, low position
+
+sumo deadlift: !exercise
+  abbreviation: sd
+  muscles:
+    - trapezius: 1.0
+    - adductor magnus: 1.0
+    - quadriceps femoris: 1.0
+    - adductor longus: 1.0
+    - adductor brevis: 1.0
+    - adductor minimus: 1.0
+    - gluteus maximus: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? barbell
+
+straight-arm lat pulldown: !exercise
+  abbreviation: salp
+  muscles:
+    - teres minor: 1.0
+    - latissimus dorsi: 1.0
+  fixtures:
+    ? cable system, high position
+
+trap bar shrug: !exercise
+  abbreviation: tbs
+  muscles:
+    - trapezius: 1.0
+    - rhomboideus minor: 1.0
+    - rhomboideus major: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? trap bar
+
+dumbbell shrug: !exercise
+  abbreviation: dsg
+  muscles:
+    - trapezius: 1.0
+    - rhomboideus minor: 1.0
+    - rhomboideus major: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? dumbbell pair
+
+barbell shrug: !exercise
+  abbreviation: bs
+  muscles:
+    - trapezius: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? barbell
+
+trap bar deadlift: !exercise
+  abbreviation: tbd
+  muscles:
+    - quadriceps femoris: 1.0
+    - infraspinatus: 1.0
+    - internal abdominal oblique: 1.0
+    - teres minor: 1.0
+    - gluteus medius: 1.0
+    - latissimus dorsi: 1.0
+    - external abdominal oblique: 1.0
+    - gluteus maximus: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? trap bar
+
+pull-up: !exercise
+  abbreviation: pu
+  muscles:
+    - trapezius: 1.0
+    - rhomboideus major: 1.0
+    - biceps brachii: 1.0
+    - teres minor: 1.0
+    - rhomboideus minor: 1.0
+    - brachialis: 1.0
+    - latissimus dorsi: 1.0
+    - brachioradialis: 1.0
+  fixtures:
+    ? pull-up bar
+
+back extension: !exercise
+  abbreviation: be
+  muscles:
+    - longissimus: 1.0
+    - gluteus maximus: 1.0
+    - spinalis: 1.0
+  fixtures:
+    ? roman chair

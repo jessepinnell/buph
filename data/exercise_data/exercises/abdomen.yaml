@@ -15,17 +15,75 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# TODO update with more accurate muscle weighting, especially deltoids
+#TODO handle incline leg raises (different kind of rig than incline bench?)
 
+# sit up and variations:
+sit-up: &su !exercise
+  abbreviation: su
+  aka:
+    - curl-up
+  muscles:
+    - external abdominal oblique: 1.0
+    - internal abdominal oblique: 1.0
+    - rectus abdominis: 1.0
+    - quadriceps femoris: 1.0
+    - tensor fasciae latae: 1.0
+  info:
+    - wiki: https://en.wikipedia.org/wiki/Sit-up
+  fixtures:
+    ? floor
+  optional rigs:
+    ? plate
 
-roman chair side bend: !exercise
-  abbreviation: rcsb
+incline sit-up: !exercise
+  <<: *su
+  abbreviation: isu
+  variation of: sit-up
+  aka:
+    - decline sit-up
+  fixtures:
+    ? decline bench # the torso is facing downward so decline
+
+calves over bench sit-up: !exercise
+  <<: *su
+  abbreviation: cobsu
+  variation of: sit-up
+  fixtures:
+    ? horizontal bench
+
+crunch: !exercise
+  abbreviation: cr
   muscles:
     - internal abdominal oblique: 1.0
     - rectus abdominis: 1.0
+    - quadriceps femoris: 1.0
+    - external abdominal oblique: 1.0
+  info:
+    - wiki: https://en.wikipedia.org/wiki/Crunch_(exercise)
+  fixtures:
+    ? floor
+
+high pulley crunch: !exercise
+  abbreviation: hpcr
+  muscles:
+    - rectus abdominis: 1.0
+    - pyramidalis: 1.0
     - external abdominal oblique: 1.0
   fixtures:
-    ? roman chair
+    ? cable system, high position
+
+dumbbell side bend: !exercise
+  abbreviation: dsb
+  muscles:
+    - external abdominal oblique: 1.0
+    - internal abdominal oblique: 1.0
+    - pyramidalis: 1.0
+    - quadratus lumborum: 0.5
+    - rectus abdominis: 0.5
+  fixtures:
+    ? floor
+  rigs:
+    ? dumbbell single
 
 hanging leg raise: !exercise
   abbreviation: hlr
@@ -36,57 +94,12 @@ hanging leg raise: !exercise
   fixtures:
     ? pull-up bar
 
-sit-up: !exercise
-  abbreviation: su
+roman chair side bend: !exercise
+  abbreviation: rcsb
   muscles:
-    - internal abdominal oblique: 1.0
-    - rectus abdominis: 1.0
-    - quadriceps femoris: 1.0
-    - external abdominal oblique: 1.0
-  fixtures:
-    ? floor
-  rigs:
-    ? plate
-
-dumbbell side bend: !exercise
-  abbreviation: dsb
-  muscles:
+    - pyramidalis: 1.0
     - internal abdominal oblique: 1.0
     - rectus abdominis: 1.0
     - external abdominal oblique: 1.0
   fixtures:
-    ? floor
-  rigs:
-    ? dumbbell single
-
-crunch: !exercise
-  abbreviation: c
-  muscles:
-    - internal abdominal oblique: 1.0
-    - rectus abdominis: 1.0
-    - quadriceps femoris: 1.0
-    - external abdominal oblique: 1.0
-  fixtures:
-    ? floor
-
-decline sit-up: !exercise
-  abbreviation: isu
-  aka:
-    - incline sit-up
-  muscles:
-    - internal abdominal oblique: 1.0
-    - rectus abdominis: 1.0
-    - quadriceps femoris: 1.0
-    - external abdominal oblique: 1.0
-  fixtures:
-    ? decline bench
-
-calves over bench sit-up: !exercise
-  abbreviation: cobsu
-  muscles:
-    - internal abdominal oblique: 1.0
-    - rectus abdominis: 1.0
-    - quadriceps femoris: 1.0
-    - external abdominal oblique: 1.0
-  fixtures:
-    ? horizontal bench
+    ? roman chair

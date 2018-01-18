@@ -15,10 +15,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# TODO update with more accurate muscle weighting, especially deltoids
-
-overhead front press: !exercise &ofp
-  abbreviation: ofp
+front press: !exercise &fp
+  abbreviation: fp
   aka:
     - shoulder press
   steps:
@@ -41,55 +39,20 @@ overhead front press: !exercise &ofp
   rigs:
     ? barbell
 
-overhead back press: !exercise
-  <<: *ofp
+back press: !exercise
+  <<: *fp
   aka:
     - back shoulder press
-  abbreviation: obp
-  variation of: overhead front press
+  abbreviation: bpr
+  variation of: front press
   steps:
     - pick up weight
     - push it up over your head
     - lower it behind your head
     - repeat
 
-side-lying lateral raise: !exercise
-  abbreviation: sllr
-  muscles:
-    - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
-    - posterior deltoid: 1.0
-  fixtures:
-    ? floor
-    ? horizontal bench
-  rigs:
-    ? dumbbell single
-
-low-pulley front raise, overhand grip: !exercise
-  abbreviation: lpfro
-  muscles:
-    - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
-    - posterior deltoid: 1.0
-    - pectoralis major: 1.0
-  fixtures:
-    ? cable system, low position
-
-one-dumbbell front raise: !exercise
-  abbreviation: odfr
-  muscles:
-    - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
-    - posterior deltoid: 1.0
-    - pectoralis major: 1.0
-  fixtures:
-    ? floor
-  rigs:
-    ? dumbbell single
-    ? imbalanced dumbbell single
-
-arnold dumbbell press:
-  abbreviation: adp
+arnold press:
+  abbreviation: ap
   muscles:
     - triceps brachii: 1.0
     - anterior deltoid: 1.0
@@ -113,6 +76,80 @@ seated dumbbell press: !exercise
   rigs:
     ? dumbbell pair
 
+incline dumbbell press: !exercise
+  abbreviation: idp
+  muscles:
+    - serratus anterior: 1.0
+    - anterior deltoid: 1.0
+    - lateral deltoid: 1.0
+    - posterior deltoid: 1.0
+    - pectoralis major: 1.0
+  fixtures:
+    ? incline bench
+  rigs:
+    ? dumbbell pair
+
+bent raise: !exercise
+  abbreviation: br
+  muscles:
+    - trapezius: 1.0
+    - infraspinatus: 1.0
+    - teres minor: 1.0
+    - anterior deltoid: 0.3
+    - lateral deltoid: 0.3
+    - posterior deltoid: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? dumbbell pair
+
+side-lying lateral raise: !exercise
+  abbreviation: sllr
+  muscles:
+    - anterior deltoid: 1.0
+    - lateral deltoid: 1.0
+    - posterior deltoid: 1.0
+    - supraspinatus : 1.0
+  fixtures:
+    ? floor
+    ? horizontal bench
+  rigs:
+    ? dumbbell single
+
+low-pulley front raise, overhand grip: !exercise
+  abbreviation: lpfro
+  muscles:
+    - anterior deltoid: 1.0
+    - lateral deltoid: 0.3
+    - posterior deltoid: 0.3
+    - pectoralis major: 1.0
+    - biceps brachii: 0.5
+  fixtures:
+    ? cable system, low position
+
+low-pulley front raise, neutral grip: !exercise
+  abbreviation: lpfrng
+  muscles:
+    - anterior deltoid: 1.0
+    - lateral deltoid: 1.0
+    - posterior deltoid: 0.3
+    - pectoralis major: 1.0
+  fixtures:
+    ? cable system, low position
+
+one-dumbbell front raise: !exercise
+  abbreviation: odfr
+  muscles:
+    - anterior deltoid: 1.0
+    - lateral deltoid: 1.0
+    - posterior deltoid: 1.0
+    - pectoralis major: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? dumbbell single
+    ? imbalanced dumbbell single
+
 low-pulley lateral raise: !exercise
   abbreviation: lplr
   muscles:
@@ -134,19 +171,6 @@ dumbbell lateral raise: !exercise
   rigs:
     ? dumbbell pair
 
-incline dumbbell press: !exercise
-  abbreviation: idp
-  muscles:
-    - serratus anterior: 1.0
-    - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
-    - posterior deltoid: 1.0
-    - pectoralis major: 1.0
-  fixtures:
-    ? incline bench
-  rigs:
-    ? dumbbell pair
-
 lat bar low-pulley front raise: !exercise
   abbreviation: lblpfr
   muscles:
@@ -160,6 +184,7 @@ lat bar low-pulley front raise: !exercise
 external arm rotation: !exercise
   abbreviation: ear
   muscles:
+    - posterior deltoid: 1.0
     - teres minor: 1.0
     - infraspinatus: 1.0
   fixtures:
@@ -176,13 +201,3 @@ alternate front arm raise: !exercise
     ? floor
   rigs:
     ? dumbbell pair
-
-low-pulley front raise, neutral grip: !exercise
-  abbreviation: lpfrng
-  muscles:
-    - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
-    - posterior deltoid: 1.0
-    - pectoralis major: 1.0
-  fixtures:
-    ? cable system, low position

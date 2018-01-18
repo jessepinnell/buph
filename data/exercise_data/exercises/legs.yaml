@@ -15,8 +15,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# TODO update with more accurate muscle weighting, especially deltoids
-
 single-leg toe raise: !exercise
   abbreviation: sltr
   muscles:
@@ -25,8 +23,7 @@ single-leg toe raise: !exercise
   fixtures:
     ? block on floor
   optional rigs:
-    ? dumbbell pair
-    ? barbell
+    ? dumbbell single
 
 leg extension: !exercise
   abbreviation: le
@@ -40,6 +37,7 @@ standing calf raise: !exercise
   muscles:
     - gastrocnemius: 1.0
     - soleus: 1.0
+    - plantaris: 1.0
   fixtures:
     ? floor
   optional rigs:
@@ -51,10 +49,30 @@ foot flexion and extension: !exercise
   muscles:
     - gastrocnemius: 1.0
     - soleus: 1.0
+    - plantaris: 1.0
+    - tibialis posterior: 1.0
+    - flexor hallucis longus: 1.0
+    - flexor digitorum longus: 1.0
+    - flexor digitorum brevis: 1.0
+    - quadratus plantae: 1.0
+    - abductor hallucis: 1.0
+    - abductor digiti minimi (foot): 1.0
   fixtures:
     ? floor
     ? block on floor
 
+squat: !exercise
+  abbreviation: sqt
+  muscles:
+    - gluteus medius: 1.0
+    - gluteus maximus: 1.0
+    - quadriceps femoris: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? barbell
+
+# TODO set the mix of muscles to match exercise
 front squat: !exercise
   abbreviation: fs
   muscles:
@@ -65,17 +83,6 @@ front squat: !exercise
     ? floor
   rigs:
     ? barbell
-
-lying cable leg curl: !exercise
-  abbreviation: lclc
-  muscles:
-    - semimembranosus: 1.0
-    - gastrocnemius: 1.0
-    - biceps femoris: 1.0
-    - soleus: 1.0
-    - semitendinosus: 1.0
-  fixtures:
-    ? cable system, low position
 
 power squat: !exercise
   abbreviation: ps
@@ -91,16 +98,6 @@ power squat: !exercise
     ? floor
   rigs:
     ? barbell
-
-cable hip adduction: !exercise
-  abbreviation: chad
-  muscles:
-    - adductor brevis: 1.0
-    - adductor magnus: 1.0
-    - adductor minimus: 1.0
-    - adductor longus: 1.0
-  fixtures:
-    ? cable system, low position
 
 plié dumbbell squat: !exercise
   abbreviation: pds
@@ -138,7 +135,31 @@ good morning: !exercise
     - spinalis: 1.0
     - gluteus maximus: 1.0
     - erector spinae: 1.0
+    - quadratus lumborum: 1.0
   fixtures:
     ? floor
   rigs:
     ? barbell
+
+lying cable leg curl: !exercise
+  abbreviation: lclc
+  muscles:
+    - semimembranosus: 1.0
+    - gastrocnemius: 1.0
+    - biceps femoris: 1.0
+    - soleus: 1.0
+    - semitendinosus: 1.0
+  fixtures:
+    ? cable system, low position
+
+cable hip adduction: !exercise
+  abbreviation: chad
+  muscles:
+    - adductor brevis: 1.0
+    - adductor magnus: 1.0
+    - adductor minimus: 1.0
+    - adductor longus: 1.0
+    - gracilis: 1.0
+    - pectineus: 1.0
+  fixtures:
+    ? cable system, low position

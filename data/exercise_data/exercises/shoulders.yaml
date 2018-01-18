@@ -113,34 +113,6 @@ seated dumbbell press: !exercise
   rigs:
     ? dumbbell pair
 
-dumbbell upright row: !exercise
-  abbreviation: dur
-  muscles:
-    - brachioradialis: 1.0
-    - trapezius: 1.0
-    - brachialis: 1.0
-    - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
-    - posterior deltoid: 1.0
-  fixtures:
-    ? floor
-  rigs:
-    ? dumbbell pair
-
-barbell upright row: !exercise
-  abbreviation: bur
-  muscles:
-    - brachioradialis: 1.0
-    - trapezius: 1.0
-    - brachialis: 1.0
-    - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
-    - posterior deltoid: 1.0
-  fixtures:
-    ? floor
-  rigs:
-    ? barbell
-
 low-pulley lateral raise: !exercise
   abbreviation: lplr
   muscles:

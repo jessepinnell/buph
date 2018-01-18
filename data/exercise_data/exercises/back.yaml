@@ -15,9 +15,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# TODO update with more accurate muscle weighting, especially deltoids
-
-
 chin-up: !exercise
   abbreviation: cu
   muscles:
@@ -25,13 +22,14 @@ chin-up: !exercise
     - brachialis: 1.0
     - biceps brachii: 0.7 
     - latissimus dorsi: 1.0
+    - rhomboideus major: 1.0
   fixtures:
     ? pull-up bar
   optional rigs:
     ? weighted belt
 
-back lat pulldown: !exercise
-  abbreviation: blp
+pull-up: !exercise
+  abbreviation: pu
   muscles:
     - trapezius: 1.0
     - rhomboideus major: 1.0
@@ -41,34 +39,17 @@ back lat pulldown: !exercise
     - brachialis: 1.0
     - latissimus dorsi: 1.0
     - brachioradialis: 1.0
-    - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
-    - posterior deltoid: 1.0
   fixtures:
-    ? cable system, high position
-
-seated cable row: !exercise
-  abbreviation: scro
-  muscles:
-    - trapezius: 1.0
-    - rhomboideus major: 1.0
-    - teres minor: 1.0
-    - rhomboideus minor: 1.0
-    - latissimus dorsi: 1.0
-    - brachioradialis: 1.0
-    - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
-    - posterior deltoid: 1.0
-    - erector spinae: 1.0
-  fixtures:
-    ? cable system, middle position
+    ? pull-up bar
+  optional rigs:
+    ? weighted belt
 
 lat pulldown: !exercise
   abbreviation: lp
   muscles:
-    - teres minor: 1.0
-    - brachialis: 1.0
-    - biceps brachii: 1.0
+    - teres minor: 0.5
+    - brachialis: 0.5
+    - biceps brachii: 0.5
     - latissimus dorsi: 1.0
   fixtures:
     ? cable system, high position
@@ -84,6 +65,34 @@ close grip lat pulldown: !exercise
   fixtures:
     ? cable system, high position
 
+back lat pulldown: !exercise
+  abbreviation: blp
+  muscles:
+    - trapezius: 1.0
+    - rhomboideus major: 1.0
+    - biceps brachii: 1.0
+    - teres minor: 1.0
+    - rhomboideus minor: 1.0
+    - brachialis: 1.0
+    - latissimus dorsi: 1.0
+    - brachioradialis: 1.0
+  fixtures:
+    ? cable system, high position
+
+seated cable row: !exercise
+  abbreviation: scro
+  muscles:
+    - trapezius: 1.0
+    - rhomboideus major: 1.0
+    - teres minor: 1.0
+    - rhomboideus minor: 1.0
+    - latissimus dorsi: 1.0
+    - brachioradialis: 1.0
+    - posterior deltoid: 1.0
+    - erector spinae: 1.0
+  fixtures:
+    ? cable system, middle position
+
 one-arm dumbbell row: !exercise
   abbreviation: oadr
   muscles:
@@ -94,40 +103,11 @@ one-arm dumbbell row: !exercise
     - brachialis: 1.0
     - latissimus dorsi: 1.0
     - brachioradialis: 1.0
-    - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
     - posterior deltoid: 1.0
   fixtures:
     ? horizontal bench
   rigs:
     ? dumbbell single
-
-deadlift: !exercise
-  abbreviation: d
-  muscles:
-    - flexor carpi radialis: 1.0
-    - trapezius: 1.0
-    - flexor digitorum superficialis: 1.0
-    - flexor digiti minimi brevis (hand): 1.0
-    - flexor pollicis longus: 1.0
-    - rhomboideus major: 1.0
-    - biceps femoris: 1.0
-    - quadriceps femoris: 1.0
-    - internal abdominal oblique: 1.0
-    - rhomboideus minor: 1.0
-    - flexor digitorum profundus: 1.0
-    - flexor pollicis brevis: 1.0
-    - flexor carpi ulnaris: 1.0
-    - semimembranosus: 1.0
-    - semitendinosus: 1.0
-    - rectus abdominis: 1.0
-    - latissimus dorsi: 1.0
-    - external abdominal oblique: 1.0
-    - gluteus maximus: 1.0
-  fixtures:
-    ? floor
-  rigs:
-    ? barbell
 
 wide grip seated row: !exercise
   abbreviation: wgsr
@@ -139,27 +119,74 @@ wide grip seated row: !exercise
     - rhomboideus minor: 1.0
     - latissimus dorsi: 1.0
     - brachioradialis: 1.0
-    - anterior deltoid: 1.0
-    - lateral deltoid: 1.0
     - posterior deltoid: 1.0
     - erector spinae: 1.0
   fixtures:
     ? cable system, low position
 
-sumo deadlift: !exercise
-  abbreviation: sd
+# TODO review the muscle mix here and adjust the variations accordingly
+deadlift: &dl !exercise
+  abbreviation: dl
   muscles:
+    - splenius capitis: 1.0
+    - serratus posterior superior: 1.0
+    - levator scapulae: 1.0
+    - flexor carpi radialis: 1.0
     - trapezius: 1.0
-    - adductor magnus: 1.0
+    - flexor digitorum superficialis: 1.0
+    - flexor digiti minimi brevis (hand): 1.0
+    - flexor pollicis longus: 1.0
+    - flexor digitorum profundus: 1.0
+    - flexor pollicis brevis: 1.0
+    - flexor carpi ulnaris: 1.0
+    - rhomboideus major: 1.0
+    - rhomboideus minor: 1.0
+    - biceps femoris: 1.0
     - quadriceps femoris: 1.0
-    - adductor longus: 1.0
-    - adductor brevis: 1.0
-    - adductor minimus: 1.0
+    - internal abdominal oblique: 1.0
+    - external abdominal oblique: 1.0
+    - semimembranosus: 1.0
+    - semitendinosus: 1.0
+    - rectus abdominis: 1.0
+    - latissimus dorsi: 1.0
     - gluteus maximus: 1.0
+    - vastus lateralis: 1.0
+    - vastus medialis: 1.0
+    - gemellus, superior: 1.0
+    - obturator externus: 1.0
+    - iliocostalis: 1.0
   fixtures:
     ? floor
   rigs:
     ? barbell
+
+stiff-legged deadlift: !exercise
+  <<: *dl
+  abbreviation: sldl
+  variation of: deadlift
+  fixtures:
+    ? floor
+  rigs:
+    ? barbell
+
+sumo deadlift: !exercise
+  <<: *dl
+  abbreviation: sdl
+  variation of: deadlift
+  fixtures:
+    ? floor
+  rigs:
+    ? barbell
+
+trap bar deadlift: !exercise
+  <<: *dl
+  abbreviation: tbdl
+  variation of: deadlift
+  muscles:
+  fixtures:
+    ? floor
+  rigs:
+    ? trap bar
 
 straight-arm lat pulldown: !exercise
   abbreviation: salp
@@ -173,6 +200,7 @@ trap bar shrug: !exercise
   abbreviation: tbs
   muscles:
     - trapezius: 1.0
+    - levator scapulae: 1.0
     - rhomboideus minor: 1.0
     - rhomboideus major: 1.0
   fixtures:
@@ -184,6 +212,7 @@ dumbbell shrug: !exercise
   abbreviation: dsg
   muscles:
     - trapezius: 1.0
+    - levator scapulae: 1.0
     - rhomboideus minor: 1.0
     - rhomboideus major: 1.0
   fixtures:
@@ -195,40 +224,11 @@ barbell shrug: !exercise
   abbreviation: bs
   muscles:
     - trapezius: 1.0
+    - levator scapulae: 1.0
   fixtures:
     ? floor
   rigs:
     ? barbell
-
-trap bar deadlift: !exercise
-  abbreviation: tbd
-  muscles:
-    - quadriceps femoris: 1.0
-    - infraspinatus: 1.0
-    - internal abdominal oblique: 1.0
-    - teres minor: 1.0
-    - gluteus medius: 1.0
-    - latissimus dorsi: 1.0
-    - external abdominal oblique: 1.0
-    - gluteus maximus: 1.0
-  fixtures:
-    ? floor
-  rigs:
-    ? trap bar
-
-pull-up: !exercise
-  abbreviation: pu
-  muscles:
-    - trapezius: 1.0
-    - rhomboideus major: 1.0
-    - biceps brachii: 1.0
-    - teres minor: 1.0
-    - rhomboideus minor: 1.0
-    - brachialis: 1.0
-    - latissimus dorsi: 1.0
-    - brachioradialis: 1.0
-  fixtures:
-    ? pull-up bar
 
 back extension: !exercise
   abbreviation: be
@@ -236,5 +236,40 @@ back extension: !exercise
     - longissimus: 1.0
     - gluteus maximus: 1.0
     - spinalis: 1.0
+    - quadratus lumborum: 1.0
+    - iliocostalis: 1.0
+    - semitendinosus: 1.0
+    - semimembranosus: 1.0
+    - biceps femoris: 1.0
   fixtures:
     ? roman chair
+
+dumbbell upright row: !exercise
+  abbreviation: dur
+  muscles:
+    - brachioradialis: 1.0
+    - trapezius: 1.0
+    - brachialis: 1.0
+    - anterior deltoid: 1.0
+    - lateral deltoid: 1.0
+    - posterior deltoid: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? dumbbell pair
+
+barbell upright row: !exercise
+  abbreviation: bur
+  muscles:
+    - brachioradialis: 1.0
+    - trapezius: 1.0
+    - brachialis: 1.0
+    - anterior deltoid: 1.0
+    - lateral deltoid: 1.0
+    - posterior deltoid: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? barbell
+
+

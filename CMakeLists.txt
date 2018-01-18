@@ -29,11 +29,13 @@ add_custom_command(
    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/database ${CMAKE_BINARY_DIR}/tests/database
    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/tests/data
    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/data ${CMAKE_BINARY_DIR}/tests/data
+   COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/python
+   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/python ${CMAKE_BINARY_DIR}/python
    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/scripts
    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/scripts ${CMAKE_BINARY_DIR}/scripts)
 
 add_custom_command(TARGET create_testing_environment
    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/database/user_db/make_db.sh ${CMAKE_BINARY_DIR}/python/tests/${TEST_USER_DB_NAME}
-   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/database/exercise_db/make_db.sh ${CMAKE_BINARY_DIR}/python/tests/${TEST_EXERCISE_DB_NAME})
+   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/make_base_exercise_db_sqlite.sh ${CMAKE_BINARY_DIR}/python/tests/${TEST_EXERCISE_DB_NAME})
 
 add_subdirectory(python)

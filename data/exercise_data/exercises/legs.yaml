@@ -163,3 +163,17 @@ cable hip adduction: !exercise
     - pectineus: 1.0
   fixtures:
     ? cable system, low position
+
+ski squat: !exercise
+  abbreviation: skis
+  muscles:
+    - quadriceps femoris: 1.0
+  fixtures:
+    ? floor
+
+leg press: !exercise
+  abbreviation: legp
+  muscles:
+    - quadriceps femoris: 1.0
+  fixtures:
+    ? leg press machine

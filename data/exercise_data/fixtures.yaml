@@ -28,6 +28,10 @@ roman chair: !fixture
 horizontal bench: !fixture
   info: null
 
+#This might be a bench on blocks to enable arms-length clearance of the floor
+elevated horizontal bench: !fixture
+  info: null
+
 incline bench: !fixture
   info: null
 
@@ -70,4 +74,7 @@ leg extension machine: !fixture
   info: null
 
 tricep dip bars: !fixture
+  info: null
+
+leg press machine: !fixture
   info: null

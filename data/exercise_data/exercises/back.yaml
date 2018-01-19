@@ -109,6 +109,22 @@ one-arm dumbbell row: !exercise
   rigs:
     ? dumbbell single
 
+lying dumbbell row: !exercise
+  abbreviation: ldr
+  muscles:
+    - rhomboideus major: 1.0
+    - biceps brachii: 1.0
+    - teres minor: 1.0
+    - rhomboideus minor: 1.0
+    - brachialis: 1.0
+    - latissimus dorsi: 1.0
+    - brachioradialis: 1.0
+    - posterior deltoid: 1.0
+  fixtures:
+    ? elevated horizontal bench
+  rigs:
+    ? dumbbell pair
+
 wide grip seated row: !exercise
   abbreviation: wgsr
   muscles:
@@ -187,6 +203,38 @@ trap bar deadlift: !exercise
     ? floor
   rigs:
     ? trap bar
+
+clean pull: !exercise
+  abbreviation: cp
+  muscles:
+    - quadratus lumborum: 1.0
+    - gluteus maximus: 1.0
+    - semitendinosus: 1.0
+    - semimembranosus: 1.0
+    - biceps femoris: 1.0
+  fixtures:
+    ? floor
+  rigs:
+    ? barbell
+
+one leg stiff-legged deadlift: !exercise
+  abbreviation: olsld
+  muscles:
+    - quadratus lumborum: 1.0
+    - gluteus maximus: 1.0
+  fixtures:
+    ? floor
+
+king deadlift: !exercise
+  abbreviation: kd
+  muscles:
+    - quadratus lumborum: 1.0
+    - gluteus maximus: 1.0
+    - semitendinosus: 1.0
+    - semimembranosus: 1.0
+    - biceps femoris: 1.0
+  fixtures:
+    ? floor
 
 straight-arm lat pulldown: !exercise
   abbreviation: salp
@@ -272,4 +320,21 @@ barbell upright row: !exercise
   rigs:
     ? barbell
 
+reverse dumbbell fly: !exercise
+  abbreviation: rdf
+  muscles:
+    - trapezius: 1.0
+    - posterior deltoid: 1.0
+  fixtures:
+    ? elevated horizontal bench
+  rigs:
+    ? dumbbell pair
 
+pushup hold: !exercise
+  abbreviation: ph
+  muscles:
+    - transversus abdominis: 1.0
+    - multifidus: 1.0
+    - quadratus lumborum: 1.0
+  fixtures:
+    ? floor

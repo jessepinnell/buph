@@ -103,3 +103,39 @@ roman chair side bend: !exercise
     - external abdominal oblique: 1.0
   fixtures:
     ? roman chair
+
+toes to sky: !exercise
+  abbreviation: tts
+  muscles:
+    - rectus abdominis: 1.0
+  fixtures:
+    ? floor
+
+curl-up: !exercise
+  abbreviation: cup
+  muscles:
+    - rectus abdominis: 1.0
+  fixtures:
+    ? floor
+
+v-sit: !exercise
+  abbreviation: vs
+  muscles:
+    - rectus abdominis: 1.0
+  fixtures:
+    ? floor
+
+thin tummy: !exercise
+  abbreviation: tt
+  muscles:
+    - transversus abdominis: 1.0
+  fixtures:
+    ? floor
+
+russian twist: !exercise
+  abbreviation: rt
+  muscles:
+    - external abdominal oblique: 1.0
+    - internal abdominal oblique: 1.0
+  fixtures:
+    ? floor

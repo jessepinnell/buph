@@ -35,9 +35,8 @@ def generate_plan(routine_environment, exercise_data, **kwargs):
     "n_exercises" : 14,
     "n_days" : 10,
     "exclude" : ["sumo deadlift", "overhead back press"],
-    "include" : ["dumbbell wrist curl", "dumbbell reverse wrist curl"],
-    "exclude_if" : {"leg extension": ["cable back kick"]},
-    "include_if" : {"deadlift" : ["bridging"]}
+    "force" : {"dumbbell wrist curl" : 1, "dumbbell reverse wrist curl" : 2}, # force it every nth day
+    "exclusive" : ["leg extension", "cable back kick"] #if one in this sequence is select, remove the rest
     }
     returns a list of lists of exercises
     """
@@ -67,57 +66,44 @@ def generate_plan(routine_environment, exercise_data, **kwargs):
             else:
                 routine_environment.available_exercises.remove(exclude)
 
-    includes = []
-    # 2) add exercises explicitly added if available
-    if 'include' in kwargs:
-        include_set = set(kwargs['include'])
-        for include in include_set:
-            if include in routine_environment.available_exercises:
-                includes.append(include)
-            else:
-                raise GeneratorException("Exercise ({0}) was in include list but is not available".format(include))
+    # remove forces exercises from main pool
+    force_set = kwargs['force']
+    for force in force_set.keys():
+        if force not in routine_environment.available_exercises:
+            raise GeneratorException("Exercise ({0}) was in force list but is not available".format(force))
 
-    if len(routine_environment.available_exercises) < choose_n:
-        raise GeneratorException("Not enough available exercises from which to choose ({0} < {1})".format(\
-            len(routine_environment.available_exercises), choose_n))
+
+    routine_environment.available_exercises.difference_update(force_set.keys())
 
     #print("Available: " + str(routine_environment.available_exercises))
 
     routines = []
     for i in range(n_days):
         this_days_available_names = list(routine_environment.available_exercises)
-        this_days_routine = []
-        this_days_routine.extend(includes)
+        forces = []
+        # 2) add exercises explicitly added if available
+        for force, factor in force_set.items():
+            if not random.randrange(factor):
+                forces.append(force)
 
-        # TODO(jessepinnell) handle loop conditions due to bogus include_ifs and exclude_ifs
+        if len(routine_environment.available_exercises) < choose_n:
+            raise GeneratorException("Not enough available exercises from which to choose ({0} < {1})".format(\
+                len(routine_environment.available_exercises), choose_n))
+
+
+        this_days_routine = []
+        this_days_routine.extend(forces)
+
         while len(this_days_routine) < choose_n:
             this_random = random.choice(this_days_available_names)
             this_days_available_names.remove(this_random)
 
             this_days_routine.append(this_random)
-            # TODO should just be a set of mutually-exclusive so that it's reflective
 
-            # check for exclude_ifs and remove
-            if 'exclude_if' in kwargs:
-                exclude_if_set = kwargs['exclude_if']
-                for exclude_if in exclude_if_set:
-                    if exclude_if == this_random:
-                        for name in exclude_if_set[exclude_if]:
-                            if name in this_days_available_names:
-                                this_days_available_names.remove(name)
 
-            # check for include_ifs and replace
-            if 'include_if' in kwargs and len(this_days_routine) < choose_n:
-                include_if_set = kwargs['include_if']
-                for include_if in include_if_set:
-                    if include_if == this_random:
-                        for name in include_if_set[include_if]:
-                            if name in this_days_available_names:
-                                this_days_routine.append(name)
-                                this_days_available_names.remove(name)
+            # TODO excludes removed, use the variation of field for this
 
         random.shuffle(this_days_routine)
         routines.append([exercise_data[name] for name in this_days_routine])
-
 
     return routines

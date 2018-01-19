@@ -92,8 +92,12 @@ class BasicHTMLRenderer(object):
             for day_i, day in enumerate(exercise_data):
                 body += "<tr><td class=\"heady\">Day {0}</td>".format(day_i + 1)
                 for exercise in day:
-                    body += "<td><table class=\"checkly\">{1}</table>{0}</td>".format(exercise.name, "<td></td>"\
-                        * num_sets_per_exercise)
+                    if exercise.fixtures:
+                        fixture_class = list(exercise.fixtures)[0].replace(' ', '_').replace(',', '')
+                    checkboxes = "<td></td>" * num_sets_per_exercise
+                    body += f"<td><span style=\"float: right\"><table class=\"checkly\">{checkboxes}</table>"
+                    body += f"<table class=\"checkly\"><td class=\"{fixture_class}\"></td></table></span>"
+                    body += f"{exercise.name}</td>\n"
                 body += "</tr>\n"
 
             body += "    </table>"
@@ -107,12 +111,14 @@ class BasicHTMLRenderer(object):
                     table {{
                         border-collapse: collapse;
                         font-family: "Courier New", sans-serif;
+                        font-weight: bold;
                         table-layout: fixed;
                         font-size: 60%;
                     }}
                     table.checkly {{
                     }}
                     table.checkly td {{
+                        color: black;
                         width: 13px;
                         height: 13px;
                     }}
@@ -123,6 +129,106 @@ class BasicHTMLRenderer(object):
                     td.heady {{
                         background-color: black;
                         color: white;
+                    }}
+                    td.floor
+                    {{
+                        background-color: #e3cab1;
+                        color: #474041;
+                    }}
+                    td.block_on_floor
+                    {{
+                        background-color: cyan;
+                        color: black;
+                    }}
+                    td.roman_chair
+                    {{
+                        background-color: blue;
+                        color: white;
+                    }}
+                    td.horizontal_bench
+                    {{
+                        background-color: green;
+                        color: white;
+                    }}
+                    td.elevated_horizontal_bench
+                    {{
+                        background-color: magenta;
+                        color: white;
+                    }}
+                    td.incline_bench
+                    {{
+                        background-color: yellow;
+                        color: black;
+                    }}
+                    td.decline_bench
+                    {{
+                        background-color: orange;
+                        color: black;
+                    }}
+                    td.preacher_curl_support
+                    {{
+                        background-color: #222200;
+                        color: white;
+                    }}
+                    td.pull-up_bar
+                    {{
+                        background-color: purple;
+                        color: white;
+                    }}
+                    td.cable_system_high_position
+                    {{
+                        background-color: #303030;
+                        color: white;
+                    }}
+                    td.cable_system_middle_position
+                    {{
+                        background-color: #7f7f7f;
+                        color: black;
+                    }}
+                    td.cable_system_low_position
+                    {{
+                        background-color: #afafaf;
+                        color: black;
+                    }}
+                    td.heavy_bag
+                    {{
+                        background-color: red;
+                        color: black;
+                    }}
+                    td.elliptical
+                    {{
+                        background-color: red;
+                        color: black;
+                    }}
+                    td.treadmill
+                    {{
+                        background-color: red;
+                        color: black;
+                    }}
+                    td.bench_press_machine
+                    {{
+                        background-color: red;
+                        color: black;
+                    }}
+                    td.exercise_ball
+                    {{
+                        background-color: red;
+                        color: black;
+                    }}
+                    td.leg_extension_machine
+                    {{
+                        background-color: pink;
+                        color: black;
+                    }}
+                    td.tricep_dip_bars
+                    {{
+                        background-color: red;
+                        color: black;
+                    }}
+                    td.leg_press_machine
+                    {{
+                        background-color: red;
+                        color: black;
                     }}
                     table, th, td {{
                         border: 1px solid black;

@@ -5,6 +5,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
 
 find_package(PythonInterp 3 REQUIRED)
 find_package(SQLite3 REQUIRED)
+# XXX remove this
+set(PostgreSQL_TYPE_INCLUDE_DIR /usr/lib/x86_64-linux-gnu/libpq.so)
+find_package(PostgreSQL REQUIRED)
 
 # Set up linting
 add_custom_target(lint)
@@ -19,8 +22,8 @@ add_custom_command(TARGET lint COMMAND ${PYLINT} ${CMAKE_CURRENT_SOURCE_DIR}/pyt
 # TODO(jessepinnell) this is crude
 # TODO(jessepinnell) this is not platform-independent
 
-set(TEST_EXERCISE_DB_NAME "exercise.db")
-set(TEST_USER_DB_NAME "user.db")
+set(TEST_EXERCISE_SQLITE_DB_NAME "exercise.db")
+set(TEST_USER_SQLITE_DB_NAME "user.db")
 add_custom_target(create_testing_environment ALL)
 add_custom_command(
    TARGET create_testing_environment PRE_BUILD
@@ -35,7 +38,8 @@ add_custom_command(
    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/scripts ${CMAKE_BINARY_DIR}/scripts)
 
 add_custom_command(TARGET create_testing_environment
-   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/database/user_db/make_db.sh ${CMAKE_BINARY_DIR}/python/tests/${TEST_USER_DB_NAME}
-   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/make_base_exercise_db_sqlite.sh ${CMAKE_BINARY_DIR}/python/tests/${TEST_EXERCISE_DB_NAME})
+   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/database/user_db/make_db.sh ${CMAKE_BINARY_DIR}/python/tests/${TEST_USER_SQLITE_DB_NAME}
+   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/make_base_exercise_db_sqlite.sh ${CMAKE_BINARY_DIR}/python/tests/${TEST_EXERCISE_SQLITE_DB_NAME}
+   COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/make_base_exercise_db_postgres.sh $ENV{USER})
 
 add_subdirectory(python)

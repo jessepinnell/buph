@@ -28,12 +28,12 @@ import json
 
 from xrsrv import routine_engine
 from xrsrv import exercise_rendering
-from xrsrv import user_database
+from xrsrv import type_factories
+from xrsrv import exercise_database
 from xrsrv.routine_generators.generator_exception import GeneratorException
 
 
 EXERCISE_DATABASE_NAME = "exercise.db"
-USER_DATABASE_NAME = "user.db"
 
 # pylint: disable=too-few-public-methods
 # pylint: disable=no-self-argument
@@ -42,19 +42,26 @@ def generate_and_render():
     """ Generates the list of exercises and renders the HTML """
     app_args_parser = argparse.ArgumentParser()
     app_args_parser.add_argument("--generator", type=str, help="generator to use", default="debug")
-    app_args_parser.add_argument("--uid", type=str, help="database UID of user", required=True)
-    app_args_parser.add_argument("--userdb", type=str, help="user db file name", default=USER_DATABASE_NAME)
+    app_args_parser.add_argument("--fixtures", type=str, help="fixtures JSON file name", required=False)
+    app_args_parser.add_argument("--rigs", type=str, help="fixtures JSON file name", required=False)
     app_args_parser.add_argument("--exercisedb", type=str, help="exercise db file name",\
                                  default=EXERCISE_DATABASE_NAME)
     app_args_parser.add_argument("--json", help="JSON genrator arguments filename", required=False)
-    app_args_parser.add_argument("--args", help="genrator arguments", nargs=argparse.REMAINDER)
+    app_args_parser.add_argument("--args", help="generator arguments", nargs=argparse.REMAINDER)
     app_args = app_args_parser.parse_args()
 
-    engine = routine_engine.RoutineEngine(app_args.exercisedb)
+    exercise_db = exercise_database.SQLiteConnection(app_args.exercisedb)
+    engine = routine_engine.RoutineEngine(exercise_db)
 
-    user_db = user_database.Connection(app_args.userdb)
-    user_fixtures = user_db.get_user_fixtures(app_args.uid)
-    user_rigs = user_db.get_user_rigs(app_args.uid)
+    user_fixtures = []
+    if app_args.fixtures is not None:
+        with open(app_args.fixtures) as json_file:
+            user_fixtures = list(map(type_factories.UserFixture._make, json.load(json_file)))
+
+    user_rigs = []
+    if app_args.rigs is not None:
+        with open(app_args.rigs) as json_file:
+            user_rigs = list(map(type_factories.UserRig._make, json.load(json_file)))
 
     json_args = {}
     if app_args.json is not None:
@@ -66,6 +73,7 @@ def generate_and_render():
     if app_args.args is not None:
         split_args = [arg.split("=") for arg in app_args.args]
         generator_args = {val[0]: val[1] for val in split_args}
+
 
     engine.set_user_exercise_environment(user_fixtures, user_rigs)
     plan = engine.generate_plan(app_args.generator, **{**generator_args, **json_args})

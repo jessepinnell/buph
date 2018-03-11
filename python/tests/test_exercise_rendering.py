@@ -26,6 +26,7 @@ import unittest
 
 from xrsrv import routine_engine
 from xrsrv import exercise_rendering
+from xrsrv import exercise_database
 
 EXERCISE_DATABASE_NAME = "exercise.db"
 
@@ -38,7 +39,8 @@ class TestExerciseHTMLRendering(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
         super(TestExerciseHTMLRendering, self).__init__(*args, **kwargs)
-        self.engine = routine_engine.RoutineEngine(EXERCISE_DATABASE_NAME)
+        exercise_db = exercise_database.SQLiteConnection(EXERCISE_DATABASE_NAME)
+        self.engine = routine_engine.RoutineEngine(exercise_db)
         self.basic_html_renderer = exercise_rendering.BasicHTMLRenderer()
 
     def test_instantiation(self):

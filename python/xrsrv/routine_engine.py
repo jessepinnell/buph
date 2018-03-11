@@ -33,7 +33,6 @@ exercise routines
 # TODO Add logging
 # pylint: disable=too-many-branches
 
-from xrsrv import exercise_database
 from xrsrv.type_factories import RoutineEnvironment
 
 import xrsrv.routine_generators.debug
@@ -51,8 +50,8 @@ class EngineException(Exception):
 
 class RoutineEngine(object):
     """ Routine engine """
-    def __init__(self, exercise_database_name):
-        self.exercise_database = exercise_database.Connection(exercise_database_name)
+    def __init__(self, exercise_database_object):
+        self.exercise_database = exercise_database_object
         self.user_routine_history = []
         self.user_preferences = None
         self.available_exercises = set()

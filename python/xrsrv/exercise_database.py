@@ -22,18 +22,13 @@
 
 """ Abstraction of sqlite3 database """
 
-# TODO(jessepinnell) This should be a pure virtual persistence object
-#    with an sqlite3 implementation; refactor it
-
-import sqlite3
-
-# TODO(jessepinnell) figure out why lint doesn't like pathlib
-# peylint: disable=import-error
 from pathlib import Path
 
+import sqlite3
+import psycopg2
 from xrsrv import type_factories
 
-class Connection(object):
+class SQLiteConnection(object):
     """
     Abstraction of a sqllite3 database
 
@@ -89,6 +84,69 @@ class Connection(object):
 
         self.cursor.execute(\
             "SELECT Key, Value FROM ExerciseInfo WHERE ExerciseName = ?", (name, ))
+        info = {key: value for (key, value) in self.cursor.fetchall()}
+
+        return type_factories.Exercise(name, fixtures, rigs, muscles_exercised, info)
+
+
+    def __del__(self):
+        if self.database_connection is not None:
+            self.database_connection.close()
+
+class PostgresConnection(object):
+    """
+    Abstraction of a postgres database
+
+    This essentially acts as an object factory for the data structures,
+    converting the data into the tables into more easily usable objects.
+    """
+    database_connection = None
+
+    def __init__(self, database_name, user, host=None, password=None):
+        if host is not None and password is not None:
+            connection_string = f"dbname='{database_name}' user='{user}' host='{host}' password='{password}'"
+        else:
+            connection_string = f"dbname='{database_name}' user='{user}'"
+        self.database_connection = psycopg2.connect(connection_string)
+        self.cursor = self.database_connection.cursor()
+
+
+    def get_list_of_exercise_names(self):
+        """
+        Get a list of the exercises in the database
+        """
+        self.cursor.execute("SELECT Name FROM Exercises")
+        exercise_names = [i[0] for i in self.cursor.fetchall()]
+        return exercise_names
+
+
+    def get_muscles(self):
+        """
+        Get set of muscles
+        """
+        self.cursor.execute("SELECT Name, MuscleGroup, Info FROM Muscles")
+        return map(type_factories.Muscle._make, self.cursor.fetchall())
+
+
+    def get_exercise_data(self, name):
+        """
+        Get the full set of data for a given exercise
+        """
+        # pylint: disable=no-member
+        self.cursor.execute(\
+            "SELECT FixtureName FROM ExerciseFixtures WHERE ExerciseName = %s;", (name, ))
+        fixtures = {i[0] for i in self.cursor.fetchall()}
+
+        self.cursor.execute(\
+            "SELECT RigName, Optional FROM ExerciseRigs WHERE ExerciseName = %s;", (name, ))
+        rigs = list(map(type_factories.ExerciseRig._make, self.cursor.fetchall()))
+
+        self.cursor.execute(\
+            "SELECT Muscle FROM MusclesExercised WHERE ExerciseName = %s;", (name, ))
+        muscles_exercised = [i[0] for i in self.cursor.fetchall()]
+
+        self.cursor.execute(\
+            "SELECT Key, Value FROM ExerciseInfo WHERE ExerciseName = %s;", (name, ))
         info = {key: value for (key, value) in self.cursor.fetchall()}
 
         return type_factories.Exercise(name, fixtures, rigs, muscles_exercised, info)

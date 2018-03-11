@@ -24,6 +24,7 @@
 
 import unittest
 from xrsrv import routine_engine
+from xrsrv import exercise_database
 from xrsrv.type_factories import UserRig, UserFixture
 
 # The test function names are quite long
@@ -37,7 +38,8 @@ class TestRoutineEngine(unittest.TestCase):
 
     def __init__(self, *args, **kwargs):
         super(TestRoutineEngine, self).__init__(*args, **kwargs)
-        self.engine = routine_engine.RoutineEngine(EXERCISE_DATABASE_NAME)
+        exercise_db = exercise_database.SQLiteConnection(EXERCISE_DATABASE_NAME)
+        self.engine = routine_engine.RoutineEngine(exercise_db)
         self.build_user_all()
 
 

@@ -8,6 +8,7 @@ find_package(SQLite3 REQUIRED)
 # XXX remove this
 set(PostgreSQL_TYPE_INCLUDE_DIR /usr/lib/x86_64-linux-gnu/libpq.so)
 find_package(PostgreSQL REQUIRED)
+# TODO(jessepinell) Add find for psycopg2
 
 # Set up linting
 add_custom_target(lint)

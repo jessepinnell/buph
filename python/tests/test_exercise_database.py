@@ -21,27 +21,31 @@
 # SOFTWARE.
 
 """ Test cases for classes in exercise_database.py """
+# This is the same set of tests in test_exercise_postgres_database
 
 import unittest
+import getpass
 from xrsrv import exercise_database
 from xrsrv import type_factories
 
-TEST_DATABASE_NAME = "exercise.db"
+TEST_SQLITE_DATABASE_NAME = "exercise.db"
+TEST_POSTGRES_DATABASE_NAME = "xrsrv"
+TEST_POSTGRES_USER = getpass.getuser()
 
-class TestExcerciseDatabase(unittest.TestCase):
+class TestExerciseDatabase(object):
     """
     Test the exercise database methods
 
     TODO(jessepinnell) refactor or make these more robust tests
     """
-
-    def __init__(self, *args, **kwargs):
-        super(TestExcerciseDatabase, self).__init__(*args, **kwargs)
-        self.database = exercise_database.Connection(TEST_DATABASE_NAME)
+    # This is due to the subclassing
+    # pylint: disable=no-member
+    def __init__(self):
+        super(TestExerciseDatabase, self).setUp()
 
     def test_instantiation(self):
         """ Test the creation of the connection to the database """
-        self.assertIsInstance(self.database, exercise_database.Connection)
+        pass
 
     def test_get_list_of_exercise_names(self):
         """ Test the get_list_of_exercise_names() method """
@@ -57,6 +61,37 @@ class TestExcerciseDatabase(unittest.TestCase):
         self.assertNotEqual(exercises, False)
         self.assertIsInstance(self.database.get_exercise_data(exercises[0]),\
             type_factories.Exercise)
+
+
+class TestSQLiteExcerciseDatabase(unittest.TestCase, TestExerciseDatabase):
+    """
+    Test the exercise database methods
+
+    TODO(jessepinnell) refactor or make these more robust tests
+    """
+
+    def __init__(self, *args, **kwargs):
+        super(TestSQLiteExcerciseDatabase, self).__init__(*args, **kwargs)
+        self.database = exercise_database.SQLiteConnection(TEST_SQLITE_DATABASE_NAME)
+
+    def test_instantiation(self):
+        """ Test the creation of the connection to the database """
+        self.assertIsInstance(self.database, exercise_database.SQLiteConnection)
+
+class TestPostgresExerciseDatabase(unittest.TestCase, TestExerciseDatabase):
+    """
+    Test the exercise database methods
+
+    TODO(jessepinnell) refactor or make these more robust tests
+    """
+    def __init__(self, *args, **kwargs):
+        super(TestPostgresExerciseDatabase, self).__init__(*args, **kwargs)
+        self.database = exercise_database.PostgresConnection(TEST_POSTGRES_DATABASE_NAME, TEST_POSTGRES_USER)
+
+    def test_instantiation(self):
+        """ Test the creation of the connection to the database """
+        self.assertIsInstance(self.database, exercise_database.PostgresConnection)
+
 
 if __name__ == '__main__':
     unittest.main()

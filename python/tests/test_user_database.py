@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 """ Test cases for classes in user_database.py """
+# The test function names are quite long
 # pylint: disable=invalid-name
 
 import unittest
@@ -110,7 +111,6 @@ class TestUserDatabase(unittest.TestCase):
 
     def test_add_to_exercise_set_history(self):
         """ Test the add_to_exercise_set_history() method using a single ExerciseSet """
-        # pylint: disable=no-member
         uids = self.database.get_uids("%")
 
         in_set = type_factories.ExerciseSet._make(["test_exercise_5_", 999, 1234, "2017-12-10 20:23:50.000"])
@@ -125,7 +125,6 @@ class TestUserDatabase(unittest.TestCase):
 
     def test_add_to_exercise_set_history_set(self):
         """ Test the add_to_exercise_set_history() method using a list of ExerciseSets """
-        # pylint: disable=no-member
         uids = self.database.get_uids("%")
         in_sets = [type_factories.ExerciseSet._make(["test_exercise_6_", 999, 1234, "2017-12-10 20:23:50.000"]),
                    type_factories.ExerciseSet._make(["test_exercise_7_", 999, 1234, "2017-12-10 20:23:50.000"]),

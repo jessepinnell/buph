@@ -3,12 +3,19 @@ project(xrsrv)
 enable_testing()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
 
-find_package(PythonInterp 3 REQUIRED)
+find_package(PythonInterp 3.6 REQUIRED)
 find_package(SQLite3 REQUIRED)
+
 # XXX remove this
 set(PostgreSQL_TYPE_INCLUDE_DIR /usr/lib/x86_64-linux-gnu/libpq.so)
 find_package(PostgreSQL REQUIRED)
-# TODO(jessepinell) Add find for psycopg2
+# TODO(jessepinnell) Add find for psycopg2
+# TODO(jessepinnell) Add check for postgres user with createdb privileges
+# TODO(jessepinnell) Add check for pylint3
+# TODO(jessepinnell) Add check for pip3?
+# TODO(jessepinnell) Add check for pyyaml (installed via pip3)
+# TODO(jessepinnell) Add check for psycopg2-binary (installed via pip3)
+
 
 # Set up linting
 add_custom_target(lint)

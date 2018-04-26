@@ -123,7 +123,7 @@ one-arm reverse push-down: !exercise
     - anconeus: 1.0
     - triceps brachii: 1.0
   fixtures:
-    ? floor
+    ? cable system, high position
 
 # Curls: 
 
@@ -150,7 +150,7 @@ concentration curl: !exercise
   rigs:
     ? dumbbell single
 
-low pulley curl: !exercise
+low-pulley curl: !exercise
   abbreviation: lpc
   muscles:
     - brachialis: 0.8

@@ -30,7 +30,7 @@ import collections
 # group: muscle grouping
 # antagonists: muscle antagonists
 # info: dictionary of additional information about the muscle
-Muscle = collections.namedtuple("Muscle", "name, group, antagonist, info")
+Muscle = collections.namedtuple("Muscle", "name, group, antagonists, info")
 
 # Exercise: The details of an exercise
 # name: exercise name

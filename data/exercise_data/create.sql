@@ -37,8 +37,14 @@ CREATE TABLE MuscleGroups
 CREATE TABLE Muscles
 (
    Name TEXT NOT NULL PRIMARY KEY,
-   MuscleGroup TEXT NOT NULL,
-   Info TEXT DEFAULT NULL
+   MuscleGroup TEXT NOT NULL REFERENCES MuscleGroups(Name)
+);
+
+CREATE TABLE MuscleInfo
+(
+   MuscleName TEXT NOT NULL REFERENCES Muscles(Name),
+   Key TEXT NOT NULL,
+   Value TEXT NOT NULL
 );
 
 CREATE TABLE MuscleAntagonists

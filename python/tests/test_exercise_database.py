@@ -51,9 +51,9 @@ class TestExerciseDatabase(object):
         """ Test the get_list_of_exercise_names() method """
         self.assertNotEqual(self.database.get_list_of_exercise_names(), False)
 
-    def test_get_muscles(self):
-        """ Test the get_muscles() method """
-        self.assertNotEqual(self.database.get_muscles(), False)
+    def test_get_muscle_data(self):
+        """ Test the get_muscle_data() method """
+        pass
 
     def test_get_exercise_data(self):
         """ Test the get_muscles_exercised() method """

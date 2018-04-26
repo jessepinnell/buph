@@ -43,7 +43,7 @@ DROP TABLE IF EXISTS Muscles;
 CREATE TABLE Muscles
 (
    Name TEXT NOT NULL PRIMARY KEY,
-   MuscleGroup TEXT NOT NULL,
+   MuscleGroup TEXT NOT NULL REFERENCES MuscleGroups(Name),
    Info TEXT DEFAULT NULL
 );
 

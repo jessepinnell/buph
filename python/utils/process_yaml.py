@@ -419,7 +419,7 @@ class YAMLProcessor():
 
         #all of these need to come out before the relationships
         for key, muscle in self.muscles.items():
-            print(f"INSERT INTO Muscles VALUES ('{key}', '{muscle.group}', DEFAULT);")
+            print(f"INSERT INTO Muscles VALUES ('{key}', '{muscle.group}');")
         for key in self.fixtures:
             print(f"INSERT INTO Fixtures VALUES ('{key}', DEFAULT);")
         for key in self.rigs:

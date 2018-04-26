@@ -57,12 +57,12 @@ class SQLiteConnection(object):
         return exercise_names
 
 
-    def get_muscles(self):
+    def get_muscle_data(self, name):
         """
-        Get set of muscles
+        Get the full set of data for a given muscle
         """
-        self.cursor.execute("SELECT Name, MuscleGroup, Info FROM Muscles")
-        return map(type_factories.Muscle._make, self.cursor.fetchall())
+        return None
+
 
 
     def get_exercise_data(self, name):
@@ -120,12 +120,24 @@ class PostgresConnection(object):
         return exercise_names
 
 
-    def get_muscles(self):
+    def get_muscle_data(self, name):
         """
-        Get set of muscles
+        Get the full set of data for a given muscle
         """
-        self.cursor.execute("SELECT Name, MuscleGroup, Info FROM Muscles")
-        return map(type_factories.Muscle._make, self.cursor.fetchall())
+        # pylint: disable=no-member
+        self.cursor.execute(\
+            "SELECT MuscleGroup FROM Muscles WHERE Name = %s;", (name, ))
+        group = self.cursor.fetchone()[0]
+
+        self.cursor.execute(\
+            "SELECT Key, Value FROM MuscleInfo WHERE MuscleName = %s;", (name, ))
+        info = {key: value for (key, value) in self.cursor.fetchall()}
+
+        self.cursor.execute(\
+            "SELECT Antagonist FROM MuscleAntagonists WHERE Agonist = %s;", (name, ))
+        antagonists = list(self.cursor.fetchall())
+
+        return type_factories.Muscle(name, group, antagonists, info)
 
 
     def get_exercise_data(self, name):

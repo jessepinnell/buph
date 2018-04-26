@@ -48,6 +48,20 @@ class BasicHTMLRenderer(object):
         This is a simple table for printing onto paper (not meant to be pretty)
         """
 
+        RIG_CHAR_MAP = {
+            "dumbbell pair" : "DD",
+            "dumbbell single" : "D",
+            "imbalanced dumbbell pair" : "II",
+            "imbalanced dumbbell single" : "I",
+            "barbell" : "B",
+            "imbalanced barbell" : "iB",
+            "trap bar" : "T",
+            "ez bar" : "E",
+            "plate" : "P",
+            "weighted belt" : "W"
+        }
+
+
         if len(exercise_data) == 1:
             body = "    <table>\n"
             body += "    <tr><th>Exercise</th><th>Muscles</th><th>Fixture(s)</th>"\
@@ -90,17 +104,19 @@ class BasicHTMLRenderer(object):
 
             num_sets_per_exercise = 3
             for day_i, day in enumerate(exercise_data):
-                body += "<tr><td class=\"heady\">Day {0}</td>".format(day_i + 1)
+                body += "<tr>"
                 for exercise in day:
                     if exercise.fixtures:
                         fixture_class = list(exercise.fixtures)[0].replace(' ', '_').replace(',', '')
+                    rig_string = ",".join([RIG_CHAR_MAP[rig.name] if not rig.optional else "(" + RIG_CHAR_MAP[rig.name] + ")" for rig in exercise.rigs])
                     checkboxes = "<td></td>" * num_sets_per_exercise
                     body += f"<td><span style=\"float: right\"><table class=\"checkly\">{checkboxes}</table>"
-                    body += f"<table class=\"checkly\"><td class=\"{fixture_class}\"></td></table></span>"
+                    body += f"<table class=\"checkly\"><td class=\"{fixture_class}\">{rig_string}</td></table></span>"
                     body += f"{exercise.name}</td>\n"
                 body += "</tr>\n"
 
             body += "    </table>"
+            body += "<p>(); optional, " + ", ".join([value + ": " + key for key, value in RIG_CHAR_MAP.items()]) + "</p>"
             html = """
             <!DOCTYPE html>
             <html>
@@ -108,6 +124,11 @@ class BasicHTMLRenderer(object):
                 <meta charset="UTF-8">
                 <title>{0}</title>
                 <style>
+                    p {{
+                        font-family: "Courier New", sans-serif;
+                        font-weight: bold;
+                        font-size: 70%;
+                    }}
                     table {{
                         border-collapse: collapse;
                         font-family: "Courier New", sans-serif;
@@ -118,9 +139,9 @@ class BasicHTMLRenderer(object):
                     table.checkly {{
                     }}
                     table.checkly td {{
-                        color: black;
                         width: 13px;
                         height: 13px;
+                        font-size: 200%;
                     }}
                     td {{
                         overflow: hidden;
@@ -132,8 +153,8 @@ class BasicHTMLRenderer(object):
                     }}
                     td.floor
                     {{
-                        background-color: #e3cab1;
-                        color: #474041;
+                        background-color: white;
+                        color: black;
                     }}
                     td.block_on_floor
                     {{
@@ -142,7 +163,7 @@ class BasicHTMLRenderer(object):
                     }}
                     td.roman_chair
                     {{
-                        background-color: blue;
+                        background-color: purple;
                         color: white;
                     }}
                     td.horizontal_bench
@@ -162,7 +183,7 @@ class BasicHTMLRenderer(object):
                     }}
                     td.decline_bench
                     {{
-                        background-color: orange;
+                        background-color: pink;
                         color: black;
                     }}
                     td.preacher_curl_support
@@ -172,23 +193,23 @@ class BasicHTMLRenderer(object):
                     }}
                     td.pull-up_bar
                     {{
-                        background-color: purple;
-                        color: white;
+                        background-color: orange;
+                        color: black;
                     }}
                     td.cable_system_high_position
                     {{
-                        background-color: #303030;
+                        background-color: blue;
                         color: white;
                     }}
                     td.cable_system_middle_position
                     {{
-                        background-color: #7f7f7f;
-                        color: black;
+                        background-color: blue;
+                        color: white;
                     }}
                     td.cable_system_low_position
                     {{
-                        background-color: #afafaf;
-                        color: black;
+                        background-color: blue;
+                        color: white;
                     }}
                     td.heavy_bag
                     {{
@@ -217,8 +238,8 @@ class BasicHTMLRenderer(object):
                     }}
                     td.leg_extension_machine
                     {{
-                        background-color: pink;
-                        color: black;
+                        background-color: gray;
+                        color: white;
                     }}
                     td.tricep_dip_bars
                     {{
@@ -239,6 +260,33 @@ class BasicHTMLRenderer(object):
             </head>
             <body>
             {1}
+            <table>
+                <tr><td class="floor">floor</td>
+                    <td class="block_on_floor">block on floor</td>
+                    <td class="roman_chair">roman chair</td>
+                    <td class="horizontal_bench">horiz. bench</td>
+                    <td class="elevated_horizontal_bench">elev. horiz. bench</td>
+                    <td class="incline_bench">incl. bench</td>
+                    <td class="decline_bench">decl. bench</td>
+                    <td class="preacher_curl_support">preach</td>
+                    <td class="pull-up_bar">pull-up bar</td>
+                    <td class="leg_extension_machine">leg ext.</td>
+                    <td class="cable_system_high_position">cable hi</td>
+                    <td class="cable_system_middle_position">cable mid</td>
+                    <td class="cable_system_low_position">cable lo</td>
+                </tr>
+                <tr>
+                    <!-- XXX put this back
+                    <td class="elliptical">ellipt.</td>
+                    <td class="treadmill">treadmill</td>
+                    <td class="bench_press_machine">b.p. machine</td>
+                    <td class="exercise_ball">x-ball</td>
+                    <td class="heavy_bag">hvy. bag</td>
+                    <td class="tricep_dip_bars">dip bars</td>
+                    <td class="leg_press_machine">leg press</td>
+                    -->
+                </tr>
+            <table>
             </body>
             </html>
             """.format(title, body)

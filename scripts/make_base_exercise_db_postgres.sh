@@ -13,16 +13,16 @@ DB_USERNAME=$1
 
 # Create database
 echo "Dropping postgres xrsrv table..."
-dropdb --if-exists xrsrv
+dropdb --if-exists xrsrv_exercise
 
 echo "Creating postgres xrsrv table..."
-createdb xrsrv
+createdb xrsrv_exercise
 
 echo "Creating postgres tables..."
-psql xrsrv -q ${DB_USERNAME} < tests/data/exercise_data/create.sql
+psql xrsrv_exercise -q ${DB_USERNAME} < tests/data/exercise_data/create.sql
 
 echo "Generating postgres data..."
 python3 python/utils/process_yaml.py --format postgres tests/data/exercise_data/*.yaml tests/data/exercise_data/exercises/*.yaml > tests/data/exercise_data/test.sql
 
 echo "Inserting postgres data..."
-psql xrsrv -q ${DB_USERNAME} < tests/data/exercise_data/test.sql
+psql xrsrv_exercise -q ${DB_USERNAME} < tests/data/exercise_data/test.sql

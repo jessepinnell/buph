@@ -63,7 +63,17 @@ class SQLiteConnection(object):
         """
         return None
 
+    def get_all_fixtures(self):
+        """
+        Get the full set of fixtures
+        """
+        return None
 
+    def get_all_rigs(self):
+        """
+        Get the full set of rigs
+        """
+        return None
 
     def get_exercise_data(self, name):
         """
@@ -119,6 +129,21 @@ class PostgresConnection(object):
         exercise_names = [i[0] for i in self.cursor.fetchall()]
         return exercise_names
 
+    def get_all_fixtures(self):
+        """
+        Get the full set of fixtures
+        """
+        self.cursor.execute("SELECT Name FROM Fixtures")
+        fixture_names = [i[0] for i in self.cursor.fetchall()]
+        return fixture_names
+
+    def get_all_rigs(self):
+        """
+        Get the full set of rigs
+        """
+        self.cursor.execute("SELECT Name FROM Rigs")
+        rig_names = [i[0] for i in self.cursor.fetchall()]
+        return rig_names
 
     def get_muscle_data(self, name):
         """

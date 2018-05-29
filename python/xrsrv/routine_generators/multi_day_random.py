@@ -61,16 +61,11 @@ def generate_plan(routine_environment, exercise_data, **kwargs):
     if 'exclude' in kwargs:
         exclude_set = set(kwargs['exclude'])
         for exclude in exclude_set:
-            if exclude not in routine_environment.available_exercises:
-                raise GeneratorException("Exercise ({0}) was in exclude list but is not available".format(exclude))
-            else:
+            if exclude in routine_environment.available_exercises:
                 routine_environment.available_exercises.remove(exclude)
 
     # remove forces exercises from main pool
     force_set = kwargs['force']
-    for force in force_set.keys():
-        if force not in routine_environment.available_exercises:
-            raise GeneratorException("Exercise ({0}) was in force list but is not available".format(force))
 
 
     routine_environment.available_exercises.difference_update(force_set.keys())

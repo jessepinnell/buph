@@ -74,6 +74,10 @@ Same as installation steps above for now.
 
 ## Release History
 
+* 0.2
+    * Data is stored as json
+    * Refactored
+
 * 0.1
     * Basic architecture designed
     * Project builds
